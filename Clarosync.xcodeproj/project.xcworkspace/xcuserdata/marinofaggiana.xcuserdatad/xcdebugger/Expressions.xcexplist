@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[AppDelegate application:didFinishLaunchingWithOptions:]:AppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "splitViewController.viewControllers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreateFormUploadAssets.initializeForm() -&gt; ():CCCreateCloud.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "section.multivaluedRowTemplate">
+            </PersistentString>
+            <PersistentString
+               value = "row.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate addNetworkingOperationQueue:delegate:metadataNet:]:AppDelegate.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[OCnetworking poolNetworking]:OCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCSplit splitViewController:collapseSecondaryViewController:ontoPrimaryViewController:]:CCSplit.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCOfflineFileFolder verifyChangeMedatas:serverUrl:directoryID:account:offline:]:CCOfflineFileFolder.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain getNotificationsOfServerSuccess:]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "appDelegate.listOfNotifications">
+            </PersistentString>
+            <PersistentString
+               value = "@(notification.idNotification).stringValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.passcodeViewControllerDidFailAttempt(BKPasscodeViewController!) -&gt; ():DocumentPickerViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate verifyExistsInQueuesDownloadSelector:]:AppDelegate.m">
+      </ContextState>
+      <ContextState
+         contextName = "__26-[OCnetworking readFolder]_block_invoke.285:OCNetworking.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "itemDto.fileName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreateFormUpload.formRowDescriptorValueHasChanged(XLFormRowDescriptor!, oldValue : Any!, newValue : Any!) -&gt; ():CCCreateCloud.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "formRow.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate verifyExistsInQueuesUploadSelector:]:AppDelegate.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[MWPhotoBrowser reloadData]:MWPhotoBrowser.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController.navigationBar ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain updateSearchResultsForSearchController:]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchController.searchBar.text.length">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__56-[CCMain assetsPickerController:didFinishPickingAssets:]_block_invoke:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "picker.defaultAssetCollection">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate loadTableAutomaticUploadForSelector:]:AppDelegate.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCLoginNCOC loginNCOC]:CCLoginNCOC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.code">
+            </PersistentString>
+            <PersistentString
+               value = "self.baseUrl.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCControlCenter viewWillTransitionToSize:withTransitionCoordinator:]:CCControlCenter.m">
+      </ContextState>
+      <ContextState
+         contextName = "CreateFormUpload.initializeForm() -&gt; ():CCCreateCloud.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tableView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCControlCenterActivity collectionView:viewForSupplementaryElementOfKind:atIndexPath:]:CCControlCenterActivity.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "headerView.frame">
+            </PersistentString>
+            <PersistentString
+               value = "subjectLabel.frame.size.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain readFileFailure:message:errorCode:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AHKActionSheet tableView:cellForRowAtIndexPath:]:AHKActionSheet.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.frame.size.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__55-[MWPhotoBrowser setControlsHidden:animated:permanent:]_block_invoke:MWPhotoBrowser.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController.navigationBar">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCControlCenterPageContent viewDidLoad]:CCControlCenterPageContent.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_tableView.bounds">
+            </PersistentString>
+            <PersistentString
+               value = "self.view.bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__29-[OCnetworking readFileSync:]_block_invoke:OCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain setUITabBarDefault]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tabBarController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData updateMetadataRev:fileID:activeAccount:]:CCCoreData.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "recordMetadata.rev">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData deleteMetadataWithPredicate:]:CCCoreData.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain getDataSourceWithReloadTableView:fileID:selector:]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_localServerUrl">
+            </PersistentString>
+            <PersistentString
+               value = "_isOfflineLocalServerUrl">
+            </PersistentString>
+            <PersistentString
+               value = "_sectionDataSource">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate plusButton:]:AppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "tabBarController.view.center.y">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__90-[OCCommunication getNotificationsOfServer:onCommunication:successRequest:failureRequest:]_block_invoke:OCCommunication.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate changeTask:]:AppDelegate.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCSynchronization verifyChangeMedatas:serverUrl:directoryID:account:synchronization:]:CCSynchronization.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "recordAccount.account">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData changeMetadataRevFromLocalTable:activeAccount:]:CCCoreData.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain readFolderWithForced:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "__26-[OCnetworking readFolder]_block_invoke:OCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain readFolderSuccess:permissions:rev:metadatas:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.performSegue() -&gt; ():DocumentPickerViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCNetworking downloadFileSuccessFailure:fileID:rev:date:serverUrl:selector:selectorPost:errorCode:]:CCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCOffline readFileOffline]:CCOffline.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData downloadFile:rev:directoryUser:activeAccount:]:CCCoreData.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCControlCenter reloadDatasource]:CCControlCenter.m">
+      </ContextState>
+      <ContextState
+         contextName = "__26-[OCnetworking readFolder]_block_invoke.295:OCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[CCSynchronization sharedSynchronization]:CCSynchronization.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData getLastIDActivityActiveAccount:]:CCCoreData.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "record.idActivity">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain moveSuccess:revTo:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[OCnetworking start]:OCNetworking.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_metadataNet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCNetworking uploadFileFromAssetLocalIdentifier:serverUrl:cryptated:session:taskStatus:selector:selectorPost:parentRev:errorCode:delegate:]:CCNetworking.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "result.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData isOfflineDirectory:activeAccount:]:CCCoreData.m">
+      </ContextState>
+      <ContextState
+         contextName = "__26-[OCnetworking readFolder]_block_invoke.305:OCNetworking.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.code">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.tableView(UITableView, didSelectRowAt : IndexPath) -&gt; ():DocumentPickerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "passcode?.characters.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CCActions.searchSuccess(CCMetadataNet, metadatas : [CCMetadata]) -&gt; ():CCActions.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.readFolderSuccess(CCMetadataNet!, permissions : String!, rev : String!, metadatas : [Any]!) -&gt; ():DocumentPickerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "documentPickerMode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[OCnetworking downloadFileFailure:serverUrl:selector:message:errorCode:]:OCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.prepareForPresentation(in : UIDocumentPickerMode) -&gt; ():DocumentPickerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "originalURL">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain uploadFilePasteArray:cryptated:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "CCNotification.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:CCNotification.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "appDelegate.listOfNotifications">
+            </PersistentString>
+            <PersistentString
+               value = "notification.subject!">
+            </PersistentString>
+            <PersistentString
+               value = "notification.subject">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain searchSuccess:metadatas:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCControlCenter viewControllerAtIndex:]:CCControlCenter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_controlCenterPagesContent">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate addNetworkingOperationQueue:delegate:metadataNet:maxConcurrent:oneByOne:]:AppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "netQueue.maxConcurrentOperationCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCOffline viewDidLoad]:CCOffline.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.pageViewController.view.frame">
+            </PersistentString>
+            <PersistentString
+               value = "self.view.frame.size.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__29-[OCnetworking readFileSync:]_block_invoke.460:OCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "CreateFormUpload.reloadForm() -&gt; ():CCCreateCloud.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tableView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CCActions.search(String?, fileName : String) -&gt; ():CCActions.swift">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain tableView:cellForRowAtIndexPath:]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.synchronizedImageView.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.saveButtonTapped(AnyObject) -&gt; ():DocumentPickerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sourceURL">
+            </PersistentString>
+            <PersistentString
+               value = "originalURL">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreateFormUploadAssets.formRowDescriptorValueHasChanged(XLFormRowDescriptor!, oldValue : Any!, newValue : Any!) -&gt; ():CCCreateCloud.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "fileName!">
+            </PersistentString>
+            <PersistentString
+               value = "previewFileName.value">
+            </PersistentString>
+            <PersistentString
+               value = "newValue!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCOfflineFolder readFolderOffline]:CCOfflineFolder.m">
+      </ContextState>
+      <ContextState
+         contextName = "__57-[CCSynchronize readFolderSuccess:permissions:metadatas:]_block_invoke:CCSynchronize.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableDirectory.rev">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CCNotification.tableView(UITableView, editActionsForRowAt : IndexPath) -&gt; [UITableViewRowAction]?:CCNotification.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "editActionsForRowAt">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain assetsPickerController:didFinishPickingAssets:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCNetworking URLSession:task:didCompleteWithError:]:CCNetworking.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "session.sessionDescription">
+            </PersistentString>
+            <PersistentString
+               value = "task.taskIdentifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain getActivityServerSuccess:]:CCMain.m">
+      </ContextState>
+      <ContextState
+         contextName = "__64-[CCMain tableView:swipeAccessoryButtonPushedForRowAtIndexPath:]_block_invoke.2133:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "app.activeUrl">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DocumentPickerViewController.passcodeViewControllerLock(untilDate : BKPasscodeViewController!) -&gt; Date!:DocumentPickerViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCSplit InizializeTabBar]:CCSplit.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tabBarController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain deleteRefreshControl]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_refreshControl">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[CCCoreData getHomeOfflineActiveAccount:directoryUser:]:CCCoreData.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableLocalFile">
+            </PersistentString>
+            <PersistentString
+               value = "tableLocalFile.offline">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCNetworking upload:serverUrl:cryptated:template:onlyPlist:assetFileName:assetDate:assetMediaType:localIdentifier:session:taskStatus:selector:selectorPost:parentRev:errorCode:delegate:]:CCNetworking.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCMain menuChangeUser]:CCMain.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.view.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
