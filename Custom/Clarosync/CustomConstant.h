@@ -24,7 +24,8 @@
 // Brand
 #define k_brand                                 @"ClaroSync"
 #define k_mailMe                                @"info@clarosync.com"
-#define k_textCopyright                         @"ClaroSync %@ © 2017 T.W.S. Inc."
+#define k_textCopyrightNextcloudiOS             @"ClaroSync %@ © 2017 T.W.S. Inc."
+#define k_textCopyrightNextcloudServer          @"ClaroSync Server %@"
 #define k_loginBaseUrl                          @"https://skylake.weasel.rocks/c/mexico/clarovideo"
 #define k_pushNotificationServer                @"https://push-notifications.nextcloud.com"
 #define k_loginButtonLabelLink                  @"https://nextcloud.com/providers"
