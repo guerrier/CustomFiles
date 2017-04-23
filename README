@@ -1,4 +1,4 @@
-INSTRUCTIONS FOR iOS Clarosync distribution V 1.4 - 22 April 2017
+INSTRUCTIONS FOR iOS Clarosync distribution V 1.5 - 23 April 2017
 
 Clone or download the Nextcloud iOS app 
 
@@ -35,7 +35,8 @@ Share.plist
 
 #define k_brand                         @"ClaroSync"						- Name of product
 #define k_mailMe                        @"info@clarosync.com"					- Address mail for request information (see settings)
-#define k_textCopyright                 @"ClaroSync %@ © 2017 T.W.S. Inc."			- Copyright (see settings)
+#define k_textCopyrightNextcloudiOS     @"ClaroSync %@ © 2017 T.W.S. Inc."			- Copyright iOS (see settings)
+#define k_textCopyrightNextcloudServer  @"ClaroSync Server %@"					- Copyright Server (see settings)
 #define k_loginBaseUrl                  @"https://skylake.weasel.rocks/c/mexico/clarovideo"	- Address html page for login 
 #define k_pushNotificationServer        @"https://push-notifications.nextcloud.com"		- Push Notification Server address
 #define k_loginButtonLabelLink          @"https://nextcloud.com/providers"			- Only used on Nextcloud provider select
