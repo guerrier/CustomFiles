@@ -2,7 +2,7 @@ INSTRUCTIONS FOR iOS ClaroBox distribution V 1.7 - 24 May 2017
 
 Clone or download the Nextcloud iOS app [Branch Custom]
 
-https://github.com/nextcloud/ios
+https://github.com/nextcloud/ios/tree/Custom
 
 Add on $(SRCROOT) :
 
