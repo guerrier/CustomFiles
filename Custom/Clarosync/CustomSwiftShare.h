@@ -1,2 +1,0 @@
-
-#import "Share-Swift.h"
