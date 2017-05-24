@@ -1,72 +1,43 @@
-INSTRUCTIONS FOR iOS Clarosync distribution V 1.6 - 27 April 2017
+INSTRUCTIONS FOR iOS ClaroBox distribution V 1.7 - 24 May 2017
 
-Clone or download the Nextcloud iOS app [Branch Detail]
+Clone or download the Nextcloud iOS app [Branch Custom]
 
 https://github.com/nextcloud/ios
 
 Add on $(SRCROOT) :
 
-Clarosync.xcodeproj 				Project Xcode Version 8.3 (8E162)
+ClaroBox.xcodeproj 				Project Xcode Version 8.3 (8E162)
 
 DevicePushKey-Info.plist			Plist content Keys "devicePublicKeyDevelopment" & "devicePublicKeyProduction" for Push Notification
 GoogleService-Info.plist			Plist for Google Firebase (Statistic & Push Notification)
 
 Note : this plist now are setup for it.twsweb.Nextcloud 
 
-Add on $(SRCROOT)/Custom/Clarosync :
+Add on $(SRCROOT)/Custom/ClaroBox :
 
-Custom.xcassets					Content image, logo etc. of Clarosync
+Custom.xcassets					Content image, logo etc. of ClaroBox
 CustomSwift.h					Bridge Objc-Swift code : do not change it
-CustomSwiftShare.h				Bridge Objc-Swift code : do not change it
 iOSClient.entitlements				Now setup for : iCloud, Group : group.it.twsweb.Clarosync, Keychain : it.twsweb.Clarosync 
 iOSClient.plist
-LaunchScreenClarosync.xib			Launch Screen for Clarosync	
-NCBrand.swift					Customization Colors and Images
-NCBrandConstant.h				Customization Texts and Options
-Picker.entitlements				Now setup for : Group : group.it.twsweb.Clarosync, Keychain : it.twsweb.Clarosync 
+LaunchScreen.xib				Launch Screen for ClaroBox
+Main.xib					Main for ClaroBox	
+NCBrand.swift					Customization
+Picker.entitlements				Now setup for : Group : group.it.twsweb.ClaroBox, Keychain : it.twsweb.ClaroBox 
 Picker.plist
-PickerFileProvider.entitlements			Now setup for : Group : group.it.twsweb.Clarosync, Keychain : it.twsweb.Clarosync
-PickerFileProvider.plist			Now setup for : Group : group.it.twsweb.Clarosync
-Share.entitlements				Now setup for : Group : group.it.twsweb.Clarosync, Keychain : it.twsweb.Clarosync
+PickerFileProvider.entitlements			Now setup for : Group : group.it.twsweb.ClaroBox, Keychain : it.twsweb.ClaroBox
+PickerFileProvider.plist			Now setup for : Group : group.it.twsweb.ClaroBox
+Share.entitlements				Now setup for : Group : group.it.twsweb.ClaroBox, Keychain : it.twsweb.ClaroBox
 Share.plist
-
--- Options --
-
-#define k_brand                         @"ClaroSync"						- Name of product
-#define k_mailMe                        @"info@clarosync.com"					- Address mail for request information (see settings)
-#define k_textCopyrightNextcloudiOS     @"ClaroSync %@ © 2017 T.W.S. Inc."			- Copyright iOS (see settings)
-#define k_textCopyrightNextcloudServer  @"ClaroSync Server %@"					- Copyright Server (see settings)
-#define k_loginBaseUrl                  @"https://skylake.weasel.rocks/c/mexico/clarovideo"	- Address html page for login 
-#define k_pushNotificationServer        @"https://push-notifications.nextcloud.com"		- Push Notification Server address
-#define k_loginButtonLabelLink          @"https://nextcloud.com/providers"			- Only used on Nextcloud provider select
-#define k_webLoginAutenticationProtocol @"amx://"						- Protocol for authentication via web page html
-
-// Capabilities Group
-#define k_capabilitiesGroups            @"group.it.twsweb.Clarosync"				- Change it if change the group on entitlements
-
-// Define option Brand
-#define k_option_use_login_web                  YES or NO	- Use this for enabled/disabled login via Web protocol (when #define used k_loginBaseUrl and k_webLoginAutenticationProtocol)
-#define k_option_use_firebase                   YES or NO	- Use this for enabled/disabled service Firebase
-#define k_option_use_default_automatic_upload   YES or NO	- Use this for enabled/disabled Automatic Upload on Settings
-#define k_option_use_themingColor               YES or NO	- Use this for enabled/disabled Theming color from Server
-#define k_option_use_themingBackground          YES or NO	- Use this for enabled/disabled Theming Image LogIn from Server for Menu More Image
-
-#define k_option_disable_intro                  YES or NO	- Use this for enabled/disabled the normal Intro of Nextcloud standard
-#define k_option_disable_request_login_url      YES or NO	- Use this for enabled/disabled field Server address on Nextcloud standard (when #define used k_loginBaseUrl for login server)
-#define k_option_disable_multiaccount           YES or NO	- Use this for enabled/disabled option multiuser on Settings
-#define k_option_disable_cryptocloudsystem      YES or NO	- Use this for enabled/disabled option Crypto Cloud System on Settings
-
-Following the Color constants for objc code
 
 --- Build ---
 
-Open Clarosync.xcodeproj and build for internal use (emulator and device connect on Mac) for TestFlight or Production change all file :
+Open ClaroBox.xcodeproj and build for internal use (emulator and device connect on Mac) for TestFlight or Production change all file :
 
 DevicePushKey-Info.plist
 GoogleService-Info.plist
 *.entitlements
 *.plist
 NCBrand.swift
-NCBrandConstant.h
+
 
 
