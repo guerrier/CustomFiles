@@ -1,5 +1,5 @@
 //
-//  NCBrandColor.swift
+//  NCBrand.swift
 //  Crypto Cloud Technology Nextcloud
 //
 //  Created by Marino Faggiana on 24/04/17.
@@ -31,7 +31,7 @@ class NCBrandColor: NSObject {
     }()
 
     // Color
-    public var brand:                   UIColor = UIColor(red: 30.0/255.0, green: 39.0/255.0, blue: 81.0/255.0, alpha: 1.0)     // DARK BLU : #1E2751
+    public var brand:                   UIColor
     public let customer:                UIColor = UIColor(red: 30.0/255.0, green: 39.0/255.0, blue: 81.0/255.0, alpha: 1.0)     // DARK BLU : #1E2751
 
     public var connectionNo:            UIColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
@@ -50,6 +50,13 @@ class NCBrandColor: NSObject {
     public func getColorSelectBackgrond() -> UIColor {
         return self.brand.withAlphaComponent(0.1)
     }
+    
+    override init() {
+        
+        // Brand color settingf default
+        brand = customer
+    }
+
 }
 
 class NCBrandOptions: NSObject {
@@ -68,6 +75,10 @@ class NCBrandOptions: NSObject {
     public let pushNotificationServer:          String = "https://push-notifications.nextcloud.com"
     public let loginButtonLabelLink:            String = "https://nextcloud.com/providers"
     public let webLoginAutenticationProtocol:   String = "amx://"
+    public let folderBrandCameraUpload:         String = NSLocalizedString("_auto_upload_folder_", comment: "")
+    
+    // Auto Upload default folder
+    public var folderDefaultCameraUpload:       String = "Photos"
     
     // Capabilities Group
     public let capabilitiesGroups:              String = "group.it.twsweb.ClaroBox"
@@ -88,5 +99,13 @@ class NCBrandOptions: NSObject {
     public let disable_multiaccount:            Bool = true
     public let disable_cryptocloudsystem:       Bool = true
     public let disable_manage_account:          Bool = true
+    
+    override init() {
+        
+        if folderBrandCameraUpload != "" {
+            
+            self.folderDefaultCameraUpload = self.folderBrandCameraUpload
+        }
+    }
 }
 
