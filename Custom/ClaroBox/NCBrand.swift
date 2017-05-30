@@ -31,9 +31,9 @@ class NCBrandColor: NSObject {
     }()
 
     // Color
-    public var brand:                   UIColor
     public let customer:                UIColor = UIColor(red: 30.0/255.0, green: 39.0/255.0, blue: 81.0/255.0, alpha: 1.0)     // DARK BLU : #1E2751
 
+    public var brand:                   UIColor
     public var connectionNo:            UIColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
     public var cryptocloud:             UIColor = UIColor(red: 241.0/255.0, green: 90.0/255.0, blue: 34.0/255.0, alpha: 1.0)
     public var navigationBarProgress:   UIColor = .white
@@ -46,17 +46,14 @@ class NCBrandColor: NSObject {
     public var tableBackground:         UIColor = .white
     public var transferBackground:      UIColor = UIColor(red: 178.0/255.0, green: 244.0/255.0, blue: 258.0/255.0, alpha: 0.1)
     
+    override init() {        
+        self.brand = self.customer
+    }
+    
     // Color modify
     public func getColorSelectBackgrond() -> UIColor {
         return self.brand.withAlphaComponent(0.1)
     }
-    
-    override init() {
-        
-        // Brand color settingf default
-        brand = customer
-    }
-
 }
 
 class NCBrandOptions: NSObject {
@@ -75,10 +72,10 @@ class NCBrandOptions: NSObject {
     public let pushNotificationServer:          String = "https://push-notifications.nextcloud.com"
     public let loginButtonLabelLink:            String = "https://nextcloud.com/providers"
     public let webLoginAutenticationProtocol:   String = "amx://"
-    public let folderBrandCameraUpload:         String = NSLocalizedString("_auto_upload_folder_", comment: "")
+    public let folderBrandAutoUpload:           String = NSLocalizedString("_auto_upload_folder_", comment: "")
     
     // Auto Upload default folder
-    public var folderDefaultCameraUpload:       String = "Photos"
+    public var folderDefaultAutoUpload:         String = "Photos"
     
     // Capabilities Group
     public let capabilitiesGroups:              String = "group.it.twsweb.ClaroBox"
@@ -90,7 +87,10 @@ class NCBrandOptions: NSObject {
     public let use_themingColor:                Bool = true
     public let use_themingBackground:           Bool = true
     public let use_multiDomains:                Bool = false
+    
     public let use_recent_activity_title:       Bool = true
+    public let use_available_offline_title:     Bool = true
+
     public let use_notification_on_menu_more:   Bool = true
     public let use_logout_on_menu_more:         Bool = true
     
@@ -102,9 +102,9 @@ class NCBrandOptions: NSObject {
     
     override init() {
         
-        if folderBrandCameraUpload != "" {
+        if folderBrandAutoUpload != "" {
             
-            self.folderDefaultCameraUpload = self.folderBrandCameraUpload
+            self.folderDefaultAutoUpload = self.folderBrandAutoUpload
         }
     }
 }
