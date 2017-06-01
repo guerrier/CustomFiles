@@ -15,19 +15,26 @@ Note : this plist now are setup for it.twsweb.Nextcloud
 
 Add on $(SRCROOT)/Custom/ClaroBox :
 
-Custom.xcassets					Content image, logo etc. of ClaroBox
-CustomSwift.h					Bridge Objc-Swift code : do not change it
-iOSClient.entitlements				Now setup for : iCloud, Group : group.it.twsweb.Clarosync, Keychain : it.twsweb.Clarosync 
-iOSClient.plist
-LaunchScreen.xib				Launch Screen for ClaroBox
-Main.xib					Main for ClaroBox	
-NCBrand.swift					Customization
-Picker.entitlements				Now setup for : Group : group.it.twsweb.ClaroBox, Keychain : it.twsweb.ClaroBox 
-Picker.plist
-PickerFileProvider.entitlements			Now setup for : Group : group.it.twsweb.ClaroBox, Keychain : it.twsweb.ClaroBox
-PickerFileProvider.plist			Now setup for : Group : group.it.twsweb.ClaroBox
-Share.entitlements				Now setup for : Group : group.it.twsweb.ClaroBox, Keychain : it.twsweb.ClaroBox
-Share.plist
+Custom.xcassets					Content image, logo etc.
+CustomSwift.h					Bridge Objc-Swift code (do not change it)
+LaunchScreen.xib				Launch Screen
+Main.xib					Main (do not change it)
+NCBrand.swift					Customization and Options
+
+iOSClient.entitlements				Setting Group : group.Bundle Identifier and Keychain : Bundle Identifier 
+iOSClient.plist					Setting CFBundleDisplayName, CFBundleShortVersionString, CFBundleVersion
+
+Picker.entitlements				Setting Group : group.Bundle Identifier and Keychain : Bundle Identifier 
+Picker.plist					Setting CFBundleDisplayName, CFBundleShortVersionString, CFBundleVersion
+
+PickerFileProvider.entitlements			Setting Group : group.Bundle Identifier and Keychain : Bundle Identifier
+PickerFileProvider.plist			Setting CFBundleDisplayName, CFBundleShortVersionString, CFBundleVersion, NSExtensionFileProviderDocumentGroup
+
+Share.entitlements				Setting Group : group.Bundle Identifier and Keychain : Bundle Identifier
+Share.plist					Setting CFBundleDisplayName, CFBundleShortVersionString, CFBundleVersion
+
+
+
 
 --- Build ---
 
