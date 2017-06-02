@@ -1,10 +1,4 @@
-INSTRUCTIONS FOR iOS ClaroBox distribution - 30 May 2017
-
-Clone or download the Nextcloud iOS app [Branch Custom]
-
-https://github.com/nextcloud/ios/tree/Custom
-
-Add on $(SRCROOT) :
+INSTRUCTIONS FOR iOS ClaroBox distribution - 2 June 2017
 
 ClaroBox.xcodeproj 				Project Xcode Version 8.3 (8E162)
 
@@ -13,7 +7,7 @@ GoogleService-Info.plist			Plist for Google Firebase (Statistic & Push Notificat
 
 Note : this plist now are setup for it.twsweb.Nextcloud 
 
-Add on $(SRCROOT)/Custom/ClaroBox :
+On $(SRCROOT)/Custom/ClaroBox :
 
 Custom.xcassets					Content image, logo etc.
 CustomSwift.h					Bridge Objc-Swift code (do not change it)
