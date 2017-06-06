@@ -2904,6 +2904,9 @@
     appDelegate.sharesLink = result[0];
     appDelegate.sharesUserAndGroup = result[1];
     
+    // Notify Shares View
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SharesReloadDatasource" object:nil];
+        
     if (openWindow) {
             
         if (_shareOC) {
