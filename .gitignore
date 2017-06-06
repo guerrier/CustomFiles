@@ -1,0 +1,14 @@
+# file
+
+#########################################################################
+#                                                                       #
+#       Title         - .gitignore file                                 #
+#       For           - iOS - Xcode8                                    #
+#                                                                       #
+#########################################################################
+
+## Xcode private settings
+DerivedData/
+build/
+xcuserdata/
+UserInterfaceState.xcuserstate
