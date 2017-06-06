@@ -88,12 +88,6 @@ class NCBrandOptions: NSObject {
     public let use_themingBackground:           Bool = false
     public let use_multiDomains:                Bool = false
     
-    public let use_recent_activity_title:       Bool = true
-    public let use_available_offline_title:     Bool = true
-
-    public let use_notification_on_menu_more:   Bool = true
-    public let use_logout_on_menu_more:         Bool = true
-    
     public let disable_intro:                   Bool = true
     public let disable_request_login_url:       Bool = false
     public let disable_multiaccount:            Bool = true

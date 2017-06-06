@@ -90,11 +90,9 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         
         // ITEM : Activity
         item = OCExternalSites.init()
-        if NCBrandOptions.sharedInstance.use_recent_activity_title == true {
-            item.name = "_recent_activity_"
-        } else {
-            item.name = "_activity_"
-        }
+        //AMX
+        item.name = "_recent_activity_"
+        //item.name = "_activity_"
         item.icon = "moreActivity"
         item.url = "segueActivity"
         functionMenu.append(item)
@@ -108,24 +106,20 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         
         // ITEM : Local storage
         item = OCExternalSites.init()
-        if NCBrandOptions.sharedInstance.use_available_offline_title == true {
-            item.name = "_available_offline_"
-        } else {
-            item.name = "_local_storage_"
-        }
+        //AMX
+        item.name = "_available_offline_"
+        //item.name = "_local_storage_"
         item.icon = "moreLocalStorage"
         item.url = "segueLocalStorage"
         functionMenu.append(item)
         
-        // ITEM : Notification [CUSTOM]
-        if NCBrandOptions.sharedInstance.use_notification_on_menu_more == true {
-            
-            item = OCExternalSites.init()
-            item.name = "_notifications_"
-            item.icon = "notification"
-            item.url = "openCCNotification"
-            functionMenu.append(item)
-        }
+        //AMX
+        // ITEM : Notification
+        item = OCExternalSites.init()
+        item.name = "_notifications_"
+        item.icon = "notification"
+        item.url = "openCCNotification"
+        functionMenu.append(item)
 
         // ITEM : External
         menuExternalSite = NCManageDatabase.sharedInstance.getAllExternalSitesWithPredicate(NSPredicate(format: "(account == '\(appDelegate.activeAccount!)')"))
@@ -164,15 +158,13 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
             labelQuotaExternalSite.text = item.name
         }
         
+        //AMX
         // ITEM : Logout [CUSTOM]
-        if NCBrandOptions.sharedInstance.use_logout_on_menu_more == true {
-            
-            item = OCExternalSites.init()
-            item.name = "_logout_"
-            item.icon = "logout"
-            item.url = "logout"
-            settingsMenu.append(item)
-        }
+        item = OCExternalSites.init()
+        item.name = "_logout_"
+        item.icon = "logout"
+        item.url = "logout"
+        settingsMenu.append(item)
         
         // User data & Theming
         changeUserProfile()

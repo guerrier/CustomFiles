@@ -309,6 +309,9 @@
 		F7659A6C1DC0B760004860C4 /* PSTGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7659A521DC0B760004860C4 /* PSTGridLayoutItem.m */; };
 		F7659A6E1DC0B760004860C4 /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = F7659A541DC0B760004860C4 /* PSTGridLayoutRow.m */; };
 		F7659A701DC0B760004860C4 /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F7659A561DC0B760004860C4 /* PSTGridLayoutSection.m */; };
+		F772BED51EE6A265006A232B /* amx.strings in Resources */ = {isa = PBXBuildFile; fileRef = F772BED91EE6A265006A232B /* amx.strings */; };
+		F772BED61EE6A265006A232B /* amx.strings in Resources */ = {isa = PBXBuildFile; fileRef = F772BED91EE6A265006A232B /* amx.strings */; };
+		F772BED71EE6A265006A232B /* amx.strings in Resources */ = {isa = PBXBuildFile; fileRef = F772BED91EE6A265006A232B /* amx.strings */; };
 		F778B8AA1EE5436D008DC44E /* NCShares.m in Sources */ = {isa = PBXBuildFile; fileRef = F778B8A61EE5436D008DC44E /* NCShares.m */; };
 		F778B8AB1EE5436D008DC44E /* NCSharesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F778B8A81EE5436D008DC44E /* NCSharesCell.m */; };
 		F778B8AC1EE5436D008DC44E /* NCSharesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F778B8A91EE5436D008DC44E /* NCSharesCell.xib */; };
@@ -1021,7 +1024,6 @@
 		F721372E1BAFF0920012B613 /* CCPatenteGuida.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPatenteGuida.m; sourceTree = "<group>"; };
 		F721372F1BAFF0920012B613 /* CCTemplates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTemplates.h; sourceTree = "<group>"; };
 		F72137301BAFF0920012B613 /* CCTemplates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTemplates.m; sourceTree = "<group>"; };
-		F7229B491DF71BB300E8C4E7 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = SOURCE_ROOT; };
 		F72723C31EE19CFD00B42D70 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F72AAEC21E5C60C700BB17E1 /* AHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHKActionSheet.h; sourceTree = "<group>"; };
 		F72AAEC31E5C60C700BB17E1 /* AHKActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHKActionSheet.m; sourceTree = "<group>"; };
@@ -1339,6 +1341,8 @@
 		F76C3B841C6388BC00DC4301 /* CCGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCGraphics.m; sourceTree = "<group>"; };
 		F76C3B871C638A4C00DC4301 /* CCError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCError.h; sourceTree = "<group>"; };
 		F76C3B881C638A4C00DC4301 /* CCError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCError.m; sourceTree = "<group>"; };
+		F772BED81EE6A265006A232B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/amx.strings; sourceTree = "<group>"; };
+		F772BEDA1EE6A26D006A232B /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/amx.strings"; sourceTree = "<group>"; };
 		F777F0301C29717F00CE81CB /* PHAsset+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Utility.h"; sourceTree = "<group>"; };
 		F777F0311C29717F00CE81CB /* PHAsset+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Utility.m"; sourceTree = "<group>"; };
 		F778B8A51EE5436D008DC44E /* NCShares.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCShares.h; sourceTree = "<group>"; };
@@ -2253,6 +2257,7 @@
 			isa = PBXGroup;
 			children = (
 				F72B60911A24F00B004EF66F /* BKPasscodeView.strings */,
+				F772BED91EE6A265006A232B /* amx.strings */,
 				F73CC0241E813B61006E3047 /* CTAssetsPicker.strings */,
 				F7B381BF1C074E3E004693F8 /* Error.strings */,
 				F7C6D5F61BE371D800AC83AD /* InfoPlist.strings */,
@@ -3580,7 +3585,6 @@
 			children = (
 				F76344751BF259A800188725 /* synchronized.gif */,
 				F7D154271E2392A300202FD9 /* Nextcloud-Bridging-Header.h */,
-				F7229B491DF71BB300E8C4E7 /* AUTHORS */,
 				F77D49A71DC238E500CDC568 /* loading@2x.gif */,
 				F76344761BF259A800188725 /* synchronizedcrypto.gif */,
 				F7F0617A1BAACDD300846525 /* CryptoCloud.pch */,
@@ -3899,6 +3903,7 @@
 				F7145A1D1D12E3B700CAFEEC /* BKPasscodeView.strings in Resources */,
 				F7145A211D12E3B700CAFEEC /* Error.strings in Resources */,
 				F7E340D61ED60AFB009AB15D /* MainInterface.storyboard in Resources */,
+				F772BED61EE6A265006A232B /* amx.strings in Resources */,
 				F798E39C1ED60FFD005A60A1 /* CCCellShareExt.xib in Resources */,
 				F7145A231D12E3B700CAFEEC /* Localizable.strings in Resources */,
 				F7450C661E6DC7FF0042B158 /* Custom.xcassets in Resources */,
@@ -3910,6 +3915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7450C671E6DC7FF0042B158 /* Custom.xcassets in Resources */,
+				F772BED71EE6A265006A232B /* amx.strings in Resources */,
 				F7FC88FD1E141A3F006D0506 /* Error.strings in Resources */,
 				F7FC88FB1E141A34006D0506 /* BKPasscodeView.strings in Resources */,
 				F7FC88FC1E141A39006D0506 /* Localizable.strings in Resources */,
@@ -4074,6 +4080,7 @@
 				F77B0F751D118A16002130FE /* ZSSleftjustify@2x.png in Resources */,
 				F7F54CEC1E5B14C700E19C62 /* ImageSelectedOn@2x.png in Resources */,
 				F77B0F771D118A16002130FE /* ZSSimage@2x.png in Resources */,
+				F772BED51EE6A265006A232B /* amx.strings in Resources */,
 				F7ACC65E1EB1FFFC00CF3E98 /* LMMediaPlayerView.xib in Resources */,
 				F7F54CF21E5B14C700E19C62 /* ImageSelectedSmallOn@2x.png in Resources */,
 				F77B0F791D118A16002130FE /* ZSSunlink.png in Resources */,
@@ -4702,6 +4709,15 @@
 				F7C5978A1ED6D28200ECCB34 /* es-MX */,
 			);
 			name = Intro.strings;
+			sourceTree = "<group>";
+		};
+		F772BED91EE6A265006A232B /* amx.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F772BED81EE6A265006A232B /* en */,
+				F772BEDA1EE6A26D006A232B /* es-MX */,
+			);
+			name = amx.strings;
 			sourceTree = "<group>";
 		};
 		F7B381BF1C074E3E004693F8 /* Error.strings */ = {
