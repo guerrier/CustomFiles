@@ -127,6 +127,7 @@
     
     // Section Advanced -------------------------------------------------
     
+    /*
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
     
@@ -136,10 +137,11 @@
     //[row.cellConfig setObject:[UIImage imageNamed:@"settingsAdvanced"] forKey:@"imageView.image"];
     row.action.viewControllerClass = [CCAdvanced class];
     [section addFormRow:row];
+    */
     
     // Section : INFORMATION ------------------------------------------------
 
-    section = [XLFormSectionDescriptor formSectionWithTitle:NSLocalizedString(@"_legal_", nil)];
+    section = [XLFormSectionDescriptor formSectionWithTitle:NSLocalizedStringFromTable(@"_legal_", @"amx", nil)];
     [form addFormSection:section];
     
     // Acknowledgements
@@ -154,34 +156,34 @@
     };
     [section addFormRow:row];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"termsConditions" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_terms_conditions_", nil)];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"termsConditions" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_terms_conditions_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"privacyNotice" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_privacy_notice_", nil)];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"privacyNotice" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_privacy_notice_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
     
-    section = [XLFormSectionDescriptor formSectionWithTitle:NSLocalizedString(@"_about_", nil)];
+    section = [XLFormSectionDescriptor formSectionWithTitle:NSLocalizedStringFromTable(@"_about_", @"amx", nil)];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"aboutUs" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_about_us_", nil)];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"aboutUs" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_about_us_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"help" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_help_", nil)];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"help" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_help_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"version" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_version_", nil)];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"version" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_version_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];

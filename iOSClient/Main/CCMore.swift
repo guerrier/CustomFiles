@@ -91,7 +91,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         // ITEM : Activity
         item = OCExternalSites.init()
         //AMX
-        item.name = "_recent_activity_"
+        item.name = NSLocalizedString("_recent_activity_", tableName: "amx", comment: "")
         //item.name = "_activity_"
         item.icon = "moreActivity"
         item.url = "segueActivity"
@@ -107,7 +107,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         // ITEM : Local storage
         item = OCExternalSites.init()
         //AMX
-        item.name = "_available_offline_"
+        item.name =  NSLocalizedString("_available_offline_", tableName: "amx", comment: "")
         //item.name = "_local_storage_"
         item.icon = "moreLocalStorage"
         item.url = "segueLocalStorage"

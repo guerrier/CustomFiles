@@ -509,7 +509,6 @@
 // Offline - Local Storage
 
 "_create_synchronization_"          = "Create synchronization";
-"_available_offline_"               = "Available offline";
 "_offline_"                         = "Offline";
 "_local_storage_"                   = "Local storage";
 "_local_storage_no_record_"         = "No files yet";

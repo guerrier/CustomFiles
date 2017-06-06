@@ -6,18 +6,19 @@
   Copyright © 2017 TWS. All rights reserved.
 */
 
-"_recent_activity_"               = "Recent Activity";
-"_available_offline_"             = "Available offline";
+"_recent_activity_"                 = "Recent Activity";
+"_available_offline_"               = "Available offline";
 
-"_backup_"                        = "Backup";
-"_contacs_"                       = "Contacts";
-"_photos_"                        = "Photos";
-"_video_"                         = "Video";
-"_sync_over_wifi_"                = "Syncronize over WiFi";
+"_backup_"                          = "Backup";
+"_contacs_"                         = "Contacts";
+"_photos_"                          = "Photos";
+"_video_"                           = "Video";
+"_sync_over_wifi_"                  = "Syncronize over WiFi";
 
-"_legal_"                         = "Legal";
-"_terms_conditions_1_"            = "Terms & Conditions";
-"_privacy_notice_1_"              = "Privacy Notice";
-"_about_1_"                       = "About";
-"_about_us_1_"                    = "About us";
-"_version_1_"                     = "Version";
+"_legal_"                           = "Legal";
+"_terms_conditions_"                = "Terms & Conditions";
+"_privacy_notice_"                  = "Privacy Notice";
+"_about_"                           = "About";
+"_about_us_"                        = "About us";
+"_version_"                         = "Version";
+"_help_"                            = "Help";

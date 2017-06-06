@@ -69,10 +69,9 @@
     _sectionDataSource = [NSArray new];
     
     //AMX
-    self.title = NSLocalizedString(@"_recent_activity_", nil);
+    self.title = NSLocalizedStringFromTable(@"_recent_activity_", @"amx", nil);
     //self.title = NSLocalizedString(@"_activity_", nil);
 
-    
     [self reloadDatasource];
 }
 
