@@ -1,5 +1,3 @@
-INSTRUCTIONS FOR iOS ClaroBox distribution - 2 June 2017
-
 ClaroBox.xcodeproj 				Project Xcode Version 8.3 (8E162)
 
 DevicePushKey-Info.plist			Plist content Keys "devicePublicKeyDevelopment" & "devicePublicKeyProduction" for Push Notification
@@ -26,9 +24,6 @@ PickerFileProvider.plist			Setting CFBundleDisplayName, CFBundleShortVersionStri
 
 Share.entitlements				Setting Group : group.Bundle Identifier and Keychain : Bundle Identifier
 Share.plist					Setting CFBundleDisplayName, CFBundleShortVersionString, CFBundleVersion
-
-
-
 
 --- Build ---
 
