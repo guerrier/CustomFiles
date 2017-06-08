@@ -104,6 +104,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         item.url = "segueShares"
         functionMenu.append(item)
         
+        /*
         // ITEM : Local storage
         item = OCExternalSites.init()
         //AMX
@@ -112,6 +113,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         item.icon = "moreLocalStorage"
         item.url = "segueLocalStorage"
         functionMenu.append(item)
+        */
         
         //AMX
         // ITEM : Notification

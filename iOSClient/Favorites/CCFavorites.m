@@ -219,7 +219,8 @@
     
     if ([_metadata.typeFile isEqualToString: k_metadataTypeFile_compress]) {
         
-        [self performSelector:@selector(unZipFile:) withObject:_metadata.fileID];
+        //[self performSelector:@selector(unZipFile:) withObject:_metadata.fileID];
+        [self openWith:_metadata];
         
     } else if ([_metadata.typeFile isEqualToString: k_metadataTypeFile_unknown]) {
         
