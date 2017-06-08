@@ -4949,6 +4949,7 @@
     cell.favorite.image = nil;
     cell.status.image = nil;
     cell.shared.image = nil;
+    cell.local.image = nil;
     
     cell.labelTitle.enabled = YES;
     cell.labelTitle.text = @"";
@@ -5017,9 +5018,13 @@
         
         if ([metadata.type isEqualToString: k_metadataType_file] && [dataFile isEqualToString:@" "] == NO && [lunghezzaFile isEqualToString:@" "] == NO) {
             if (recordLocalFile && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", app.directoryUser, metadata.fileID]])
-                cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ • %@", dataFile, lunghezzaFile];
+                cell.local.image = [UIImage imageNamed:@"local"];
             else
-                cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ ◦ %@", dataFile, lunghezzaFile];
+                cell.local.image = nil;
+            
+            //cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ • %@", dataFile, lunghezzaFile];
+            //cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ ◦ %@", dataFile, lunghezzaFile];
+            cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ %@", dataFile, lunghezzaFile];
         }
 
         // Plist ancora da scaricare
