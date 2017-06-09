@@ -1806,12 +1806,11 @@
 
 - (void) middlewarePing:(NSString*)serverPath onCommunication:(OCCommunication *)sharedOCComunication successRequest:(void(^)(NSHTTPURLResponse *response, NSArray *listOfExternalSites, NSString *redirectedServer)) successRequest failureRequest:(void(^)(NSHTTPURLResponse *response, NSError *error, NSString *redirectedServer)) failureRequest {
     serverPath = [serverPath encodeString:NSUTF8StringEncoding];
-    serverPath = [serverPath stringByAppendingString:k_url_acces_external_sites_api];
     
     OCWebDAVClient *request = [OCWebDAVClient new];
     request = [self getRequestWithCredentials:request];
     
-    [request getExternalSitesServer:serverPath onCommunication:sharedOCComunication success:^(NSHTTPURLResponse *response, id responseObject) {
+    [request middlewarePing:serverPath onCommunication:sharedOCComunication success:^(NSHTTPURLResponse *response, id responseObject) {
         
         NSData *responseData = (NSData*) responseObject;
         
@@ -1832,29 +1831,6 @@
             
             if (statusCode == kOCNotificationAPINoContent || statusCode == kOCNotificationAPISuccessful) {
                 
-                for (NSDictionary *data in datas) {
-                    
-                    OCExternalSites *externalSites = [OCExternalSites new];
-                    
-                    externalSites.idExternalSite = [[data valueForKey:@"id"] integerValue];
-                    
-                    if ([data valueForKey:@"icon"] && ![[data valueForKey:@"icon"] isEqual:[NSNull null]])
-                        externalSites.icon = [data valueForKey:@"icon"];
-                    
-                    if ([data valueForKey:@"lang"] && ![[data valueForKey:@"lang"] isEqual:[NSNull null]])
-                        externalSites.lang = [data valueForKey:@"lang"];
-                    
-                    if ([data valueForKey:@"name"] && ![[data valueForKey:@"name"] isEqual:[NSNull null]])
-                        externalSites.name = [data valueForKey:@"name"];
-                    
-                    if ([data valueForKey:@"url"]  && ![[data valueForKey:@"url"]  isEqual:[NSNull null]])
-                        externalSites.url  = [data valueForKey:@"url"];
-                    
-                    if ([data valueForKey:@"type"] && ![[data valueForKey:@"type"] isEqual:[NSNull null]])
-                        externalSites.type = [data valueForKey:@"type"];
-                    
-                    [listOfExternalSites addObject:externalSites];
-                }
                 
             } else {
                 
