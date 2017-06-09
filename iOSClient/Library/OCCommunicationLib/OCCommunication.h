@@ -880,6 +880,24 @@ typedef enum {
 
 - (void) getExternalSitesServer:(NSString*)serverPath onCommunication:(OCCommunication *)sharedOCComunication successRequest:(void(^)(NSHTTPURLResponse *response, NSArray *listOfExternalSites, NSString *redirectedServer)) successRequest failureRequest:(void(^)(NSHTTPURLResponse *response, NSError *error, NSString *redirectedServer)) failureRequest;
 
+#pragma mark -  External Sites
+
+///-----------------------------------
+/// @name Get Middleware Ping
+///-----------------------------------
+
+/**
+ * Method read the notification of the server
+ *
+ * @param serverPath            -> NSString server
+ * @param sharedOCCommunication -> OCCommunication Singleton of communication to add the operation on the queue.
+ *
+ * @return listOfExternalSites  -> OCExternalSites
+ *
+ */
+
+- (void) getMiddlewarePing:(NSString*)serverPath onCommunication:(OCCommunication *)sharedOCComunication successRequest:(void(^)(NSHTTPURLResponse *response, NSArray *listOfExternalSites, NSString *redirectedServer)) successRequest failureRequest:(void(^)(NSHTTPURLResponse *response, NSError *error, NSString *redirectedServer)) failureRequest;
+
 #pragma mark -  User Profile
 
 ///-----------------------------------

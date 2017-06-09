@@ -578,6 +578,22 @@ extern NSString * _Nullable OCWebDAVModificationDateKey;
 - (void) getExternalSitesServer:(NSString * _Nonnull)serverPath onCommunication:(OCCommunication * _Nonnull)sharedOCComunication success:(void(^ _Nonnull)(NSHTTPURLResponse * _Nonnull operation, id _Nonnull response))success failure:(void(^ _Nonnull)(NSHTTPURLResponse * _Nonnull operation, id  _Nullable responseObject, NSError * _Nonnull error))failure;
 
 ///-----------------------------------
+/// @name Get MiddleWare Ping
+///-----------------------------------
+
+/**
+ * Method read the notification of the server
+ *
+ * @param serverPath            -> NSString server
+ * @param sharedOCCommunication -> OCCommunication Singleton of communication to add the operation on the queue.
+ *
+ * @return list of data
+ *
+ */
+
+- (void) getMiddlewarePing:(NSString * _Nonnull)serverPath onCommunication:(OCCommunication * _Nonnull)sharedOCComunication success:(void(^ _Nonnull)(NSHTTPURLResponse * _Nonnull operation, id _Nonnull response))success failure:(void(^ _Nonnull)(NSHTTPURLResponse * _Nonnull operation, id  _Nullable responseObject, NSError * _Nonnull error))failure;
+
+///-----------------------------------
 /// @name Get User Profile
 ///-----------------------------------
 
