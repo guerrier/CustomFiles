@@ -1321,14 +1321,14 @@
 #pragma mark ===== Middleware Ping =====
 #pragma --------------------------------------------------------------------------------------------
 
-- (void)getMiddlewarePing
+- (void)middlewarePing
 {
     OCCommunication *communication = [CCNetworking sharedNetworking].sharedOCCommunication;
     
     [communication setCredentialsWithUser:_activeUser andPassword:_activePassword];
     [communication setUserAgent:[CCUtility getUserAgent]];
     
-    [communication getMiddlewarePing:_metadataNet.serverUrl onCommunication:communication successRequest:^(NSHTTPURLResponse *response, NSArray *listOfExternalSites, NSString *redirectedServer) {
+    [communication middlewarePing:_metadataNet.serverUrl onCommunication:communication successRequest:^(NSHTTPURLResponse *response, NSArray *listOfExternalSites, NSString *redirectedServer) {
         
         [self complete];
         

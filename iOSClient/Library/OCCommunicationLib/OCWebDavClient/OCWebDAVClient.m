@@ -821,7 +821,7 @@ NSString const *OCWebDAVModificationDateKey	= @"modificationdate";
 
 #pragma mark - Get Middleware ping
 
-- (void) getMiddlewarePing:(NSString*)serverPath onCommunication:(OCCommunication *)sharedOCCommunication success:(void(^)(NSHTTPURLResponse *operation, id response))success
+- (void) middlewarePing:(NSString*)serverPath onCommunication:(OCCommunication *)sharedOCCommunication success:(void(^)(NSHTTPURLResponse *operation, id response))success
                       failure:(void(^)(NSHTTPURLResponse *operation, id  _Nullable responseObject, NSError *error))failure{
     
     _requestMethod = @"POST";

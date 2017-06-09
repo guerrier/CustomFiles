@@ -90,6 +90,8 @@
 - (void)reloadDatasource:(NSString *)serverUrl fileID:(NSString *)fileID selector:(NSString *)selector;
 
 - (void)requestServerCapabilities;
+- (void)middlewarePing;
+
 
 - (void)openWindowShare:(CCMetadata *)metadata;
 - (void)synchronizeFolderGraphicsServerUrl:(NSString *)serverUrl animation:(BOOL)animation;
