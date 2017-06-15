@@ -48,7 +48,7 @@
                     <navigationItem key="navigationItem" id="1CO-Ie-Aaj"/>
                     <connections>
                         <segue destination="eZl-ut-xpC" kind="presentation" identifier="AcknowledgementsSegue" modalPresentationStyle="formSheet" id="J9C-Ex-Q6i"/>
-                        <segue destination="DEi-yz-wEj" kind="show" identifier="CCManageCameraUploadSegue" id="Aij-5E-cNN"/>
+                        <segue destination="DEi-yz-wEj" kind="show" identifier="CCManageAutoUploadSegue" id="Aij-5E-cNN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wVn-RD-GD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,7 +211,7 @@
         <scene sceneID="kWr-RF-gdq">
             <objects>
                 <collectionViewController extendedLayoutIncludesOpaqueBars="YES" id="1Ca-6H-d29" customClass="CCPhotos" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="zkC-IW-U7O">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="zkC-IW-U7O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
