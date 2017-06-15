@@ -29,7 +29,6 @@
 #import "AHKActionSheet.h"
 #import "CCLocalStorageCell.h"
 #import "CCUtility.h"
-#import "CCCoreData.h"
 #import "CCMain.h"
 #import "CCGraphics.h"
 #import "CCAccountWeb.h"
@@ -41,11 +40,13 @@
 #import "CCPassaporto.h"
 #import "CCPatenteGuida.h"
 
+@class tableMetadata;
+
 @interface CCLocalStorage : UIViewController <UITableViewDataSource, UITableViewDelegate, UIDocumentInteractionControllerDelegate, UIActionSheetDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, CCAccountWebDelegate, CCBancomatDelegate, CCCartaDiCreditoDelegate, CCCartaIdentitaDelegate, CCContoCorrenteDelegate, CCNoteDelegate, CCPassaportoDelegate, CCPatenteGuidaDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) CCMetadata *metadata;
+@property (nonatomic, strong) tableMetadata *metadata;
 @property (nonatomic, strong) NSString *serverUrl;
 @property (nonatomic, strong) NSString *titleViewControl;
 

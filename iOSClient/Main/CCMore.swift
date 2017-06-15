@@ -41,10 +41,10 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var menuExternalSite: [tableExternalSites]?
-    var tableAccont : TableAccount?
+    var tabAccount : tableAccount?
     
     var loginWeb : CCLoginWeb!
-    
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -54,6 +54,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         
         tableView.separatorColor = NCBrandColor.sharedInstance.seperator
         
+        //AMX
         //themingBackground.image = UIImage.init(named: "themingBackground")
         
         // create tap gesture recognizer
@@ -61,6 +62,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         labelQuotaExternalSite.isUserInteractionEnabled = true
         labelQuotaExternalSite.addGestureRecognizer(tapQuota)
         
+        //AMX
         //let tapImageLogo = UITapGestureRecognizer(target: self, action: #selector(tapImageLogoManageAccount))
         //themingBackground.isUserInteractionEnabled = true
         //themingBackground.addGestureRecognizer(tapImageLogo)
@@ -107,9 +109,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         /*
         // ITEM : Local storage
         item = OCExternalSites.init()
-        //AMX
-        item.name =  NSLocalizedString("_available_offline_", tableName: "amx", comment: "")
-        //item.name = "_local_storage_"
+        item.name = "_local_storage_"
         item.icon = "moreLocalStorage"
         item.url = "segueLocalStorage"
         functionMenu.append(item)
@@ -122,9 +122,9 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         item.icon = "notification"
         item.url = "openCCNotification"
         functionMenu.append(item)
-
+        
         // ITEM : External
-        menuExternalSite = NCManageDatabase.sharedInstance.getAllExternalSitesWithPredicate(NSPredicate(format: "(account == '\(appDelegate.activeAccount!)')"))
+        menuExternalSite = NCManageDatabase.sharedInstance.getAllExternalSites(predicate: NSPredicate(format: "(account == '\(appDelegate.activeAccount!)')"))
         
         for table in menuExternalSite! {
             
@@ -167,10 +167,10 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         item.icon = "logout"
         item.url = "logout"
         settingsMenu.append(item)
-        
+
         // User data & Theming
         changeUserProfile()
-        //changeTheming()
+        changeTheming()
         
         // Title
         self.navigationItem.title = NSLocalizedString("_more_", comment: "")
@@ -195,8 +195,9 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
     
     func changeTheming() {
         
-        // Theming Background
+        //AMX
         /*
+        // Theming Background
         let theminBackgroundFile = UIImage.init(contentsOfFile: "\(appDelegate.directoryUser!)/themingBackground.png")
         if (theminBackgroundFile != nil) {
             themingBackground.image = theminBackgroundFile
@@ -224,29 +225,29 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         }
         
         // Display Name user & Quota
-        tableAccont = CCCoreData.getActiveAccount()
-        if (tableAccont != nil) {
+        tabAccount = NCManageDatabase.sharedInstance.getAccountActive()
+        if (tabAccount != nil) {
             
-            if let displayName = self.tableAccont!.displayName {
+            if let displayName = tabAccount?.displayName {
                 if displayName.isEmpty {
-                    labelUsername.text = self.tableAccont!.user
+                    labelUsername.text = tabAccount!.user
                 }
                 else{
-                    labelUsername.text = self.tableAccont!.displayName
+                    labelUsername.text = tabAccount!.displayName
                 }
             }
             else{
-                labelUsername.text = self.tableAccont!.user
+                labelUsername.text = tabAccount!.user
             }
             
             // fix CCMore.swift line 208 Version 2.17.2 (00005)
-            if (self.tableAccont?.quotaRelative != nil && self.tableAccont?.quotaTotal != nil && self.tableAccont?.quotaUsed != nil) {
+            if (tabAccount?.quotaRelative != nil && tabAccount?.quotaTotal != nil && tabAccount?.quotaUsed != nil) {
                 
-                progressQuota.progress = Float((self.tableAccont?.quotaRelative)!) / 100
+                progressQuota.progress = Float((tabAccount?.quotaRelative)!) / 100
                 progressQuota.progressTintColor = NCBrandColor.sharedInstance.brand
                 
-                let quota : String = CCUtility.transformedSize(Double((self.tableAccont?.quotaTotal)!))
-                let quotaUsed : String = CCUtility.transformedSize(Double((self.tableAccont?.quotaUsed)!))
+                let quota : String = CCUtility.transformedSize(Double((tabAccount?.quotaTotal)!))
+                let quotaUsed : String = CCUtility.transformedSize(Double((tabAccount?.quotaUsed)!))
                 
                 labelQuota.text = String.localizedStringWithFormat(NSLocalizedString("_quota_using_", comment: ""), quotaUsed, quota)
             }
@@ -372,7 +373,7 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
                 manageAccount.delete(self.appDelegate.activeAccount)
                 
                 self.loginWeb = CCLoginWeb()
-                self.loginWeb.delegate = self 
+                self.loginWeb.delegate = self
                 self.loginWeb.loginType = loginAddForced
                 
                 self.loginWeb.presentModalWithDefaultTheme(self)
@@ -410,18 +411,20 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
     
     func tapImageLogoManageAccount() {
         
-        //let controller = CCManageAccount.init()
-        //self.navigationController?.pushViewController(controller, animated: true)
+        //AMX
+        /*
+        let controller = CCManageAccount.init()
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+        */
     }
-    
-    
+
     func loginSuccess(_ loginType: NSInteger) {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initializeMain"), object: nil)
         
         appDelegate.selectedTabBarController(Int(k_tabBarApplicationIndexFile))
     }
-
 }
 
 class CCCellMore: UITableViewCell {

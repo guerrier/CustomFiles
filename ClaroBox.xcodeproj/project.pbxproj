@@ -21,7 +21,6 @@
 		F71459C31D12E3B700CAFEEC /* UIImage+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04C41C889184008DAB36 /* UIImage+Filtering.m */; };
 		F71459C41D12E3B700CAFEEC /* UIImage+Saving.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04CE1C889184008DAB36 /* UIImage+Saving.m */; };
 		F71459C51D12E3B700CAFEEC /* UIImage+Rotating.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04CC1C889184008DAB36 /* UIImage+Rotating.m */; };
-		F71459C61D12E3B700CAFEEC /* CCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C8C1731B482A920048180E /* CCMetadata.m */; };
 		F71459C91D12E3B700CAFEEC /* OCNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D3DBE1BAC1941000BAE4B /* OCNetworking.m */; };
 		F71459CC1D12E3B700CAFEEC /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F05371C889184008DAB36 /* RNCryptorEngine.m */; };
 		F71459CD1D12E3B700CAFEEC /* AFViewShaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F02B41C889183008DAB36 /* AFViewShaker.m */; };
@@ -30,7 +29,6 @@
 		F71459D31D12E3B700CAFEEC /* CCBKPasscode.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FE125D1BAC03FB0041924B /* CCBKPasscode.m */; };
 		F71459D51D12E3B700CAFEEC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04841C889183008DAB36 /* MBProgressHUD.m */; };
 		F71459D91D12E3B700CAFEEC /* CCCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FE125F1BAC03FB0041924B /* CCCrypto.m */; };
-		F71459DD1D12E3B700CAFEEC /* CCCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B81D801C64E77F006D02DF /* CCCoreData.m */; };
 		F71459E11D12E3B700CAFEEC /* CCHud.m in Sources */ = {isa = PBXBuildFile; fileRef = F7514EDB1C7B1336008F3338 /* CCHud.m */; };
 		F71459E41D12E3B700CAFEEC /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F05391C889184008DAB36 /* RNDecryptor.m */; };
 		F71459E61D12E3B700CAFEEC /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04D41C889184008DAB36 /* NYXImagesHelper.m */; };
@@ -104,8 +102,6 @@
 		F74344631E127D79001CC831 /* CCBKPasscode.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FE125D1BAC03FB0041924B /* CCBKPasscode.m */; };
 		F74344641E127DE6001CC831 /* OCNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D3DBE1BAC1941000BAE4B /* OCNetworking.m */; };
 		F74344651E127DE9001CC831 /* CCNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F732BA041D76CE1500E9878B /* CCNetworking.m */; };
-		F74344661E127E35001CC831 /* CCCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B81D801C64E77F006D02DF /* CCCoreData.m */; };
-		F74344671E127E38001CC831 /* CCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C8C1731B482A920048180E /* CCMetadata.m */; };
 		F74344781E127E9E001CC831 /* CCExifGeo.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A54C351C6267B500E2C8BF /* CCExifGeo.m */; };
 		F74344791E127EA1001CC831 /* CCError.m in Sources */ = {isa = PBXBuildFile; fileRef = F76C3B881C638A4C00DC4301 /* CCError.m */; };
 		F743447A1E127EA6001CC831 /* CCGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = F76C3B841C6388BC00DC4301 /* CCGraphics.m */; };
@@ -138,7 +134,6 @@
 		F74BCE581E9FA9EE0019BE9F /* CCFavorites.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE521E9FA9EE0019BE9F /* CCFavorites.m */; };
 		F74BCE591E9FA9EE0019BE9F /* CCFavoritesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE541E9FA9EE0019BE9F /* CCFavoritesCell.m */; };
 		F74BCE5A1E9FA9EE0019BE9F /* CCFavoritesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74BCE551E9FA9EE0019BE9F /* CCFavoritesCell.xib */; };
-		F74BCE5B1E9FA9EE0019BE9F /* CCSynchronize.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE571E9FA9EE0019BE9F /* CCSynchronize.m */; };
 		F74BCE621E9FAA040019BE9F /* CCLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE5E1E9FAA040019BE9F /* CCLocalStorage.m */; };
 		F74BCE631E9FAA040019BE9F /* CCLocalStorageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE601E9FAA040019BE9F /* CCLocalStorageCell.m */; };
 		F74BCE641E9FAA040019BE9F /* CCLocalStorageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74BCE611E9FAA040019BE9F /* CCLocalStorageCell.xib */; };
@@ -150,7 +145,6 @@
 		F74BCE941E9FAB970019BE9F /* Acknowledgements.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F74BCE821E9FAB970019BE9F /* Acknowledgements.rtf */; };
 		F74BCE951E9FAB970019BE9F /* CCAdvanced.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE841E9FAB970019BE9F /* CCAdvanced.m */; };
 		F74BCE961E9FAB970019BE9F /* CCManageAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE861E9FAB970019BE9F /* CCManageAccount.m */; };
-		F74BCE971E9FAB970019BE9F /* CCManageCameraUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE881E9FAB970019BE9F /* CCManageCameraUpload.m */; };
 		F74BCE981E9FAB970019BE9F /* CCManageCryptoCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE8A1E9FAB970019BE9F /* CCManageCryptoCloud.m */; };
 		F74BCE991E9FAB970019BE9F /* CCManageCryptoCloudSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE8C1E9FAB970019BE9F /* CCManageCryptoCloudSecurity.m */; };
 		F74BCE9C1E9FAB970019BE9F /* CCSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F74BCE921E9FAB970019BE9F /* CCSettings.m */; };
@@ -238,12 +232,6 @@
 		F74D8D1B1ED4237D00D18098 /* UtilsFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8CC91ED4237D00D18098 /* UtilsFramework.m */; };
 		F74D8D1C1ED4237D00D18098 /* UtilsFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8CC91ED4237D00D18098 /* UtilsFramework.m */; };
 		F74D8D1D1ED4237D00D18098 /* UtilsFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8CC91ED4237D00D18098 /* UtilsFramework.m */; };
-		F74D8D3D1ED42B7E00D18098 /* NCDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D3C1ED42B7E00D18098 /* NCDatabase.swift */; };
-		F74D8D411ED42B8500D18098 /* NCManageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D401ED42B8500D18098 /* NCManageDatabase.swift */; };
-		F74D8D421ED42B8500D18098 /* NCManageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D401ED42B8500D18098 /* NCManageDatabase.swift */; };
-		F74D8D431ED42B8500D18098 /* NCManageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D401ED42B8500D18098 /* NCManageDatabase.swift */; };
-		F74D8D441ED42BB400D18098 /* NCDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D3C1ED42B7E00D18098 /* NCDatabase.swift */; };
-		F74D8D451ED42BB400D18098 /* NCDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D3C1ED42B7E00D18098 /* NCDatabase.swift */; };
 		F74D8D4B1ED42C2900D18098 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74D8D491ED42C2900D18098 /* Crashlytics.framework */; };
 		F74D8D4C1ED42C2900D18098 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74D8D4A1ED42C2900D18098 /* Fabric.framework */; };
 		F74D8D581ED42CED00D18098 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74D8D551ED42CED00D18098 /* Realm.framework */; };
@@ -254,36 +242,6 @@
 		F74D8D5D1ED42CF600D18098 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74D8D551ED42CED00D18098 /* Realm.framework */; };
 		F74D8D5E1ED42CF600D18098 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F74D8D551ED42CED00D18098 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F74D8D601ED42CF600D18098 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F74D8D561ED42CED00D18098 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F74D8D761ED42F5400D18098 /* TableAccount+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D631ED42F5400D18098 /* TableAccount+CoreDataClass.m */; };
-		F74D8D771ED42F5400D18098 /* TableAccount+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D631ED42F5400D18098 /* TableAccount+CoreDataClass.m */; };
-		F74D8D781ED42F5400D18098 /* TableAccount+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D631ED42F5400D18098 /* TableAccount+CoreDataClass.m */; };
-		F74D8D791ED42F5400D18098 /* TableAccount+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D651ED42F5400D18098 /* TableAccount+CoreDataProperties.m */; };
-		F74D8D7A1ED42F5400D18098 /* TableAccount+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D651ED42F5400D18098 /* TableAccount+CoreDataProperties.m */; };
-		F74D8D7B1ED42F5400D18098 /* TableAccount+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D651ED42F5400D18098 /* TableAccount+CoreDataProperties.m */; };
-		F74D8D7C1ED42F5400D18098 /* TableCertificates+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D671ED42F5400D18098 /* TableCertificates+CoreDataClass.m */; };
-		F74D8D7D1ED42F5400D18098 /* TableCertificates+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D671ED42F5400D18098 /* TableCertificates+CoreDataClass.m */; };
-		F74D8D7E1ED42F5400D18098 /* TableCertificates+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D671ED42F5400D18098 /* TableCertificates+CoreDataClass.m */; };
-		F74D8D7F1ED42F5400D18098 /* TableCertificates+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D691ED42F5400D18098 /* TableCertificates+CoreDataProperties.m */; };
-		F74D8D801ED42F5400D18098 /* TableCertificates+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D691ED42F5400D18098 /* TableCertificates+CoreDataProperties.m */; };
-		F74D8D811ED42F5400D18098 /* TableCertificates+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D691ED42F5400D18098 /* TableCertificates+CoreDataProperties.m */; };
-		F74D8D821ED42F5400D18098 /* TableDirectory+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6B1ED42F5400D18098 /* TableDirectory+CoreDataClass.m */; };
-		F74D8D831ED42F5400D18098 /* TableDirectory+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6B1ED42F5400D18098 /* TableDirectory+CoreDataClass.m */; };
-		F74D8D841ED42F5400D18098 /* TableDirectory+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6B1ED42F5400D18098 /* TableDirectory+CoreDataClass.m */; };
-		F74D8D851ED42F5400D18098 /* TableDirectory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6D1ED42F5400D18098 /* TableDirectory+CoreDataProperties.m */; };
-		F74D8D861ED42F5400D18098 /* TableDirectory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6D1ED42F5400D18098 /* TableDirectory+CoreDataProperties.m */; };
-		F74D8D871ED42F5400D18098 /* TableDirectory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6D1ED42F5400D18098 /* TableDirectory+CoreDataProperties.m */; };
-		F74D8D881ED42F5400D18098 /* TableLocalFile+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6F1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m */; };
-		F74D8D891ED42F5400D18098 /* TableLocalFile+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6F1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m */; };
-		F74D8D8A1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D6F1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m */; };
-		F74D8D8B1ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D711ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m */; };
-		F74D8D8C1ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D711ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m */; };
-		F74D8D8D1ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D711ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m */; };
-		F74D8D8E1ED42F5400D18098 /* TableMetadata+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D731ED42F5400D18098 /* TableMetadata+CoreDataClass.m */; };
-		F74D8D8F1ED42F5400D18098 /* TableMetadata+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D731ED42F5400D18098 /* TableMetadata+CoreDataClass.m */; };
-		F74D8D901ED42F5400D18098 /* TableMetadata+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D731ED42F5400D18098 /* TableMetadata+CoreDataClass.m */; };
-		F74D8D911ED42F5400D18098 /* TableMetadata+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D751ED42F5400D18098 /* TableMetadata+CoreDataProperties.m */; };
-		F74D8D921ED42F5400D18098 /* TableMetadata+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D751ED42F5400D18098 /* TableMetadata+CoreDataProperties.m */; };
-		F74D8D931ED42F5400D18098 /* TableMetadata+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D751ED42F5400D18098 /* TableMetadata+CoreDataProperties.m */; };
 		F74D8D9F1ED4312900D18098 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D9A1ED4312900D18098 /* JDStatusBarNotification.m */; };
 		F74D8DA01ED4312900D18098 /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D9C1ED4312900D18098 /* JDStatusBarStyle.m */; };
 		F74D8DA11ED4312900D18098 /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D8D9E1ED4312900D18098 /* JDStatusBarView.m */; };
@@ -322,7 +280,6 @@
 		F77B0DFB1D118A16002130FE /* NYXProgressiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04D11C889184008DAB36 /* NYXProgressiveImageView.m */; };
 		F77B0DFF1D118A16002130FE /* OCNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = F74D3DBE1BAC1941000BAE4B /* OCNetworking.m */; };
 		F77B0E011D118A16002130FE /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F05351C889184008DAB36 /* RNCryptor.m */; };
-		F77B0E021D118A16002130FE /* CCPhotosCameraUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = F719FDB21CF06645004895D0 /* CCPhotosCameraUpload.m */; };
 		F77B0E031D118A16002130FE /* CCShareInfoCMOC.m in Sources */ = {isa = PBXBuildFile; fileRef = F743B2C41C95BBE8006F5B4A /* CCShareInfoCMOC.m */; };
 		F77B0E041D118A16002130FE /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F05581C889184008DAB36 /* UIImage+animatedGIF.m */; };
 		F77B0E071D118A16002130FE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = F70F0F951C889487008DAB36 /* ioapi.c */; };
@@ -352,7 +309,6 @@
 		F77B0E481D118A16002130FE /* CCCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FE125F1BAC03FB0041924B /* CCCrypto.m */; };
 		F77B0E491D118A16002130FE /* UIImage+Saving.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04CE1C889184008DAB36 /* UIImage+Saving.m */; };
 		F77B0E4C1D118A16002130FE /* CCDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D0E65F1BC5042E008D989A /* CCDetail.m */; };
-		F77B0E4D1D118A16002130FE /* CCCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B81D801C64E77F006D02DF /* CCCoreData.m */; };
 		F77B0E511D118A16002130FE /* UIImage+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04C41C889184008DAB36 /* UIImage+Filtering.m */; };
 		F77B0E541D118A16002130FE /* CCMove.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D02A471C5F9E4400D6F972 /* CCMove.m */; };
 		F77B0E551D118A16002130FE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F0F9E1C889487008DAB36 /* SSZipArchive.m */; };
@@ -382,7 +338,6 @@
 		F77B0EAA1D118A16002130FE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = F70F0F9B1C889487008DAB36 /* zip.c */; };
 		F77B0EAB1D118A16002130FE /* HRColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F0DEA1C889300008DAB36 /* HRColorPickerViewController.m */; };
 		F77B0EAD1D118A16002130FE /* CCGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C8C1911B482CEA0048180E /* CCGlobal.m */; };
-		F77B0EB11D118A16002130FE /* CCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C8C1731B482A920048180E /* CCMetadata.m */; };
 		F77B0EB61D118A16002130FE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F04841C889183008DAB36 /* MBProgressHUD.m */; };
 		F77B0EB81D118A16002130FE /* CCAccountWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = F721371E1BAFF0920012B613 /* CCAccountWeb.m */; };
 		F77B0EB91D118A16002130FE /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F70F0DEC1C889300008DAB36 /* HRColorUtil.m */; };
@@ -487,6 +442,44 @@
 		F77B0F901D118A16002130FE /* ZSSpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F70F0DBC1C889300008DAB36 /* ZSSpicker@2x.png */; };
 		F77B0F941D118A16002130FE /* ZSSh6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F70F0DA41C889300008DAB36 /* ZSSh6@2x.png */; };
 		F77D49A91DC238E500CDC568 /* loading@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F77D49A71DC238E500CDC568 /* loading@2x.gif */; };
+		F7813A9A1EF2F1E300E5D2FD /* CCCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A871EF2F1E300E5D2FD /* CCCoreData.m */; };
+		F7813A9B1EF2F1E300E5D2FD /* CCCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A871EF2F1E300E5D2FD /* CCCoreData.m */; };
+		F7813A9C1EF2F1E300E5D2FD /* CCCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A871EF2F1E300E5D2FD /* CCCoreData.m */; };
+		F7813A9D1EF2F1E300E5D2FD /* NCDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7813A881EF2F1E300E5D2FD /* NCDatabase.swift */; };
+		F7813A9E1EF2F1E300E5D2FD /* NCDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7813A881EF2F1E300E5D2FD /* NCDatabase.swift */; };
+		F7813A9F1EF2F1E300E5D2FD /* NCDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7813A881EF2F1E300E5D2FD /* NCDatabase.swift */; };
+		F7813AA01EF2F1E300E5D2FD /* NCManageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7813A891EF2F1E300E5D2FD /* NCManageDatabase.swift */; };
+		F7813AA11EF2F1E300E5D2FD /* NCManageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7813A891EF2F1E300E5D2FD /* NCManageDatabase.swift */; };
+		F7813AA21EF2F1E300E5D2FD /* NCManageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7813A891EF2F1E300E5D2FD /* NCManageDatabase.swift */; };
+		F7813AA31EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8B1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m */; };
+		F7813AA41EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8B1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m */; };
+		F7813AA51EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8B1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m */; };
+		F7813AA61EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8D1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m */; };
+		F7813AA71EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8D1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m */; };
+		F7813AA81EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8D1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m */; };
+		F7813AA91EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8F1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m */; };
+		F7813AAA1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8F1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m */; };
+		F7813AAB1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A8F1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m */; };
+		F7813AAC1EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A911EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m */; };
+		F7813AAD1EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A911EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m */; };
+		F7813AAE1EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A911EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m */; };
+		F7813AAF1EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A931EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m */; };
+		F7813AB01EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A931EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m */; };
+		F7813AB11EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A931EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m */; };
+		F7813AB21EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A951EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m */; };
+		F7813AB31EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A951EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m */; };
+		F7813AB41EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A951EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m */; };
+		F7813AB51EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A971EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m */; };
+		F7813AB61EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A971EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m */; };
+		F7813AB71EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A971EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m */; };
+		F7813AB81EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A991EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m */; };
+		F7813AB91EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A991EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m */; };
+		F7813ABA1EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813A991EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m */; };
+		F7813AC61EF2F23D00E5D2FD /* CCPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813AC51EF2F23D00E5D2FD /* CCPhotos.m */; };
+		F7813AC91EF2F26400E5D2FD /* CCManageAutoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813AC81EF2F26400E5D2FD /* CCManageAutoUpload.m */; };
+		F7813ACD1EF2F27600E5D2FD /* CCSynchronize.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813ACC1EF2F27600E5D2FD /* CCSynchronize.m */; };
+		F7813AD01EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = F7813ACF1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.m */; };
+		F78ECC5E1EF2F52F0039AC42 /* NCAutoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = F78ECC5D1EF2F52F0039AC42 /* NCAutoUpload.m */; };
 		F798E39B1ED60FFD005A60A1 /* CCCellShareExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F798E3991ED60FFD005A60A1 /* CCCellShareExt.m */; };
 		F798E39C1ED60FFD005A60A1 /* CCCellShareExt.xib in Resources */ = {isa = PBXBuildFile; fileRef = F798E39A1ED60FFD005A60A1 /* CCCellShareExt.xib */; };
 		F7ACC5441EB1FFBA00CF3E98 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ACC53B1EB1FFBA00CF3E98 /* RECommonFunctions.m */; };
@@ -1003,8 +996,6 @@
 		F7151A821D477A4B00E6AF45 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F7151A831D477A4B00E6AF45 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intro.strings; sourceTree = "<group>"; };
 		F7151A841D477A4B00E6AF45 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Error.strings; sourceTree = "<group>"; };
-		F719FDB11CF06645004895D0 /* CCPhotosCameraUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhotosCameraUpload.h; sourceTree = "<group>"; };
-		F719FDB21CF06645004895D0 /* CCPhotosCameraUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPhotosCameraUpload.m; sourceTree = "<group>"; };
 		F720E01E1E48C73E001A4B9E /* CCActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCActions.swift; path = Actions/CCActions.swift; sourceTree = "<group>"; };
 		F721371D1BAFF0920012B613 /* CCAccountWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAccountWeb.h; sourceTree = "<group>"; };
 		F721371E1BAFF0920012B613 /* CCAccountWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAccountWeb.m; sourceTree = "<group>"; };
@@ -1084,8 +1075,6 @@
 		F74BCE531E9FA9EE0019BE9F /* CCFavoritesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFavoritesCell.h; sourceTree = "<group>"; };
 		F74BCE541E9FA9EE0019BE9F /* CCFavoritesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCFavoritesCell.m; sourceTree = "<group>"; };
 		F74BCE551E9FA9EE0019BE9F /* CCFavoritesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CCFavoritesCell.xib; sourceTree = "<group>"; };
-		F74BCE561E9FA9EE0019BE9F /* CCSynchronize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSynchronize.h; sourceTree = "<group>"; };
-		F74BCE571E9FA9EE0019BE9F /* CCSynchronize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSynchronize.m; sourceTree = "<group>"; };
 		F74BCE5D1E9FAA040019BE9F /* CCLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLocalStorage.h; sourceTree = "<group>"; };
 		F74BCE5E1E9FAA040019BE9F /* CCLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLocalStorage.m; sourceTree = "<group>"; };
 		F74BCE5F1E9FAA040019BE9F /* CCLocalStorageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLocalStorageCell.h; sourceTree = "<group>"; };
@@ -1105,8 +1094,6 @@
 		F74BCE841E9FAB970019BE9F /* CCAdvanced.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAdvanced.m; sourceTree = "<group>"; };
 		F74BCE851E9FAB970019BE9F /* CCManageAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCManageAccount.h; sourceTree = "<group>"; };
 		F74BCE861E9FAB970019BE9F /* CCManageAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCManageAccount.m; sourceTree = "<group>"; };
-		F74BCE871E9FAB970019BE9F /* CCManageCameraUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCManageCameraUpload.h; sourceTree = "<group>"; };
-		F74BCE881E9FAB970019BE9F /* CCManageCameraUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCManageCameraUpload.m; sourceTree = "<group>"; };
 		F74BCE891E9FAB970019BE9F /* CCManageCryptoCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCManageCryptoCloud.h; sourceTree = "<group>"; };
 		F74BCE8A1E9FAB970019BE9F /* CCManageCryptoCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCManageCryptoCloud.m; sourceTree = "<group>"; };
 		F74BCE8B1E9FAB970019BE9F /* CCManageCryptoCloudSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCManageCryptoCloudSecurity.h; sourceTree = "<group>"; };
@@ -1175,32 +1162,10 @@
 		F74D8CC71ED4237D00D18098 /* OCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCConstants.h; sourceTree = "<group>"; };
 		F74D8CC81ED4237D00D18098 /* UtilsFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsFramework.h; sourceTree = "<group>"; };
 		F74D8CC91ED4237D00D18098 /* UtilsFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilsFramework.m; sourceTree = "<group>"; };
-		F74D8D3C1ED42B7E00D18098 /* NCDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCDatabase.swift; sourceTree = "<group>"; };
-		F74D8D401ED42B8500D18098 /* NCManageDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCManageDatabase.swift; sourceTree = "<group>"; };
 		F74D8D491ED42C2900D18098 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F74D8D4A1ED42C2900D18098 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F74D8D551ED42CED00D18098 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		F74D8D561ED42CED00D18098 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		F74D8D621ED42F5400D18098 /* TableAccount+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableAccount+CoreDataClass.h"; sourceTree = "<group>"; };
-		F74D8D631ED42F5400D18098 /* TableAccount+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableAccount+CoreDataClass.m"; sourceTree = "<group>"; };
-		F74D8D641ED42F5400D18098 /* TableAccount+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableAccount+CoreDataProperties.h"; sourceTree = "<group>"; };
-		F74D8D651ED42F5400D18098 /* TableAccount+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableAccount+CoreDataProperties.m"; sourceTree = "<group>"; };
-		F74D8D661ED42F5400D18098 /* TableCertificates+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableCertificates+CoreDataClass.h"; sourceTree = "<group>"; };
-		F74D8D671ED42F5400D18098 /* TableCertificates+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableCertificates+CoreDataClass.m"; sourceTree = "<group>"; };
-		F74D8D681ED42F5400D18098 /* TableCertificates+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableCertificates+CoreDataProperties.h"; sourceTree = "<group>"; };
-		F74D8D691ED42F5400D18098 /* TableCertificates+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableCertificates+CoreDataProperties.m"; sourceTree = "<group>"; };
-		F74D8D6A1ED42F5400D18098 /* TableDirectory+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableDirectory+CoreDataClass.h"; sourceTree = "<group>"; };
-		F74D8D6B1ED42F5400D18098 /* TableDirectory+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableDirectory+CoreDataClass.m"; sourceTree = "<group>"; };
-		F74D8D6C1ED42F5400D18098 /* TableDirectory+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableDirectory+CoreDataProperties.h"; sourceTree = "<group>"; };
-		F74D8D6D1ED42F5400D18098 /* TableDirectory+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableDirectory+CoreDataProperties.m"; sourceTree = "<group>"; };
-		F74D8D6E1ED42F5400D18098 /* TableLocalFile+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableLocalFile+CoreDataClass.h"; sourceTree = "<group>"; };
-		F74D8D6F1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableLocalFile+CoreDataClass.m"; sourceTree = "<group>"; };
-		F74D8D701ED42F5400D18098 /* TableLocalFile+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableLocalFile+CoreDataProperties.h"; sourceTree = "<group>"; };
-		F74D8D711ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableLocalFile+CoreDataProperties.m"; sourceTree = "<group>"; };
-		F74D8D721ED42F5400D18098 /* TableMetadata+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableMetadata+CoreDataClass.h"; sourceTree = "<group>"; };
-		F74D8D731ED42F5400D18098 /* TableMetadata+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableMetadata+CoreDataClass.m"; sourceTree = "<group>"; };
-		F74D8D741ED42F5400D18098 /* TableMetadata+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableMetadata+CoreDataProperties.h"; sourceTree = "<group>"; };
-		F74D8D751ED42F5400D18098 /* TableMetadata+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableMetadata+CoreDataProperties.m"; sourceTree = "<group>"; };
 		F74D8D991ED4312900D18098 /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
 		F74D8D9A1ED4312900D18098 /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
 		F74D8D9B1ED4312900D18098 /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
@@ -1351,8 +1316,38 @@
 		F778B8A81EE5436D008DC44E /* NCSharesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCSharesCell.m; sourceTree = "<group>"; };
 		F778B8A91EE5436D008DC44E /* NCSharesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NCSharesCell.xib; sourceTree = "<group>"; };
 		F77D49A71DC238E500CDC568 /* loading@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading@2x.gif"; sourceTree = "<group>"; };
+		F7813A861EF2F1E300E5D2FD /* CCCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCoreData.h; sourceTree = "<group>"; };
+		F7813A871EF2F1E300E5D2FD /* CCCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCCoreData.m; sourceTree = "<group>"; };
+		F7813A881EF2F1E300E5D2FD /* NCDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCDatabase.swift; sourceTree = "<group>"; };
+		F7813A891EF2F1E300E5D2FD /* NCManageDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCManageDatabase.swift; sourceTree = "<group>"; };
+		F7813A8A1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableAccount+CoreDataClass.h"; sourceTree = "<group>"; };
+		F7813A8B1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableAccount+CoreDataClass.m"; sourceTree = "<group>"; };
+		F7813A8C1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableAccount+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F7813A8D1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableAccount+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F7813A8E1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableCertificates+CoreDataClass.h"; sourceTree = "<group>"; };
+		F7813A8F1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableCertificates+CoreDataClass.m"; sourceTree = "<group>"; };
+		F7813A901EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableCertificates+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F7813A911EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableCertificates+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F7813A921EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableDirectory+CoreDataClass.h"; sourceTree = "<group>"; };
+		F7813A931EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableDirectory+CoreDataClass.m"; sourceTree = "<group>"; };
+		F7813A941EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableDirectory+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F7813A951EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableDirectory+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F7813A961EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableLocalFile+CoreDataClass.h"; sourceTree = "<group>"; };
+		F7813A971EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableLocalFile+CoreDataClass.m"; sourceTree = "<group>"; };
+		F7813A981EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TableLocalFile+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F7813A991EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TableLocalFile+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F7813AC41EF2F23D00E5D2FD /* CCPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhotos.h; sourceTree = "<group>"; };
+		F7813AC51EF2F23D00E5D2FD /* CCPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPhotos.m; sourceTree = "<group>"; };
+		F7813AC71EF2F26400E5D2FD /* CCManageAutoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCManageAutoUpload.h; sourceTree = "<group>"; };
+		F7813AC81EF2F26400E5D2FD /* CCManageAutoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCManageAutoUpload.m; sourceTree = "<group>"; };
+		F7813ACB1EF2F27600E5D2FD /* CCSynchronize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSynchronize.h; sourceTree = "<group>"; };
+		F7813ACC1EF2F27600E5D2FD /* CCSynchronize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSynchronize.m; sourceTree = "<group>"; };
+		F7813ACE1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+MainThread.h"; sourceTree = "<group>"; };
+		F7813ACF1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+MainThread.m"; sourceTree = "<group>"; };
 		F78316861C0CB3CA00C43975 /* CCShareUserOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCShareUserOC.h; sourceTree = "<group>"; };
 		F78316871C0CB3CA00C43975 /* CCShareUserOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCShareUserOC.m; sourceTree = "<group>"; };
+		F78ECC5C1EF2F52F0039AC42 /* NCAutoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCAutoUpload.h; sourceTree = "<group>"; };
+		F78ECC5D1EF2F52F0039AC42 /* NCAutoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCAutoUpload.m; sourceTree = "<group>"; };
 		F78F6FAE1CC8CCB700F4EA25 /* CCSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSection.h; sourceTree = "<group>"; };
 		F78F6FAF1CC8CCB700F4EA25 /* CCSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSection.m; sourceTree = "<group>"; };
 		F792A77B1BC7C45400C9388E /* CCSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSplit.h; sourceTree = "<group>"; };
@@ -1553,8 +1548,6 @@
 		F7B1FBA41E72E310001781FE /* SwiftWebVCActivitySafari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVCActivitySafari.swift; sourceTree = "<group>"; };
 		F7B3A4FC1E9787E0000DACE8 /* CCLoginWeb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCLoginWeb.swift; sourceTree = "<group>"; };
 		F7B61E861DC13C20009E938F /* MagicalRecord.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MagicalRecord.xcodeproj; path = "Libraries external/MagicalRecord/MagicalRecord.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		F7B81D7F1C64E77F006D02DF /* CCCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCoreData.h; sourceTree = "<group>"; };
-		F7B81D801C64E77F006D02DF /* CCCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCCoreData.m; sourceTree = "<group>"; };
 		F7BE6E2B1D2D5C3B00106933 /* CCQuickActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCQuickActions.h; sourceTree = "<group>"; };
 		F7BE6E2C1D2D5C3B00106933 /* CCQuickActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCQuickActions.m; sourceTree = "<group>"; };
 		F7BF1B3F1D51E893000854F6 /* CCLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLogin.h; sourceTree = "<group>"; };
@@ -1605,8 +1598,6 @@
 		F7C743161E7BED3800D9C973 /* Picker.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Picker.entitlements; sourceTree = "<group>"; };
 		F7C743171E7BED4000D9C973 /* PickerFileProvider.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = PickerFileProvider.entitlements; sourceTree = "<group>"; };
 		F7C743181E7BED4800D9C973 /* Share.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
-		F7C8C1721B482A920048180E /* CCMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CCMetadata.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F7C8C1731B482A920048180E /* CCMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CCMetadata.m; sourceTree = "<group>"; };
 		F7C8C1901B482CEA0048180E /* CCGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGlobal.h; sourceTree = "<group>"; };
 		F7C8C1911B482CEA0048180E /* CCGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCGlobal.m; sourceTree = "<group>"; };
 		F7CD0FF91C8DDA7D006520C5 /* CCSharePermissionOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSharePermissionOC.h; sourceTree = "<group>"; };
@@ -2180,15 +2171,6 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
-		F719FDAE1CF06645004895D0 /* PhotosCameraUpload */ = {
-			isa = PBXGroup;
-			children = (
-				F719FDB11CF06645004895D0 /* CCPhotosCameraUpload.h */,
-				F719FDB21CF06645004895D0 /* CCPhotosCameraUpload.m */,
-			);
-			path = PhotosCameraUpload;
-			sourceTree = "<group>";
-		};
 		F720E02A1E48C74C001A4B9E /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2369,8 +2351,6 @@
 				F74BCE531E9FA9EE0019BE9F /* CCFavoritesCell.h */,
 				F74BCE541E9FA9EE0019BE9F /* CCFavoritesCell.m */,
 				F74BCE551E9FA9EE0019BE9F /* CCFavoritesCell.xib */,
-				F74BCE561E9FA9EE0019BE9F /* CCSynchronize.h */,
-				F74BCE571E9FA9EE0019BE9F /* CCSynchronize.m */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -2416,10 +2396,10 @@
 				F74BCE821E9FAB970019BE9F /* Acknowledgements.rtf */,
 				F74BCE831E9FAB970019BE9F /* CCAdvanced.h */,
 				F74BCE841E9FAB970019BE9F /* CCAdvanced.m */,
+				F7813AC71EF2F26400E5D2FD /* CCManageAutoUpload.h */,
+				F7813AC81EF2F26400E5D2FD /* CCManageAutoUpload.m */,
 				F74BCE851E9FAB970019BE9F /* CCManageAccount.h */,
 				F74BCE861E9FAB970019BE9F /* CCManageAccount.m */,
-				F74BCE871E9FAB970019BE9F /* CCManageCameraUpload.h */,
-				F74BCE881E9FAB970019BE9F /* CCManageCameraUpload.m */,
 				F74BCE891E9FAB970019BE9F /* CCManageCryptoCloud.h */,
 				F74BCE8A1E9FAB970019BE9F /* CCManageCryptoCloud.m */,
 				F74BCE8B1E9FAB970019BE9F /* CCManageCryptoCloudSecurity.h */,
@@ -2780,31 +2760,58 @@
 			path = Shares;
 			sourceTree = "<group>";
 		};
-		F77F86401B4ABF6D009F0A10 /* Table */ = {
+		F7813A851EF2F1E300E5D2FD /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				F74D8D621ED42F5400D18098 /* TableAccount+CoreDataClass.h */,
-				F74D8D631ED42F5400D18098 /* TableAccount+CoreDataClass.m */,
-				F74D8D641ED42F5400D18098 /* TableAccount+CoreDataProperties.h */,
-				F74D8D651ED42F5400D18098 /* TableAccount+CoreDataProperties.m */,
-				F74D8D661ED42F5400D18098 /* TableCertificates+CoreDataClass.h */,
-				F74D8D671ED42F5400D18098 /* TableCertificates+CoreDataClass.m */,
-				F74D8D681ED42F5400D18098 /* TableCertificates+CoreDataProperties.h */,
-				F74D8D691ED42F5400D18098 /* TableCertificates+CoreDataProperties.m */,
-				F74D8D6A1ED42F5400D18098 /* TableDirectory+CoreDataClass.h */,
-				F74D8D6B1ED42F5400D18098 /* TableDirectory+CoreDataClass.m */,
-				F74D8D6C1ED42F5400D18098 /* TableDirectory+CoreDataProperties.h */,
-				F74D8D6D1ED42F5400D18098 /* TableDirectory+CoreDataProperties.m */,
-				F74D8D6E1ED42F5400D18098 /* TableLocalFile+CoreDataClass.h */,
-				F74D8D6F1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m */,
-				F74D8D701ED42F5400D18098 /* TableLocalFile+CoreDataProperties.h */,
-				F74D8D711ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m */,
-				F74D8D721ED42F5400D18098 /* TableMetadata+CoreDataClass.h */,
-				F74D8D731ED42F5400D18098 /* TableMetadata+CoreDataClass.m */,
-				F74D8D741ED42F5400D18098 /* TableMetadata+CoreDataProperties.h */,
-				F74D8D751ED42F5400D18098 /* TableMetadata+CoreDataProperties.m */,
+				F7813A861EF2F1E300E5D2FD /* CCCoreData.h */,
+				F7813A871EF2F1E300E5D2FD /* CCCoreData.m */,
+				F7813A881EF2F1E300E5D2FD /* NCDatabase.swift */,
+				F7813A891EF2F1E300E5D2FD /* NCManageDatabase.swift */,
+				F7813A8A1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.h */,
+				F7813A8B1EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m */,
+				F7813A8C1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.h */,
+				F7813A8D1EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m */,
+				F7813A8E1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.h */,
+				F7813A8F1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m */,
+				F7813A901EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.h */,
+				F7813A911EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m */,
+				F7813A921EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.h */,
+				F7813A931EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m */,
+				F7813A941EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.h */,
+				F7813A951EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m */,
+				F7813A961EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.h */,
+				F7813A971EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m */,
+				F7813A981EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.h */,
+				F7813A991EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m */,
 			);
-			name = Table;
+			path = Database;
+			sourceTree = "<group>";
+		};
+		F7813AC31EF2F23D00E5D2FD /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				F7813AC41EF2F23D00E5D2FD /* CCPhotos.h */,
+				F7813AC51EF2F23D00E5D2FD /* CCPhotos.m */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		F7813ACA1EF2F27600E5D2FD /* Synchronize */ = {
+			isa = PBXGroup;
+			children = (
+				F7813ACB1EF2F27600E5D2FD /* CCSynchronize.h */,
+				F7813ACC1EF2F27600E5D2FD /* CCSynchronize.m */,
+			);
+			path = Synchronize;
+			sourceTree = "<group>";
+		};
+		F78ECC5B1EF2F52F0039AC42 /* AutoUpload */ = {
+			isa = PBXGroup;
+			children = (
+				F78ECC5C1EF2F52F0039AC42 /* NCAutoUpload.h */,
+				F78ECC5D1EF2F52F0039AC42 /* NCAutoUpload.m */,
+			);
+			path = AutoUpload;
 			sourceTree = "<group>";
 		};
 		F7ACC5391EB1FFBA00CF3E98 /* REMenu */ = {
@@ -3260,16 +3267,18 @@
 		F7BFFA991A24D7BB0044ED85 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				F7A54C341C6267B500E2C8BF /* CCExifGeo.h */,
-				F7A54C351C6267B500E2C8BF /* CCExifGeo.m */,
 				F76C3B871C638A4C00DC4301 /* CCError.h */,
 				F76C3B881C638A4C00DC4301 /* CCError.m */,
-				F7514EDA1C7B1336008F3338 /* CCHud.h */,
-				F7514EDB1C7B1336008F3338 /* CCHud.m */,
+				F7A54C341C6267B500E2C8BF /* CCExifGeo.h */,
+				F7A54C351C6267B500E2C8BF /* CCExifGeo.m */,
 				F76C3B831C6388BC00DC4301 /* CCGraphics.h */,
 				F76C3B841C6388BC00DC4301 /* CCGraphics.m */,
+				F7514EDA1C7B1336008F3338 /* CCHud.h */,
+				F7514EDB1C7B1336008F3338 /* CCHud.m */,
 				F7053E3C1C639DF500741EA5 /* CCUtility.h */,
 				F7053E3D1C639DF500741EA5 /* CCUtility.m */,
+				F7813ACE1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.h */,
+				F7813ACF1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.m */,
 				F73049B81CB567F000C7C320 /* NSString+TruncateToWidth.h */,
 				F73049B91CB567F000C7C320 /* NSString+TruncateToWidth.m */,
 			);
@@ -3327,20 +3336,6 @@
 			name = Analytics;
 			path = "Libraries external/Analytics";
 			sourceTree = SOURCE_ROOT;
-		};
-		F7E95CEC1AC40BA40060D08E /* FileSystem */ = {
-			isa = PBXGroup;
-			children = (
-				F77F86401B4ABF6D009F0A10 /* Table */,
-				F7B81D7F1C64E77F006D02DF /* CCCoreData.h */,
-				F7B81D801C64E77F006D02DF /* CCCoreData.m */,
-				F7C8C1721B482A920048180E /* CCMetadata.h */,
-				F7C8C1731B482A920048180E /* CCMetadata.m */,
-				F74D8D3C1ED42B7E00D18098 /* NCDatabase.swift */,
-				F74D8D401ED42B8500D18098 /* NCManageDatabase.swift */,
-			);
-			path = FileSystem;
-			sourceTree = "<group>";
 		};
 		F7ECBA6B1E239DCD003E6328 /* Create */ = {
 			isa = PBXGroup;
@@ -3553,9 +3548,10 @@
 				F70211F31BAC56E9003FC03E /* Main */,
 				F720E02A1E48C74C001A4B9E /* Actions */,
 				F74BCE4C1E9FA9DC0019BE9F /* Activity */,
+				F78ECC5B1EF2F52F0039AC42 /* AutoUpload */,
 				F7ECBA6B1E239DCD003E6328 /* Create */,
+				F7813A851EF2F1E300E5D2FD /* Database */,
 				F74BCE501E9FA9EE0019BE9F /* Favorites */,
-				F7E95CEC1AC40BA40060D08E /* FileSystem */,
 				F744BE911BEBB2EE004FFF66 /* Intro */,
 				F7F54CAC1E5B143100E19C62 /* Library */,
 				F74BCE5C1E9FAA040019BE9F /* Local storage */,
@@ -3566,12 +3562,13 @@
 				F74D3DB81BAC1941000BAE4B /* Networking */,
 				F7C5259A1E3B441D00FFE02C /* Notification */,
 				F7FCFFD51D70798C000E6E29 /* PeekPop */,
-				F719FDAE1CF06645004895D0 /* PhotosCameraUpload */,
+				F7813AC31EF2F23D00E5D2FD /* Photos */,
 				F7BE6E2A1D2D5C3B00106933 /* QuickActions */,
 				F7FE125B1BAC03FB0041924B /* Security */,
 				F74BCE7F1E9FAB970019BE9F /* Settings */,
 				F728CE741BF6322C00E69702 /* Share */,
 				F778B8A41EE5436D008DC44E /* Shares */,
+				F7813ACA1EF2F27600E5D2FD /* Synchronize */,
 				F721371B1BAFF0920012B613 /* Templates */,
 				F74BCE6C1E9FAAA60019BE9F /* Transfers */,
 				F70784811A2C8A0D00AC9FFF /* UploadFromOtherUpp */,
@@ -4138,6 +4135,7 @@
 				F74D8D131ED4237D00D18098 /* OCXMLShareByLinkParser.m in Sources */,
 				F74D8D0A1ED4237D00D18098 /* OCXMLListParser.m in Sources */,
 				F71459BA1D12E3B700CAFEEC /* NSString+TruncateToWidth.m in Sources */,
+				F7813AAD1EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m in Sources */,
 				F74D8CDD1ED4237D00D18098 /* OCActivity.m in Sources */,
 				F71459BB1D12E3B700CAFEEC /* NYXProgressiveImageView.m in Sources */,
 				F71459BC1D12E3B700CAFEEC /* Reachability.m in Sources */,
@@ -4146,12 +4144,10 @@
 				F71459BE1D12E3B700CAFEEC /* UIImage+Reflection.m in Sources */,
 				F71459BF1D12E3B700CAFEEC /* RNEncryptor.m in Sources */,
 				F71459C31D12E3B700CAFEEC /* UIImage+Filtering.m in Sources */,
+				F7813A9B1EF2F1E300E5D2FD /* CCCoreData.m in Sources */,
 				F74D8D011ED4237D00D18098 /* NSDate+RFC1123.m in Sources */,
-				F74D8D921ED42F5400D18098 /* TableMetadata+CoreDataProperties.m in Sources */,
-				F74D8D771ED42F5400D18098 /* TableAccount+CoreDataClass.m in Sources */,
 				F71459C41D12E3B700CAFEEC /* UIImage+Saving.m in Sources */,
 				F71459C51D12E3B700CAFEEC /* UIImage+Rotating.m in Sources */,
-				F71459C61D12E3B700CAFEEC /* CCMetadata.m in Sources */,
 				F71459C91D12E3B700CAFEEC /* OCNetworking.m in Sources */,
 				F71459CC1D12E3B700CAFEEC /* RNCryptorEngine.m in Sources */,
 				F71459CD1D12E3B700CAFEEC /* AFViewShaker.m in Sources */,
@@ -4162,65 +4158,63 @@
 				F73CC0491E813C01006E3047 /* BKPasscodeViewController.m in Sources */,
 				F71459D51D12E3B700CAFEEC /* MBProgressHUD.m in Sources */,
 				F7ACC6691EB2007100CF3E98 /* NCBrand.swift in Sources */,
+				F7813AAA1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m in Sources */,
 				F71459D91D12E3B700CAFEEC /* CCCrypto.m in Sources */,
 				F732BA0B1D76DBA500E9878B /* CCNetworking.m in Sources */,
 				F7E340D71ED60AFB009AB15D /* ShareViewController.m in Sources */,
 				F74D8CD71ED4237D00D18098 /* AFURLResponseSerialization.m in Sources */,
 				F74D8CE31ED4237D00D18098 /* OCCommunication.m in Sources */,
+				F7813AA11EF2F1E300E5D2FD /* NCManageDatabase.swift in Sources */,
 				F74D8D0D1ED4237D00D18098 /* OCXMLParser.m in Sources */,
-				F71459DD1D12E3B700CAFEEC /* CCCoreData.m in Sources */,
 				F73CC0431E813C01006E3047 /* BKPasscodeInputView.m in Sources */,
-				F74D8D8C1ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F74D8CDA1ED4237D00D18098 /* AFURLSessionManager.m in Sources */,
-				F74D8D7A1ED42F5400D18098 /* TableAccount+CoreDataProperties.m in Sources */,
 				F74D8D041ED4237D00D18098 /* OCHTTPRequestOperation.m in Sources */,
 				F74D8D1C1ED4237D00D18098 /* UtilsFramework.m in Sources */,
 				F71459E11D12E3B700CAFEEC /* CCHud.m in Sources */,
-				F74D8D421ED42B8500D18098 /* NCManageDatabase.swift in Sources */,
 				F73CC04C1E813C01006E3047 /* BKShiftingView.m in Sources */,
 				F71459E41D12E3B700CAFEEC /* RNDecryptor.m in Sources */,
 				F71459E61D12E3B700CAFEEC /* NYXImagesHelper.m in Sources */,
 				F74D8CFB1ED4237D00D18098 /* OCUserProfile.m in Sources */,
 				F74D8D191ED4237D00D18098 /* NSString+Encode.m in Sources */,
-				F74D8D831ED42F5400D18098 /* TableDirectory+CoreDataClass.m in Sources */,
 				F73CC0401E813C01006E3047 /* BKPasscodeField.m in Sources */,
 				F71459E91D12E3B700CAFEEC /* UIImage+Enhancing.m in Sources */,
 				F73CCE321DC13798007E38D8 /* UICKeyChainStore.m in Sources */,
 				F74D8D161ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
+				F7813AB01EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */,
 				F74D8D101ED4237D00D18098 /* OCXMLServerErrorsParser.m in Sources */,
-				F74D8D441ED42BB400D18098 /* NCDatabase.swift in Sources */,
-				F74D8D8F1ED42F5400D18098 /* TableMetadata+CoreDataClass.m in Sources */,
 				F798E39B1ED60FFD005A60A1 /* CCCellShareExt.m in Sources */,
 				F74D8CCB1ED4237D00D18098 /* AFHTTPSessionManager.m in Sources */,
 				F71459ED1D12E3B700CAFEEC /* UIImage+Masking.m in Sources */,
 				F73CC0461E813C01006E3047 /* BKPasscodeLockScreenManager.m in Sources */,
 				F71459F01D12E3B700CAFEEC /* NSString+Base64.m in Sources */,
 				F71459F11D12E3B700CAFEEC /* CCMove.m in Sources */,
+				F7813AA71EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m in Sources */,
 				F71459F31D12E3B700CAFEEC /* UIImage+Resizing.m in Sources */,
 				F71459F71D12E3B700CAFEEC /* CCGraphics.m in Sources */,
 				F7E340D11ED60AFB009AB15D /* CCloadItemData.swift in Sources */,
-				F74D8D801ED42F5400D18098 /* TableCertificates+CoreDataProperties.m in Sources */,
 				F74D8CF51ED4237D00D18098 /* OCSharedDto.m in Sources */,
 				F73CC03D1E813C01006E3047 /* BKPasscodeDummyViewController.m in Sources */,
 				F7F801051D98205A007537BC /* CCCertificate.m in Sources */,
 				F71459FB1D12E3B700CAFEEC /* PPImageScrollingCellView.m in Sources */,
+				F7813AB61EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m in Sources */,
 				F71459FE1D12E3B700CAFEEC /* CCExifGeo.m in Sources */,
 				F74D8CE91ED4237D00D18098 /* OCFileDto.m in Sources */,
-				F74D8D861ED42F5400D18098 /* TableDirectory+CoreDataProperties.m in Sources */,
+				F7813A9E1EF2F1E300E5D2FD /* NCDatabase.swift in Sources */,
 				F71459FF1D12E3B700CAFEEC /* RNCryptor.m in Sources */,
 				F73CC0521E813C01006E3047 /* BKTouchIDSwitchView.m in Sources */,
+				F7813AB31EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */,
 				F74D8CE61ED4237D00D18098 /* OCExternalSites.m in Sources */,
 				F7E340ED1ED60D0A009AB15D /* CCSharedDBSession.m in Sources */,
-				F74D8D7D1ED42F5400D18098 /* TableCertificates+CoreDataClass.m in Sources */,
 				F7145A001D12E3B700CAFEEC /* CCGlobal.m in Sources */,
 				F7145A011D12E3B700CAFEEC /* UIImage+Blurring.m in Sources */,
 				F74D8CF81ED4237D00D18098 /* OCShareUser.m in Sources */,
+				F7813AB91EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F7145A081D12E3B700CAFEEC /* PPCollectionViewCell.m in Sources */,
 				F73CC04F1E813C01006E3047 /* BKTouchIDManager.m in Sources */,
-				F74D8D891ED42F5400D18098 /* TableLocalFile+CoreDataClass.m in Sources */,
 				F7145A0D1D12E3B700CAFEEC /* NSData+Base64.m in Sources */,
 				F7145A0E1D12E3B700CAFEEC /* AESCrypt.m in Sources */,
 				F74D8CD11ED4237D00D18098 /* AFSecurityPolicy.m in Sources */,
+				F7813AA41EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m in Sources */,
 				F74D8CF21ED4237D00D18098 /* OCRichObjectStrings.m in Sources */,
 				F74D8CCE1ED4237D00D18098 /* AFNetworkReachabilityManager.m in Sources */,
 				F74D8CFE1ED4237D00D18098 /* NSDate+ISO8601.m in Sources */,
@@ -4232,19 +4226,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F74D8D871ED42F5400D18098 /* TableDirectory+CoreDataProperties.m in Sources */,
+				F7813A9F1EF2F1E300E5D2FD /* NCDatabase.swift in Sources */,
+				F7813AB11EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */,
 				F73CC0441E813C01006E3047 /* BKPasscodeInputView.m in Sources */,
 				F74D8D081ED4237D00D18098 /* OCWebDAVClient.m in Sources */,
-				F74D8D811ED42F5400D18098 /* TableCertificates+CoreDataProperties.m in Sources */,
 				F74D8D111ED4237D00D18098 /* OCXMLServerErrorsParser.m in Sources */,
 				F74D8CE41ED4237D00D18098 /* OCCommunication.m in Sources */,
 				F74344801E127ED3001CC831 /* NSString+Base64.m in Sources */,
 				F74D8D141ED4237D00D18098 /* OCXMLShareByLinkParser.m in Sources */,
 				F743447A1E127EA6001CC831 /* CCGraphics.m in Sources */,
-				F74D8D451ED42BB400D18098 /* NCDatabase.swift in Sources */,
 				F73CC0411E813C01006E3047 /* BKPasscodeField.m in Sources */,
 				F743448C1E128010001CC831 /* CCCrypto.m in Sources */,
 				F725437C1E12A44A009BF4C2 /* CCSection.m in Sources */,
+				F7813AA21EF2F1E300E5D2FD /* NCManageDatabase.swift in Sources */,
+				F7813AB71EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m in Sources */,
 				F7ACC66A1EB2007100CF3E98 /* NCBrand.swift in Sources */,
 				F74344651E127DE9001CC831 /* CCNetworking.m in Sources */,
 				F74D8D1D1ED4237D00D18098 /* UtilsFramework.m in Sources */,
@@ -4252,18 +4247,16 @@
 				F74D8CED1ED4237D00D18098 /* OCNotifications.m in Sources */,
 				F74D8CDB1ED4237D00D18098 /* AFURLSessionManager.m in Sources */,
 				F74D8CF31ED4237D00D18098 /* OCRichObjectStrings.m in Sources */,
-				F74D8D8A1ED42F5400D18098 /* TableLocalFile+CoreDataClass.m in Sources */,
 				F74344821E127F68001CC831 /* MBProgressHUD.m in Sources */,
 				F743448B1E12800D001CC831 /* CCCertificate.m in Sources */,
 				F743447D1E127ECB001CC831 /* AESCrypt.m in Sources */,
 				F74D8CF61ED4237D00D18098 /* OCSharedDto.m in Sources */,
 				F73CC03E1E813C01006E3047 /* BKPasscodeDummyViewController.m in Sources */,
 				F743447E1E127ECE001CC831 /* NSData+Base64.m in Sources */,
-				F74344671E127E38001CC831 /* CCMetadata.m in Sources */,
+				F7813AAB1EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m in Sources */,
 				F74344781E127E9E001CC831 /* CCExifGeo.m in Sources */,
 				F74344171E1264EE001CC831 /* DocumentPickerViewController.swift in Sources */,
 				F74344811E127F49001CC831 /* AFViewShaker.m in Sources */,
-				F74D8D7B1ED42F5400D18098 /* TableAccount+CoreDataProperties.m in Sources */,
 				F73CC0531E813C01006E3047 /* BKTouchIDSwitchView.m in Sources */,
 				F74344791E127EA1001CC831 /* CCError.m in Sources */,
 				F74D8CD21ED4237D00D18098 /* AFSecurityPolicy.m in Sources */,
@@ -4274,35 +4267,32 @@
 				F74D8CFF1ED4237D00D18098 /* NSDate+ISO8601.m in Sources */,
 				F74344871E127F95001CC831 /* UICKeyChainStore.m in Sources */,
 				F74D8CCF1ED4237D00D18098 /* AFNetworkReachabilityManager.m in Sources */,
+				F7813AA51EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m in Sources */,
 				F743447F1E127ED1001CC831 /* NSData+CommonCrypto.m in Sources */,
-				F74D8D431ED42B8500D18098 /* NCManageDatabase.swift in Sources */,
 				F74D8CCC1ED4237D00D18098 /* AFHTTPSessionManager.m in Sources */,
 				F7ACC6991EB21A9600CF3E98 /* cryptocloud.xcdatamodeld in Sources */,
 				F74344891E127FC3001CC831 /* CCGlobal.m in Sources */,
+				F7813A9C1EF2F1E300E5D2FD /* CCCoreData.m in Sources */,
 				F74344841E127F84001CC831 /* RNCryptorEngine.m in Sources */,
 				F74344851E127F86001CC831 /* RNDecryptor.m in Sources */,
 				F74344881E127F9C001CC831 /* UIImage+animatedGIF.m in Sources */,
-				F74D8D781ED42F5400D18098 /* TableAccount+CoreDataClass.m in Sources */,
+				F7813ABA1EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F74D8D171ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
 				F743448A1E127FF2001CC831 /* CCHud.m in Sources */,
 				F74D8D021ED4237D00D18098 /* NSDate+RFC1123.m in Sources */,
-				F74D8D901ED42F5400D18098 /* TableMetadata+CoreDataClass.m in Sources */,
+				F7813AAE1EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m in Sources */,
 				F74D8CD81ED4237D00D18098 /* AFURLResponseSerialization.m in Sources */,
 				F74D8CF01ED4237D00D18098 /* OCNotificationsAction.m in Sources */,
 				F74344861E127F89001CC831 /* RNEncryptor.m in Sources */,
 				F74D8CFC1ED4237D00D18098 /* OCUserProfile.m in Sources */,
+				F7813AA81EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m in Sources */,
 				F74D8CDE1ED4237D00D18098 /* OCActivity.m in Sources */,
 				F74D8CE11ED4237D00D18098 /* OCCapabilities.m in Sources */,
 				F74D8CEA1ED4237D00D18098 /* OCFileDto.m in Sources */,
 				F73CC0501E813C01006E3047 /* BKTouchIDManager.m in Sources */,
 				F74D8D051ED4237D00D18098 /* OCHTTPRequestOperation.m in Sources */,
-				F74D8D841ED42F5400D18098 /* TableDirectory+CoreDataClass.m in Sources */,
-				F74D8D931ED42F5400D18098 /* TableMetadata+CoreDataProperties.m in Sources */,
-				F74D8D8D1ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F74344631E127D79001CC831 /* CCBKPasscode.m in Sources */,
-				F74344661E127E35001CC831 /* CCCoreData.m in Sources */,
 				F74D8CE71ED4237D00D18098 /* OCExternalSites.m in Sources */,
-				F74D8D7E1ED42F5400D18098 /* TableCertificates+CoreDataClass.m in Sources */,
 				F73CC04D1E813C01006E3047 /* BKShiftingView.m in Sources */,
 				F74D8D0B1ED4237D00D18098 /* OCXMLListParser.m in Sources */,
 				F74D8CD51ED4237D00D18098 /* AFURLRequestSerialization.m in Sources */,
@@ -4310,6 +4300,7 @@
 				F743447C1E127EB2001CC831 /* NSString+TruncateToWidth.m in Sources */,
 				F73CC04A1E813C01006E3047 /* BKPasscodeViewController.m in Sources */,
 				F74344831E127F80001CC831 /* RNCryptor.m in Sources */,
+				F7813AB41EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4340,6 +4331,7 @@
 				F77B0DF21D118A16002130FE /* CCUploadFromOtherUpp.m in Sources */,
 				F77B0DF41D118A16002130FE /* CCMain.m in Sources */,
 				F7ACC5BC1EB1FFC900CF3E98 /* ReaderThumbRequest.m in Sources */,
+				F7813AB21EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */,
 				F77B0DF51D118A16002130FE /* CCUtility.m in Sources */,
 				F7F06EA91DBFACC600099AE9 /* CTAssetScrollView.m in Sources */,
 				F7F06E931DBFACC600099AE9 /* NSNumberFormatter+CTAssetsPickerController.m in Sources */,
@@ -4357,13 +4349,10 @@
 				F7F54D091E5B14C800E19C62 /* MWPhoto.m in Sources */,
 				F77B0DFF1D118A16002130FE /* OCNetworking.m in Sources */,
 				F77B0E011D118A16002130FE /* RNCryptor.m in Sources */,
-				F77B0E021D118A16002130FE /* CCPhotosCameraUpload.m in Sources */,
-				F74BCE5B1E9FA9EE0019BE9F /* CCSynchronize.m in Sources */,
 				F74D8D061ED4237D00D18098 /* OCWebDAVClient.m in Sources */,
 				F77B0E031D118A16002130FE /* CCShareInfoCMOC.m in Sources */,
 				F77B0E041D118A16002130FE /* UIImage+animatedGIF.m in Sources */,
 				F7ACC6351EB1FFD300CF3E98 /* NSString+XLFormAdditions.m in Sources */,
-				F74D8D911ED42F5400D18098 /* TableMetadata+CoreDataProperties.m in Sources */,
 				F73CCE301DC13798007E38D8 /* UICKeyChainStore.m in Sources */,
 				F7F06ECD1DBFACC600099AE9 /* CTAssetThumbnailStacks.m in Sources */,
 				F7659A581DC0B760004860C4 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
@@ -4377,15 +4366,12 @@
 				F7ACC6261EB1FFD300CF3E98 /* XLFormSliderCell.m in Sources */,
 				F732BA061D76CE1500E9878B /* CCNetworking.m in Sources */,
 				F7ACC6251EB1FFD300CF3E98 /* XLFormSelectorCell.m in Sources */,
-				F74D8D7F1ED42F5400D18098 /* TableCertificates+CoreDataProperties.m in Sources */,
 				F7ACC6271EB1FFD300CF3E98 /* XLFormStepCounterCell.m in Sources */,
 				F77B0E111D118A16002130FE /* UIImage+Reflection.m in Sources */,
 				F74BCE951E9FAB970019BE9F /* CCAdvanced.m in Sources */,
 				F7E8F6E21E96953700B89717 /* CCMore.swift in Sources */,
 				F7F54D0C1E5B14C800E19C62 /* MWTapDetectingView.m in Sources */,
 				F7ACC62A1EB1FFD300CF3E98 /* XLFormTextViewCell.m in Sources */,
-				F74D8D411ED42B8500D18098 /* NCManageDatabase.swift in Sources */,
-				F74BCE971E9FAB970019BE9F /* CCManageCameraUpload.m in Sources */,
 				F77B0E121D118A16002130FE /* CCPatenteGuida.m in Sources */,
 				F77B0E131D118A16002130FE /* AppDelegate.m in Sources */,
 				F750374F1DBFA91A008FB480 /* NSArray+PureLayout.m in Sources */,
@@ -4415,23 +4401,24 @@
 				F77B0E231D118A16002130FE /* CCSharePermissionOC.m in Sources */,
 				F77B0E241D118A16002130FE /* HRColorCursor.m in Sources */,
 				F77B0E261D118A16002130FE /* ZSSTextView.m in Sources */,
+				F78ECC5E1EF2F52F0039AC42 /* NCAutoUpload.m in Sources */,
 				F77B0E271D118A16002130FE /* CYRLayoutManager.m in Sources */,
 				F7B1FBA81E72E310001781FE /* SwiftWebVC.swift in Sources */,
+				F7813AA31EF2F1E300E5D2FD /* TableAccount+CoreDataClass.m in Sources */,
 				F7F06E9B1DBFACC600099AE9 /* UICollectionView+CTAssetsPickerController.m in Sources */,
 				F77B0E2D1D118A16002130FE /* CYRTextView.m in Sources */,
 				F77B0E301D118A16002130FE /* CCHud.m in Sources */,
 				F73CC03F1E813C01006E3047 /* BKPasscodeField.m in Sources */,
 				F77B0E311D118A16002130FE /* CCExifGeo.m in Sources */,
-				F74D8D3D1ED42B7E00D18098 /* NCDatabase.swift in Sources */,
 				F77B0E321D118A16002130FE /* HRCgUtil.m in Sources */,
 				F73CC0421E813C01006E3047 /* BKPasscodeInputView.m in Sources */,
 				F7F06EB71DBFACC600099AE9 /* CTAssetsGridViewFooter.m in Sources */,
 				F7F06EB91DBFACC600099AE9 /* CTAssetsGridViewLayout.m in Sources */,
 				F7B1FBAB1E72E310001781FE /* SwiftWebVCActivitySafari.swift in Sources */,
 				F77B0E351D118A16002130FE /* NYXImagesHelper.m in Sources */,
-				F74D8D791ED42F5400D18098 /* TableAccount+CoreDataProperties.m in Sources */,
 				F74BCE621E9FAA040019BE9F /* CCLocalStorage.m in Sources */,
 				F74BCE581E9FA9EE0019BE9F /* CCFavorites.m in Sources */,
+				F7813AAF1EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */,
 				F77B0E361D118A16002130FE /* ZSSBarButtonItem.m in Sources */,
 				F77B0E391D118A16002130FE /* CCContoCorrente.m in Sources */,
 				F77B0E3A1D118A16002130FE /* RNCryptorEngine.m in Sources */,
@@ -4454,14 +4441,15 @@
 				F7ACC5461EB1FFBA00CF3E98 /* REMenuContainerView.m in Sources */,
 				F74D8CCD1ED4237D00D18098 /* AFNetworkReachabilityManager.m in Sources */,
 				F77B0E4C1D118A16002130FE /* CCDetail.m in Sources */,
-				F77B0E4D1D118A16002130FE /* CCCoreData.m in Sources */,
 				F7ACC6641EB1FFFC00CF3E98 /* LMMediaPlayer.m in Sources */,
 				F7659A5E1DC0B760004860C4 /* PSTCollectionViewController.m in Sources */,
 				F7ACC65F1EB1FFFC00CF3E98 /* NSArray+LMMediaPlayerShuffle.m in Sources */,
 				F7F801031D98205A007537BC /* CCCertificate.m in Sources */,
 				F7E8F6E01E96952900B89717 /* CCMainTabBarController.swift in Sources */,
+				F7813AA91EF2F1E300E5D2FD /* TableCertificates+CoreDataClass.m in Sources */,
 				F77B0E511D118A16002130FE /* UIImage+Filtering.m in Sources */,
 				F7ACC62C1EB1FFD300CF3E98 /* XLFormOptionsViewController.m in Sources */,
+				F7813AB81EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F7FCFFE01D707B83000E6E29 /* CCPeekPop.m in Sources */,
 				F7F06E911DBFACC600099AE9 /* NSIndexSet+CTAssetsPickerController.m in Sources */,
 				F77B0E541D118A16002130FE /* CCMove.m in Sources */,
@@ -4478,6 +4466,7 @@
 				F74BCE981E9FAB970019BE9F /* CCManageCryptoCloud.m in Sources */,
 				F74BCE631E9FAA040019BE9F /* CCLocalStorageCell.m in Sources */,
 				F7B3A4FD1E9787E0000DACE8 /* CCLoginWeb.swift in Sources */,
+				F7813AA01EF2F1E300E5D2FD /* NCManageDatabase.swift in Sources */,
 				F77B0E631D118A16002130FE /* CCShareOC.m in Sources */,
 				F73CCE261DC13788007E38D8 /* UIScrollView+EmptyDataSet.m in Sources */,
 				F74D8CD01ED4237D00D18098 /* AFSecurityPolicy.m in Sources */,
@@ -4489,7 +4478,6 @@
 				F750374D1DBFA91A008FB480 /* ALView+PureLayout.m in Sources */,
 				F7ACC6651EB1FFFC00CF3E98 /* LMMediaPlayerView.m in Sources */,
 				F7F06E8F1DBFACC600099AE9 /* NSDateFormatter+CTAssetsPickerController.m in Sources */,
-				F74D8D8B1ED42F5400D18098 /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F7ACC6221EB1FFD300CF3E98 /* XLFormLeftRightSelectorCell.m in Sources */,
 				F7ACC5BB1EB1FFC900CF3E98 /* ReaderThumbRender.m in Sources */,
 				F74BCE4F1E9FA9DC0019BE9F /* CCActivity.m in Sources */,
@@ -4500,18 +4488,19 @@
 				F7ACC6601EB1FFFC00CF3E98 /* LMMediaPlayerHelper.m in Sources */,
 				F7ACC6281EB1FFD300CF3E98 /* XLFormSwitchCell.m in Sources */,
 				F77B0E7B1D118A16002130FE /* CCPassaporto.m in Sources */,
+				F7813A9A1EF2F1E300E5D2FD /* CCCoreData.m in Sources */,
 				F7B1FBA91E72E310001781FE /* SwiftWebVCActivity.swift in Sources */,
 				F7ACC62E1EB1FFD300CF3E98 /* XLFormDescriptor.m in Sources */,
 				F7ACC6361EB1FFD300CF3E98 /* UIView+XLFormAdditions.m in Sources */,
 				F7ACC6231EB1FFD300CF3E98 /* XLFormPickerCell.m in Sources */,
 				F7F06EA51DBFACC600099AE9 /* CTAssetItemViewController.m in Sources */,
-				F74D8D8E1ED42F5400D18098 /* TableMetadata+CoreDataClass.m in Sources */,
 				F7659A5A1DC0B760004860C4 /* PSTCollectionView.m in Sources */,
 				F74D8CEB1ED4237D00D18098 /* OCNotifications.m in Sources */,
 				F7BF1B431D51E893000854F6 /* CCLogin.m in Sources */,
 				F74BCE731E9FAAA60019BE9F /* CCTransfersCell.m in Sources */,
 				F77B0E7D1D118A16002130FE /* CYRTextStorage.m in Sources */,
 				F77B0E801D118A16002130FE /* ZSSRichTextEditor.m in Sources */,
+				F7813AB51EF2F1E300E5D2FD /* TableLocalFile+CoreDataClass.m in Sources */,
 				F7ACC6611EB1FFFC00CF3E98 /* LMMediaItem.m in Sources */,
 				F7F06EC91DBFACC600099AE9 /* CTAssetsViewControllerTransition.m in Sources */,
 				F7659A661DC0B760004860C4 /* PSTCollectionViewLayout.m in Sources */,
@@ -4523,7 +4512,9 @@
 				F7ACC5BF1EB1FFC900CF3E98 /* ReaderViewController.m in Sources */,
 				F77B0E8A1D118A16002130FE /* CCCartaDiCredito.m in Sources */,
 				F74D8CD91ED4237D00D18098 /* AFURLSessionManager.m in Sources */,
+				F7813A9D1EF2F1E300E5D2FD /* NCDatabase.swift in Sources */,
 				F77B0E8F1D118A16002130FE /* CCSection.m in Sources */,
+				F7813ACD1EF2F27600E5D2FD /* CCSynchronize.m in Sources */,
 				F72AAECB1E5C60C700BB17E1 /* AHKActionSheetViewController.m in Sources */,
 				F74D8D9F1ED4312900D18098 /* JDStatusBarNotification.m in Sources */,
 				F74D8CE21ED4237D00D18098 /* OCCommunication.m in Sources */,
@@ -4545,14 +4536,13 @@
 				F7ACC5BE1EB1FFC900CF3E98 /* ReaderThumbView.m in Sources */,
 				F7ACC62D1EB1FFD300CF3E98 /* XLFormViewController.m in Sources */,
 				F77B0E991D118A16002130FE /* PPCollectionViewCell.m in Sources */,
-				F74D8D821ED42F5400D18098 /* TableDirectory+CoreDataClass.m in Sources */,
 				F7ACC6681EB2007100CF3E98 /* NCBrand.swift in Sources */,
+				F7813AAC1EF2F1E300E5D2FD /* TableCertificates+CoreDataProperties.m in Sources */,
 				F7F06EC11DBFACC600099AE9 /* CTAssetsPickerAccessDeniedView.m in Sources */,
 				F7F06ECB1DBFACC600099AE9 /* CTAssetThumbnailOverlay.m in Sources */,
 				F77B0E9B1D118A16002130FE /* CCBKPasscode.m in Sources */,
 				F74BCE991E9FAB970019BE9F /* CCManageCryptoCloudSecurity.m in Sources */,
 				F77B0E9D1D118A16002130FE /* HRColorPickerView.m in Sources */,
-				F74D8D881ED42F5400D18098 /* TableLocalFile+CoreDataClass.m in Sources */,
 				F77B0E9F1D118A16002130FE /* mztools.c in Sources */,
 				F7ACC61C1EB1FFD300CF3E98 /* XLFormButtonCell.m in Sources */,
 				F7F06EC71DBFACC600099AE9 /* CTAssetsPickerNoAssetsView.m in Sources */,
@@ -4569,6 +4559,7 @@
 				F74D8D151ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
 				F7F06EB51DBFACC600099AE9 /* CTAssetsGridViewController.m in Sources */,
 				F7ACC61F1EB1FFD300CF3E98 /* XLFormDatePickerCell.m in Sources */,
+				F7813AD01EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.m in Sources */,
 				F7659A621DC0B760004860C4 /* PSTCollectionViewFlowLayout.m in Sources */,
 				F74BCE721E9FAAA60019BE9F /* CCTransfers.m in Sources */,
 				F7F06EBD1DBFACC600099AE9 /* CTAssetsPageView.m in Sources */,
@@ -4578,15 +4569,16 @@
 				F7ACC6321EB1FFD300CF3E98 /* NSExpression+XLFormAdditions.m in Sources */,
 				F7F06ECF1DBFACC600099AE9 /* CTAssetThumbnailView.m in Sources */,
 				F74D8DA01ED4312900D18098 /* JDStatusBarStyle.m in Sources */,
+				F7813AA61EF2F1E300E5D2FD /* TableAccount+CoreDataProperties.m in Sources */,
+				F7813AC61EF2F23D00E5D2FD /* CCPhotos.m in Sources */,
 				F7ACC5B01EB1FFC900CF3E98 /* ReaderConstants.m in Sources */,
 				F7F06E9F1DBFACC600099AE9 /* CTAssetCheckmark.m in Sources */,
 				F7F54D081E5B14C800E19C62 /* MWGridViewController.m in Sources */,
 				F7F06E971DBFACC600099AE9 /* PHAssetCollection+CTAssetsPickerController.m in Sources */,
-				F77B0EB11D118A16002130FE /* CCMetadata.m in Sources */,
 				F7F06E9D1DBFACC600099AE9 /* UIImage+CTAssetsPickerController.m in Sources */,
 				F7ACC6291EB1FFD300CF3E98 /* XLFormTextFieldCell.m in Sources */,
 				F74BCE961E9FAB970019BE9F /* CCManageAccount.m in Sources */,
-				F74D8D761ED42F5400D18098 /* TableAccount+CoreDataClass.m in Sources */,
+				F7813AC91EF2F26400E5D2FD /* CCManageAutoUpload.m in Sources */,
 				F74D8D091ED4237D00D18098 /* OCXMLListParser.m in Sources */,
 				F77B0EB61D118A16002130FE /* MBProgressHUD.m in Sources */,
 				F7F06EB31DBFACC600099AE9 /* CTAssetsGridViewCell.m in Sources */,
@@ -4597,10 +4589,8 @@
 				F77B0EB91D118A16002130FE /* HRColorUtil.m in Sources */,
 				F7F06EA71DBFACC600099AE9 /* CTAssetPlayButton.m in Sources */,
 				F77B0EBE1D118A16002130FE /* CCNote.m in Sources */,
-				F74D8D7C1ED42F5400D18098 /* TableCertificates+CoreDataClass.m in Sources */,
 				F7ACC5C11EB1FFC900CF3E98 /* ThumbsViewController.m in Sources */,
 				F7F54D0B1E5B14C800E19C62 /* MWTapDetectingImageView.m in Sources */,
-				F74D8D851ED42F5400D18098 /* TableDirectory+CoreDataProperties.m in Sources */,
 				F77B0EBF1D118A16002130FE /* RNEncryptor.m in Sources */,
 				F7F06EBF1DBFACC600099AE9 /* CTAssetsPageViewController.m in Sources */,
 				F7F06EA11DBFACC600099AE9 /* CTAssetCollectionViewCell.m in Sources */,

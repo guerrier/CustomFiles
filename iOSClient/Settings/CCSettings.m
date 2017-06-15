@@ -71,7 +71,7 @@
     //[row.cellConfig setObject:[UIImage imageNamed:@"settingsCameraUpload"] forKey:@"imageView.image"];
     row.action.formSegueIdentifier = @"CCManageCameraUploadSegue";
     [section addFormRow:row];
-
+    
     // Section FOLDERS FAVORITES OFFLINE ------------------------------------
     
     section = [XLFormSectionDescriptor formSection];
@@ -98,25 +98,25 @@
     [section addFormRow:row];
     
     /*
-    // Passcode simply
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"simplypasscode" rowType:XLFormRowDescriptorTypeBooleanSwitch title:NSLocalizedString(@"_lock_protection_simply_", nil)];
-    [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
-    [section addFormRow:row];
-    
-    // Passcode only directory
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"onlylockdir" rowType:XLFormRowDescriptorTypeBooleanSwitch title:NSLocalizedString(@"_lock_protection_folder_", nil)];
-    [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
-    [section addFormRow:row];
-    */
+     // Passcode simply
+     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"simplypasscode" rowType:XLFormRowDescriptorTypeBooleanSwitch title:NSLocalizedString(@"_lock_protection_simply_", nil)];
+     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
+     [section addFormRow:row];
+     
+     // Passcode only directory
+     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"onlylockdir" rowType:XLFormRowDescriptorTypeBooleanSwitch title:NSLocalizedString(@"_lock_protection_folder_", nil)];
+     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
+     [section addFormRow:row];
+     */
     
     // Section CRYPTO CLOUD SYSTEM ------------------------------------------
     
     // Brand
     if ([NCBrandOptions sharedInstance].disable_cryptocloudsystem == NO) {
-    
+        
         section = [XLFormSectionDescriptor formSection];
         [form addFormSection:section];
-    
+        
         // Crypto Cloud
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"cryptocloud" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_crypto_cloud_system_", nil)];
         [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
@@ -128,19 +128,19 @@
     // Section Advanced -------------------------------------------------
     
     /*
-    section = [XLFormSectionDescriptor formSection];
-    [form addFormSection:section];
-    
-    // Advanced
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"advanced" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_advanced_", nil)];
-    [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
-    //[row.cellConfig setObject:[UIImage imageNamed:@"settingsAdvanced"] forKey:@"imageView.image"];
-    row.action.viewControllerClass = [CCAdvanced class];
-    [section addFormRow:row];
-    */
+     section = [XLFormSectionDescriptor formSection];
+     [form addFormSection:section];
+     
+     // Advanced
+     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"advanced" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_advanced_", nil)];
+     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
+     //[row.cellConfig setObject:[UIImage imageNamed:@"settingsAdvanced"] forKey:@"imageView.image"];
+     row.action.viewControllerClass = [CCAdvanced class];
+     [section addFormRow:row];
+     */
     
     // Section : INFORMATION ------------------------------------------------
-
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:NSLocalizedStringFromTable(@"_legal_", @"amx", nil)];
     [form addFormSection:section];
     
@@ -176,30 +176,30 @@
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
-
+    
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"help" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_help_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
-
+    
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"version" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedStringFromTable(@"_version_", @"amx", nil)];
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
     [section addFormRow:row];
-
+    
     
     /*
-    // Contact us mail
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"sendmail" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_contact_by_email_", nil)];
-    [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
-    [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
-    [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
-    [row.cellConfig setObject:[UIImage imageNamed:@"settingsMail"] forKey:@"imageView.image"];
-    row.action.formSelector = @selector(sendMail:);
-    [section addFormRow:row];
-    */
+     // Contact us mail
+     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"sendmail" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_contact_by_email_", nil)];
+     [row.cellConfig setObject:[UIColor blackColor] forKey:@"textLabel.textColor"];
+     [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
+     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
+     [row.cellConfig setObject:[UIImage imageNamed:@"settingsMail"] forKey:@"imageView.image"];
+     row.action.formSelector = @selector(sendMail:);
+     [section addFormRow:row];
+     */
     
     self.form = form;
 }
@@ -436,25 +436,29 @@
 }
 
 - (void)synchronizeFavorites
-{
-    NSArray *recordsTableMetadata = [CCCoreData  getTableMetadataWithPredicate:[NSPredicate predicateWithFormat:@"(account == %@) AND (favorite == 1)", app.activeAccount] context:nil];
+{    
+    NSArray *metadatas = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND favorite = true", app.activeAccount]  sorted:nil ascending:NO];
     
-    for (TableMetadata *tableMetadata in recordsTableMetadata) {
+    for (tableMetadata *metadata in metadatas) {
         
-        if ([tableMetadata.directory boolValue]) {
+        if (metadata.directory) {
         
-            NSString *serverUrl = [CCCoreData getServerUrlFromDirectoryID:tableMetadata.directoryID activeAccount:app.activeAccount];
-            serverUrl = [CCUtility stringAppendServerUrl:serverUrl addFileName:tableMetadata.fileNamePrint];
-        
-            NSArray *TableDirectories = [CCCoreData getDirectoryIDsFromBeginsWithServerUrl:serverUrl activeAccount:app.activeAccount];
-        
-            for (TableDirectory *tableDirecory in TableDirectories)
-                [CCCoreData clearDateReadAccount:app.activeAccount serverUrl:nil directoryID:tableDirecory.directoryID];
+            NSString *serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:metadata.directoryID];
+            serverUrl = [CCUtility stringAppendServerUrl:serverUrl addFileName:metadata.fileNamePrint];
+
+            NSString *serverUrlBeginWith = serverUrl;
             
+            if (![serverUrl hasSuffix:@"/"])
+                serverUrlBeginWith = [serverUrl stringByAppendingString:@"/"];
+
+            NSArray *directories = [[NCManageDatabase sharedInstance] getTablesDirectoryWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND (serverUrl = %@ OR serverUrl BEGINSWITH %@)", app.activeAccount, serverUrl, serverUrlBeginWith] sorted:@"serverUrl" ascending:true];
+            
+            for (tableDirectory *directory in directories)
+                [[NCManageDatabase sharedInstance] clearDateReadWithServerUrl:nil directoryID:directory.directoryID];
         } 
     }
     
-    [[CCSynchronize sharedSynchronize] readListingFavorites];
+    [app.activeFavorites readListingFavorites];
 }
 
 #pragma --------------------------------------------------------------------------------------------
@@ -472,9 +476,8 @@
         }
         break;
         case 5: {
-            
             /*
-            tableCapabilities *capabilities = [[NCManageDatabase sharedInstance] getCapabilitesForAccount:app.activeAccount];
+            tableCapabilities *capabilities = [[NCManageDatabase sharedInstance] getCapabilites];
             
             NSString *versionServer = capabilities.versionString;
             
@@ -571,7 +574,7 @@
             if (aViewController.fromType == CCBKPasscodeFromSettingsPasscode) {
                 
                 [CCUtility setBlockCode:@""];
-                [CCCoreData setAllDirectoryUnLockForAccount:app.activeAccount];
+                [[NCManageDatabase sharedInstance] setAllDirectoryUnLock];
                 [app.activeMain.tableView reloadData];
             }
             
@@ -584,7 +587,7 @@
                 
                 // disable passcode
                 [CCUtility setBlockCode:@""];
-                [CCCoreData setAllDirectoryUnLockForAccount:app.activeAccount];
+                [[NCManageDatabase sharedInstance] setAllDirectoryUnLock];
                 [app.activeMain.tableView reloadData];
                 
                 [CCUtility setSimplyBlockCode:![CCUtility getSimplyBlockCode]];

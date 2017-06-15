@@ -23,7 +23,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import <MagicalRecord/MagicalRecord.h>
 #import <UserNotifications/UserNotifications.h>
 
 #import "BKPasscodeLockScreenManager.h"
@@ -37,14 +36,15 @@
 #import "CCDetail.h"
 #import "CCQuickActions.h"
 #import "CCMain.h"
-#import "CCPhotosCameraUpload.h"
+#import "CCPhotos.h"
 #import "CCTransfers.h"
 #import "CCSettings.h"
+#import "CCFavorites.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, BKPasscodeLockScreenManagerDelegate, BKPasscodeViewControllerDelegate, LMMediaPlayerViewDelegate, TWMessageBarStyleSheet, CCNetworkingDelegate>
 
 // Timer Process
-@property (nonatomic, strong) NSTimer *timerProcess;
+@property (nonatomic, strong) NSTimer *timerProcessAutoUpload;
 @property (nonatomic, strong) NSTimer *timerUpdateApplicationIconBadgeNumber;
 @property (nonatomic, strong) NSTimer *timerVerifySessionInProgress;
 
@@ -76,16 +76,11 @@
 
 // Networking 
 @property (nonatomic, copy) void (^backgroundSessionCompletionHandler)(void);
-@property (nonatomic, strong) NSDate *sessionDateLastUploadTasks;
-@property (nonatomic, strong) NSDate *sessionDateLastDownloadTasks;
 
 // Network Share
 @property (nonatomic, strong) NSMutableDictionary *sharesID;
 @property (nonatomic, strong) NSMutableDictionary *sharesLink;
 @property (nonatomic, strong) NSMutableDictionary *sharesUserAndGroup;
-
-// Check new Asset Photos/Video in progress 
-@property BOOL automaticCheckAssetInProgress;
 
 // UploadFromOtherUpp
 @property (nonatomic, strong) NSString *fileNameUpload;
@@ -123,7 +118,8 @@
 
 @property (nonatomic, strong) CCMain *activeMain;
 @property (nonatomic, strong) CCMain *homeMain;
-@property (nonatomic, strong) CCPhotosCameraUpload *activePhotosCameraUpload;
+@property (nonatomic, strong) CCFavorites *activeFavorites;
+@property (nonatomic, strong) CCPhotos *activePhotos;
 @property (nonatomic, retain) CCDetail *activeDetail;
 @property (nonatomic, retain) CCSettings *activeSettings;
 @property (nonatomic, retain) CCActivity *activeActivity;
@@ -138,11 +134,16 @@
 // Is in Crypto Mode
 @property BOOL isCryptoCloudMode;
 
+// Maintenance Mode
+@property BOOL maintenanceMode;
+
 // Setting Active Account
 - (void)settingActiveAccount:(NSString *)activeAccount activeUrl:(NSString *)activeUrl activeUser:(NSString *)activeUser activePassword:(NSString *)activePassword;
 
 // initializations 
 - (void)applicationInitialized;
+
+- (void)maintenanceMode:(BOOL)mode;
 
 - (void)configDynamicShortcutItems;
 
@@ -162,10 +163,6 @@
 - (void)addNetworkingOperationQueue:(NSOperationQueue *)netQueue delegate:(id)delegate metadataNet:(CCMetadataNet *)metadataNet;
 
 - (NSMutableArray *)verifyExistsInQueuesDownloadSelector:(NSString *)selector;
-
-- (void)loadAutomaticUpload;
-
-- (BOOL)createFolderSubFolderAutomaticUploadFolderPhotos:(NSString *)folderPhotos useSubFolder:(BOOL)useSubFolder assets:(NSArray *)assets selector:(NSString *)selector;
 
 - (NSInteger)getNumberDownloadInQueues;
 - (NSInteger)getNumberDownloadInQueuesWWan;

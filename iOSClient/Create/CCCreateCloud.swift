@@ -217,8 +217,7 @@ class CreateFormUploadAssets: XLFormViewController, CCMoveDelegate {
     var session : String = ""
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    //let sectionColor: //UIColor = UIColor(colorLiteralRed: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
-    
+
     convenience init(_ titleServerUrl : String?, serverUrl : String, assets : NSMutableArray, cryptated : Bool, session : String) {
         
         self.init()
@@ -270,7 +269,9 @@ class CreateFormUploadAssets: XLFormViewController, CCMoveDelegate {
         row = XLFormRowDescriptor(tag: "useSubFolder", rowType: XLFormRowDescriptorTypeBooleanSwitch, title: NSLocalizedString("_autoupload_create_subfolder_", comment: ""))
         row.hidden = "$\("useFolderPhoto") == 0"
         
-        if CCCoreData.getCameraUploadCreateSubfolderActiveAccount(appDelegate.activeAccount) == true {
+        let tableAccount = NCManageDatabase.sharedInstance.getAccountActive()
+        
+        if tableAccount?.autoUploadCreateSubfolder == true {
             row.value = 1
         } else {
             row.value = 0
@@ -299,7 +300,6 @@ class CreateFormUploadAssets: XLFormViewController, CCMoveDelegate {
         row.height = 180
         row.cellConfig.setObject(NCBrandColor.sharedInstance.tableBackground, forKey: "backgroundColor" as NSCopying)
         row.cellConfig.setObject(NCBrandColor.sharedInstance.tableBackground, forKey: "textView.backgroundColor" as NSCopying)
-        //row.cellConfig.setObject(10, forKey: "textView.layer.borderWidth" as NSCopying)
 
         row.disabled = true
         section.addFormRow(row)
@@ -369,12 +369,12 @@ class CreateFormUploadAssets: XLFormViewController, CCMoveDelegate {
         super.viewDidLoad()
         
         let cancelButton : UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("_cancel_", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancel))
-        
         let saveButton : UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("_save_", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action: #selector(save))
         
         self.navigationItem.leftBarButtonItem = cancelButton
         self.navigationItem.rightBarButtonItem = saveButton
         
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = NCBrandColor.sharedInstance.brand
         self.navigationController?.navigationBar.tintColor = NCBrandColor.sharedInstance.navigationBarText
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: NCBrandColor.sharedInstance.navigationBarText]
@@ -469,7 +469,8 @@ class CreateFormUploadAssets: XLFormViewController, CCMoveDelegate {
             var useSubFolder : Bool = false
             
             if (useFolderPhotoRow.value! as AnyObject).boolValue == true {
-                self.serverUrl = CCCoreData.getCameraUploadFolderNamePathActiveAccount(self.appDelegate.activeAccount, activeUrl: self.appDelegate.activeUrl)
+                
+                self.serverUrl = NCManageDatabase.sharedInstance.getAccountAutoUploadPath(self.appDelegate.activeUrl)
                 useSubFolder = (useSubFolderRow.value! as AnyObject).boolValue
             }
             

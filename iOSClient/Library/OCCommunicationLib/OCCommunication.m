@@ -623,7 +623,7 @@
 ///-----------------------------------
 /// @name search
 ///-----------------------------------
-- (void)search:(NSString *)path folder:(NSString *)folder fileName:(NSString *)fileName depth:(NSString *)depth withUserSessionToken:(NSString *)token onCommunication:(OCCommunication *)sharedOCCommunication successRequest:(void(^)(NSHTTPURLResponse *response, NSArray *items, NSString *redirectedServer, NSString *token)) successRequest failureRequest:(void(^)(NSHTTPURLResponse *response, NSError *error, NSString *token, NSString *redirectedServer)) failureRequest{
+- (void)search:(NSString *)path folder:(NSString *)folder fileName:(NSString *)fileName depth:(NSString *)depth dateLastModified:(NSString *)dateLastModified withUserSessionToken:(NSString *)token onCommunication:(OCCommunication *)sharedOCCommunication successRequest:(void(^)(NSHTTPURLResponse *response, NSArray *items, NSString *redirectedServer, NSString *token)) successRequest failureRequest:(void(^)(NSHTTPURLResponse *response, NSError *error, NSString *token, NSString *redirectedServer)) failureRequest{
     
     if (!token){
         token = @"no token";
@@ -634,7 +634,7 @@
     OCWebDAVClient *request = [OCWebDAVClient new];
     request = [self getRequestWithCredentials:request];
     
-    [request search:path folder:folder fileName:fileName depth:depth user:_user onCommunication:sharedOCCommunication withUserSessionToken:token success:^(NSHTTPURLResponse *response, id responseObject, NSString *token) {
+    [request search:path folder:folder fileName:fileName depth:depth dateLastModified:dateLastModified user:_user onCommunication:sharedOCCommunication withUserSessionToken:token success:^(NSHTTPURLResponse *response, id responseObject, NSString *token) {
         
         if (successRequest) {
             
@@ -1802,56 +1802,6 @@
 }
 
 
-#pragma mark - Middleware Ping
-
-- (void) middlewarePing:(NSString*)serverPath onCommunication:(OCCommunication *)sharedOCComunication successRequest:(void(^)(NSHTTPURLResponse *response, NSArray *listOfExternalSites, NSString *redirectedServer)) successRequest failureRequest:(void(^)(NSHTTPURLResponse *response, NSError *error, NSString *redirectedServer)) failureRequest {
-    serverPath = [serverPath encodeString:NSUTF8StringEncoding];
-    
-    OCWebDAVClient *request = [OCWebDAVClient new];
-    request = [self getRequestWithCredentials:request];
-    
-    [request middlewarePing:serverPath onCommunication:sharedOCComunication success:^(NSHTTPURLResponse *response, id responseObject) {
-        
-        NSData *responseData = (NSData*) responseObject;
-        
-        //Parse
-        NSError *error;
-        NSDictionary *jsongParsed = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
-        NSLog(@"[LOG] External Sites : %@",jsongParsed);
-        
-        NSMutableArray *listOfExternalSites = [NSMutableArray new];
-        
-        if (jsongParsed.allKeys > 0) {
-            
-            NSDictionary *ocs = [jsongParsed valueForKey:@"ocs"];
-            NSDictionary *meta = [ocs valueForKey:@"meta"];
-            NSDictionary *datas = [ocs valueForKey:@"data"];
-            
-            NSInteger statusCode = [[meta valueForKey:@"statuscode"] integerValue];
-            
-            if (statusCode == kOCNotificationAPINoContent || statusCode == kOCNotificationAPISuccessful) {
-                
-                
-            } else {
-                
-                NSString *message = (NSString*)[meta objectForKey:@"message"];
-                
-                if ([message isKindOfClass:[NSNull class]]) {
-                    message = @"";
-                }
-                
-                NSError *error = [UtilsFramework getErrorWithCode:statusCode andCustomMessageFromTheServer:message];
-                failureRequest(response, error, request.redirectedServer);
-            }
-        }
-        
-        //Return success
-        successRequest(response, listOfExternalSites, request.redirectedServer);
-        
-    } failure:^(NSHTTPURLResponse *response, NSData *responseData, NSError *error) {
-        failureRequest(response, error, request.redirectedServer);
-    }];
-}
 
 #pragma mark - User Profile
 

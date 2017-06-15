@@ -30,7 +30,7 @@
 
 @interface CCManageAccount ()
 {
-    TableAccount *_tableAccount;
+    tableAccount *_tableAccount;
 
     CCLoginWeb *_loginWeb;
     CCLogin *_loginVC;
@@ -47,7 +47,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTheming) name:@"changeTheming" object:nil];
     
-    NSArray *listAccount = [CCCoreData getAllAccount];
+    NSArray *listAccount = [[NCManageDatabase sharedInstance] getAccounts];
 
     // Section : CLOUD ACCOUNT -------------------------------------------
     
@@ -134,7 +134,8 @@
     
         // delete Account
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"delAccount" rowType:XLFormRowDescriptorTypeButton title:NSLocalizedString(@"_delete_account_", nil)];
-        if (listAccount.count > 0) [row.cellConfig setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
+        if (listAccount.count > 0)
+            [row.cellConfig setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
         [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
         [row.cellConfig setObject:[UIImage imageNamed:@"settingsAccountDelete"] forKey:@"imageView.image"];
         [row.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
@@ -188,7 +189,7 @@
 - (void)loginSuccess:(NSInteger)loginType
 {
     if (loginType == loginAddForced)
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"initializeMain" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"initializeMain" object:nil];
 }
 
 #pragma --------------------------------------------------------------------------------------------
@@ -298,7 +299,7 @@
         
         [self deleteAccount:accountNow];
         
-        NSArray *listAccount = [CCCoreData getAllAccount];
+        NSArray *listAccount = [[NCManageDatabase sharedInstance] getAccounts];
         if ([listAccount count] > 0) [self ChangeDefaultAccount:listAccount[0]];
         else {
             [self addAccountFoced];
@@ -311,17 +312,15 @@
     [app cancelAllOperations];
     [[CCNetworking sharedNetworking] settingSessionsDownload:YES upload:YES taskStatus:k_taskStatusCancel activeAccount:app.activeAccount activeUser:app.activeUser activeUrl:app.activeUrl];
     
-    [CCCoreData flushTableAccount:account];
-    
+    [[NCManageDatabase sharedInstance] clearTable:[tableAccount class] account:account];
     [[NCManageDatabase sharedInstance] clearTable:[tableActivity class] account:account];
-    [[NCManageDatabase sharedInstance] clearTable:[tableAutomaticUpload class] account:app.activeAccount];
-    [[NCManageDatabase sharedInstance] clearTable:[tableCapabilities class] account:app.activeAccount];
-    [[NCManageDatabase sharedInstance] clearTable:[tableExternalSites class] account:app.activeAccount];
-    [[NCManageDatabase sharedInstance] clearTable:[tableShare class] account:app.activeAccount];
-
-    [CCCoreData flushTableDirectoryAccount:account];
-    [CCCoreData flushTableLocalFileAccount:account];
-    [CCCoreData flushTableMetadataAccount:account];
+    [[NCManageDatabase sharedInstance] clearTable:[tableAutoUpload class] account:account];
+    [[NCManageDatabase sharedInstance] clearTable:[tableCapabilities class] account:account];
+    [[NCManageDatabase sharedInstance] clearTable:[tableDirectory class] account:app.activeAccount];
+    [[NCManageDatabase sharedInstance] clearTable:[tableExternalSites class] account:account];
+    [[NCManageDatabase sharedInstance] clearTable:[tableLocalFile class] account:app.activeAccount];
+    [[NCManageDatabase sharedInstance] clearTable:[tableMetadata class] account:account];
+    [[NCManageDatabase sharedInstance] clearTable:[tableShare class] account:account];
     
     // Clear active user
     [app settingActiveAccount:nil activeUrl:nil activeUser:nil activePassword:nil];
@@ -347,7 +346,7 @@
 
 - (void)ChangeDefaultAccount:(NSString *)account
 {
-    if ([app.netQueue operationCount] > 0 || [app.netQueueDownload operationCount] > 0 || [app.netQueueDownloadWWan operationCount] > 0 || [app.netQueueUpload operationCount] > 0 || [app.netQueueUploadWWan operationCount] > 0 || [[NCManageDatabase sharedInstance] countAutomaticUploadForAccount:app.activeAccount session:nil] > 0) {
+    if ([app.netQueue operationCount] > 0 || [app.netQueueDownload operationCount] > 0 || [app.netQueueDownloadWWan operationCount] > 0 || [app.netQueueUpload operationCount] > 0 || [app.netQueueUploadWWan operationCount] > 0 || [[NCManageDatabase sharedInstance] countAutoUploadWithSession:nil] > 0) {
         
         [app messageNotification:@"_transfers_in_queue_" description:nil visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeInfo errorCode:0];
         [self UpdateForm];
@@ -360,12 +359,12 @@
     // removed  this -> ?????
     
     // change account
-    TableAccount *tableAccount = [CCCoreData setActiveAccount:account];
+    tableAccount *tableAccount = [[NCManageDatabase sharedInstance] setAccountActive:account];
     if (tableAccount)
         [app settingActiveAccount:tableAccount.account activeUrl:tableAccount.url activeUser:tableAccount.user activePassword:tableAccount.password];
  
     // Init home
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"initializeMain" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"initializeMain" object:nil];
         
     [self UpdateForm];
 }
@@ -376,7 +375,7 @@
 
 - (void)UpdateForm
 {
-    NSArray *listAccount = [CCCoreData getAllAccount];
+    NSArray *listAccount = [[NCManageDatabase sharedInstance] getAccounts];
     
     if (listAccount == nil) {
         [self addAccountFoced];
@@ -412,7 +411,7 @@
 
     // --
     
-     _tableAccount = [CCCoreData getActiveAccount];
+    _tableAccount = [[NCManageDatabase sharedInstance] getAccountActive];
     
     XLFormRowDescriptor *rowUserFullName = [self.form formRowWithTag:@"userfullname"];
     XLFormRowDescriptor *rowUserAddress = [self.form formRowWithTag:@"useraddress"];

@@ -26,7 +26,7 @@
 
 @implementation CCExifGeo
 
-+ (void)setExifLocalTableFileID:(CCMetadata *)metadata directoryUser:(NSString *)directoryUser activeAccount:(NSString *)activeAccount
++ (void)setExifLocalTableEtag:(tableMetadata *)metadata directoryUser:(NSString *)directoryUser activeAccount:(NSString *)activeAccount
 {
     NSString *stringLatitude;
     NSString *stringLongitude;
@@ -77,10 +77,10 @@
     }
     
     // Wite data EXIF in TableLocalFile
-    [CCCoreData setGeoInformationLocalFromFileID:metadata.fileID exifDate:date exifLatitude:stringLatitude exifLongitude:stringLongitude activeAccount:activeAccount];
+    [[NCManageDatabase sharedInstance] setLocalFileWithFileID:metadata.fileID date:nil exifDate:date exifLatitude:stringLatitude exifLongitude:stringLongitude fileName:nil fileNamePrint:nil];
 }
 
-+ (void)setGeocoderFileID:(NSString *)fileID exifDate:(NSDate *)exifDate latitude:(NSString*)latitude longitude:(NSString*)longitude
++ (void)setGeocoderEtag:(NSString *)fileID exifDate:(NSDate *)exifDate latitude:(NSString*)latitude longitude:(NSString*)longitude
 {
     // If exists already geocoder data in TableGPS exit
     if ([[NCManageDatabase sharedInstance] getLocationFromGeoLatitude:latitude longitude:longitude])
@@ -120,7 +120,7 @@
                 NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:exifDate, fileID, nil];
                 
                 // Notify for CCDetail
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"insertGeocoderLocation" object:nil userInfo:dictionary];
+                [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"insertGeocoderLocation" object:nil userInfo:dictionary];
             }
         } else {
             //NSLog(@"[LOG] setGeocoderFileID : %@", error.debugDescription);

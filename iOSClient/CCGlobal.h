@@ -52,8 +52,6 @@ extern NSString *const urlBaseUploadDB;
 
 #define k_dismissAfterSecond                            4
 
-#define k_MaxDimensionUpload                            524288000       // 500 MB
-
 #define k_dayForceReadFolder                            3
 
 #define k_daysOfActivity                                7
@@ -128,12 +126,13 @@ extern NSString *const urlBaseUploadDB;
 #define k_taskStatusResume                              -2
 #define k_taskStatusSuspend                             -3
 
-#define k_timerVerifySession                            15
-#define k_timerProcess                                  7
-#define k_timerUpdateApplicationIconBadgeNumber         2
+#define k_timerVerifySession                            10
+#define k_timerProcessAutoUpload                        5
+#define k_timerUpdateApplicationIconBadgeNumber         3
 
-#define k_maxConcurrentOperation                        10
-#define k_maxConcurrentOperationDownloadUpload          10
+#define k_maxConcurrentOperation                         10
+#define k_maxConcurrentOperationDownloadUpload           10
+#define k_maxConcurrentOperationDownloadUploadBackground 1
 
 // Error
 #define k_CCErrorTaskNil                                -9999
@@ -141,6 +140,7 @@ extern NSString *const urlBaseUploadDB;
 #define k_CCErrorFileUploadNotFound                     -9997
 #define k_CCErrorInternalError                          -9996
 #define k_CCErrorNetworkNowAvailable                    -9995
+#define k_CCErrorFileAlreadyInDownload                  -9994
 
 // Search
 #define k_minCharsSearch                                2
@@ -151,7 +151,6 @@ extern NSString *const urlBaseUploadDB;
 // Metadata.Net SELECTOR
 #define selectorAddFavorite                             @"addFavorite"
 #define selectorAddLocal                                @"addLocal"
-#define selectorAddOffline                              @"addOffline"
 #define selectorCreateFolder                            @"createFolder"
 #define selectorDecryptFile                             @"decryptFile"
 #define selectorDelete                                  @"delete"
@@ -175,6 +174,8 @@ extern NSString *const urlBaseUploadDB;
 #define selectorReadFile                                @"readFile"
 #define selectorReadFileUploadFile                      @"readFileUploadFile"
 #define selectorReadFileVerifyUpload                    @"readFileVerifyUpload"
+#define selectorReadFileWithDownload                    @"readFileWithDownload"
+#define selectorReadFileReloadFolder                    @"readFileReloadFolder"
 #define selectorReadFolder                              @"readFolder"
 #define selectorReadFolderForced                        @"readFolderForced"
 #define selectorReadFolderWithDownload                  @"readFolderWithDownload"
@@ -185,8 +186,8 @@ extern NSString *const urlBaseUploadDB;
 #define selectorSearch                                  @"search"
 #define selectorUnshare                                 @"unshare"
 #define selectorUpdateShare                             @"updateShare"
-#define selectorUploadAutomatic                         @"uploadAutomatic"
-#define selectorUploadAutomaticAll                      @"uploadAutomaticAll"
+#define selectorUploadAutoUpload                        @"uploadAutoUpload"
+#define selectorUploadAutoUploadAll                     @"uploadAutoUploadAll"
 #define selectorUploadFile                              @"uploadFile"
 #define selectorUploadFileCrypto                        @"uploadFileCrypto"
 #define selectorUploadFilePlist                         @"uploadFilePlist"
@@ -249,7 +250,6 @@ extern NSString *const urlBaseUploadDB;
 #define k_tabBarApplicationIndexMore                    4
 
 #define k_keyFileNameMask                               @"fileNameMask"
-#define k_keyFileNameMaskAutomaticPhotos                @"fileNameMaskAutomaticPhotos"
 
 // Type of page Offline
 #define k_pageOfflineFavorites                          @"Favorites"
@@ -272,7 +272,7 @@ extern NSString *const urlBaseUploadDB;
 #define k_activityDebugActionUpload                     @"Upload"
 #define k_activityDebugActionUploadPicker               @"Upload Picker"
 #define k_activityDebugActionUploadShare                @"Upload Share"
-#define k_activityDebugActionAutomaticUpload            @"Automatic Upload"
+#define k_activityDebugActionAutoUpload                 @"Auto Upload"
 #define k_activityDebugActionReadFolder                 @"Read Folder"
 #define k_activityDebugActionGetNotification            @"Get Notification Server"
 #define k_activityDebugActionPushProxy                  @"Subscribing Push Proxy"

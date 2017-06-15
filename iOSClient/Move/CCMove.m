@@ -45,7 +45,7 @@
 {
     [super viewDidLoad];
     
-    TableAccount *recordAccount = [CCCoreData getActiveAccount];
+    tableAccount *recordAccount = [[NCManageDatabase sharedInstance] getAccountActive];
     
     if (recordAccount) {
         
@@ -77,11 +77,6 @@
     
     _hud = [[CCHud alloc] initWithView:self.view];
 
-    // TableView : at the end of rows nothing
-    self.tableView.tableFooterView = [UIView new];
-    
-    self.tableView.separatorColor =  NCBrandColor.sharedInstance.seperator;
-
     [self.cancel setTitle:NSLocalizedString(@"_cancel_", nil)];
     [self.create setTitle:NSLocalizedString(@"_create_folder_", nil)];
 
@@ -105,6 +100,10 @@
         self.navigationItem.titleView=label;
     }
     
+    // TableView : at the end of rows nothing
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.separatorColor =  NCBrandColor.sharedInstance.seperator;
+
     // read folder
     [self readFolder];
 }
@@ -244,10 +243,16 @@
 {
     if ([selector isEqualToString:selectorLoadPlist]) {
 
-        CCMetadata *metadata = [CCCoreData getMetadataWithPreficate:[NSPredicate predicateWithFormat:@"(fileID == %@) AND (account == %@)", fileID, activeAccount] context:nil];
-
-        [CCCoreData downloadFilePlist:metadata activeAccount:activeAccount activeUrl:activeUrl directoryUser:directoryUser];
+        tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", fileID]];
         
+        metadata = [CCUtility insertInformationPlist:metadata directoryUser:directoryUser];
+        metadata = [[NCManageDatabase sharedInstance] updateMetadata:metadata activeUrl:activeUrl];
+        
+        // se è un template aggiorniamo anche nel FileSystem
+        if ([metadata.type isEqualToString: k_metadataType_template]) {
+            [[NCManageDatabase sharedInstance] setLocalFileWithFileID:metadata.fileID date:metadata.date exifDate:nil exifLatitude:nil exifLongitude:nil fileName:nil fileNamePrint:metadata.fileNamePrint];
+        }
+
         [self.tableView reloadData];
     }
 }
@@ -276,9 +281,11 @@
 - (void)readFolderSuccess:(CCMetadataNet *)metadataNet permissions:(NSString *)permissions etag:(NSString *)etag metadatas:(NSArray *)metadatas
 {
     // remove all record
-    [CCCoreData deleteMetadataWithPredicate:[NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND ((session == NULL) OR (session == ''))", activeAccount, metadataNet.directoryID]];
-        
-    for (CCMetadata *metadata in metadatas) {
+    [[NCManageDatabase sharedInstance] deleteMetadataWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND session = ''", activeAccount, metadataNet.directoryID] clearDateReadDirectoryID: metadataNet.directoryID];
+    
+    NSMutableArray *metadatasToInsertInDB = [NSMutableArray new];
+    
+    for (tableMetadata *metadata in metadatas) {
         
         // do not insert crypto file
         if ([CCUtility isCryptoString:metadata.fileName]) continue;
@@ -288,38 +295,41 @@
             
             BOOL isCryptoComplete = NO;
             
-            for (CCMetadata *completeMetadata in metadatas) {
+            for (tableMetadata *completeMetadata in metadatas) {
                 if ([completeMetadata.fileName isEqualToString:[CCUtility trasformedFileNamePlistInCrypto:metadata.fileName]]) isCryptoComplete = YES;
             }
             if (isCryptoComplete == NO) continue;
         }
         
-        [CCCoreData addMetadata:metadata activeAccount:activeAccount activeUrl:activeUrl context:nil];
+        // Insert in Array
+        [metadatasToInsertInDB addObject:metadata];
+    }
+
+    // insert in Database
+    metadatas = [[NCManageDatabase sharedInstance] addMetadatas:metadatasToInsertInDB activeUrl:activeUrl serverUrl:metadataNet.serverUrl];
+
+    // Plist MULTI THREAD
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
-        // if plist do not exists, download it !
-        if ([CCUtility isCryptoPlistString:metadata.fileName] && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, metadata.fileName]] == NO) {
-            
-            // download only the directories
-            for (CCMetadata *metadataDirectory in metadatas) {
+        for (tableMetadata *metadata in metadatas) {
+        
+            if ([CCUtility isCryptoPlistString:metadata.fileName] && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, metadata.fileName]] == NO) {
                 
-                if (metadataDirectory.directory == YES && [metadataDirectory.fileName isEqualToString:metadata.fileNameData]) {
+                CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:activeAccount];
                     
-                    CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:activeAccount];
+                metadataNet.action = actionDownloadFile;
+                metadataNet.downloadData = NO;
+                metadataNet.downloadPlist = YES;
+                metadataNet.fileID = metadata.fileID;
+                metadataNet.selector = selectorLoadPlist;
+                metadataNet.serverUrl = _serverUrl;
+                metadataNet.session = k_download_session_foreground;
+                metadataNet.taskStatus = k_taskStatusResume;
                     
-                    metadataNet.action = actionDownloadFile;
-                    metadataNet.metadata = metadata;
-                    metadataNet.downloadData = NO;
-                    metadataNet.downloadPlist = YES;
-                    metadataNet.selector = selectorLoadPlist;
-                    metadataNet.serverUrl = _serverUrl;
-                    metadataNet.session = k_download_session_foreground;
-                    metadataNet.taskStatus = k_taskStatusResume;
-                    
-                    [self addNetworkingQueue:metadataNet];
-                }
+                [self addNetworkingQueue:metadataNet];
             }
         }
-    }
+    });    
     
     [self.tableView reloadData];
     
@@ -359,7 +369,7 @@
 {
     [_hud hideHud];
     
-    [CCCoreData addDirectory:[NSString stringWithFormat:@"%@/%@", metadataNet.serverUrl, metadataNet.fileName] permissions:nil activeAccount:activeAccount];
+    (void)[[NCManageDatabase sharedInstance] addDirectoryWithServerUrl:[NSString stringWithFormat:@"%@/%@", metadataNet.serverUrl, metadataNet.fileName] permissions:@""];
     
     // Load Folder or the Datasource
     [self readFolder];
@@ -397,13 +407,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSString *directoryID = [CCCoreData getDirectoryIDFromServerUrl:_serverUrl activeAccount:activeAccount];
+    NSString *directoryID = [[NCManageDatabase sharedInstance] getDirectoryID:_serverUrl];
     NSPredicate *predicate;
     
-    if (self.onlyClearDirectory) predicate = [NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND (directory == 1) AND (cryptated == 0)", activeAccount, directoryID];
-    else predicate = [NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND (directory == 1)", activeAccount, directoryID];
+    if (self.onlyClearDirectory) predicate = [NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND directory = true AND cryptated = false", activeAccount, directoryID];
+    else predicate = [NSPredicate predicateWithFormat:@"account == %@ AND directoryID = %@ AND directory = true", activeAccount, directoryID];
     
-    return [[CCCoreData getTableMetadataWithPredicate:predicate context:nil] count];    
+    NSArray *result = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:predicate sorted:nil ascending:NO];
+    
+    if (result)
+        return [result count];
+    else
+        return 0;
+    
+    //return [[CCCoreData getTableMetadataWithPredicate:predicate context:nil] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -417,12 +434,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    NSString *directoryID = [CCCoreData getDirectoryIDFromServerUrl:_serverUrl activeAccount:activeAccount];
+    NSString *directoryID = [[NCManageDatabase sharedInstance] getDirectoryID:_serverUrl];
     
-    if (self.onlyClearDirectory) predicate = [NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND (directory == 1) AND (cryptated == 0)", activeAccount, directoryID];
-    else predicate = [NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND (directory == 1)", activeAccount, directoryID];
-
-    CCMetadata *metadata = [CCCoreData getMetadataAtIndex:predicate fieldOrder:@"fileName" ascending:YES objectAtIndex:indexPath.row];
+    if (self.onlyClearDirectory) predicate = [NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND directory = true AND cryptated = false", activeAccount, directoryID];
+    else predicate = [NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND directory = true", activeAccount, directoryID];
+    
+    tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataAtIndexWithPredicate:predicate sorted:@"fileName" ascending:YES index:indexPath.row];
     
     // colors
     if (metadata.cryptated) {
@@ -451,20 +468,22 @@
     NSPredicate *predicate;
 
     NSIndexPath *index = [self.tableView indexPathForSelectedRow];
-    NSString *directoryID = [CCCoreData getDirectoryIDFromServerUrl:_serverUrl activeAccount:activeAccount];
+    NSString *directoryID = [[NCManageDatabase sharedInstance] getDirectoryID:_serverUrl];
     
-    if (self.onlyClearDirectory) predicate = [NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND (directory == 1) AND (cryptated == 0)", activeAccount, directoryID];
-    else predicate = [NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@) AND (directory == 1)", activeAccount, directoryID];
+    if (self.onlyClearDirectory) predicate = [NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND directory = true AND cryptated = false", activeAccount, directoryID];
+    else predicate = [NSPredicate predicateWithFormat:@"account = %@ AND directoryID == %@ AND directory = true", activeAccount, directoryID];
     
-    CCMetadata *metadata = [CCCoreData getMetadataAtIndex:predicate fieldOrder:@"fileName" ascending:YES objectAtIndex:index.row];
+    tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataAtIndexWithPredicate:predicate sorted:@"fileName" ascending:YES index:index.row];
     
     if (metadata.errorPasscode == NO) {
     
         // lockServerUrl
         NSString *lockServerUrl = [CCUtility stringAppendServerUrl:_serverUrl addFileName:metadata.fileNameData];
         
-        // SE siamo in presenza di una directory bloccata E è attivo il block E la sessione PASSWORD Lock è senza data ALLORA chiediamo la password per procedere
-        if ([CCCoreData isDirectoryLock:lockServerUrl activeAccount:activeAccount] && [[CCUtility getBlockCode] length] && controlPasscode) {
+        // Se siamo in presenza di una directory bloccata E è attivo il block E la sessione PASSWORD Lock è senza data ALLORA chiediamo la password per procedere
+        tableDirectory *directory = [[NCManageDatabase sharedInstance] getTableDirectoryWithPredicate:[NSPredicate predicateWithFormat:@"serverUrl = %@", lockServerUrl]];
+        
+        if (directory.lock && [[CCUtility getBlockCode] length] && controlPasscode) {
             
             CCBKPasscode *viewController = [[CCBKPasscode alloc] initWithNibName:nil bundle:nil];
             viewController.delegate = self;

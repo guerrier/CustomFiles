@@ -26,9 +26,10 @@
 #import "TWMessageBarManager.h"
 #import "CCBKPasscode.h"
 #import "CCUtility.h"
-#import "CCCoreData.h"
 #import "OCNetworking.h"
 #import "CCHud.h"
+
+@class tableMetadata;
 
 @protocol CCMoveDelegate;
 
@@ -40,7 +41,7 @@
 @property BOOL onlyClearDirectory;
 
 @property (nonatomic, strong) NSString *serverUrl;
-@property (nonatomic, strong) CCMetadata *passMetadata;
+@property (nonatomic, strong) tableMetadata *passMetadata;
 
 //BKPasscodeViewController
 @property (nonatomic) NSUInteger failedAttempts;

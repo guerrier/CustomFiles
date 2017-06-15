@@ -54,7 +54,7 @@
     dataSource = [NSMutableArray new];
     
     // Metadata
-    _metadata = [CCMetadata new];
+    _metadata = [tableMetadata new];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
     self.tableView.separatorColor = [NCBrandColor sharedInstance].seperator;
@@ -69,12 +69,8 @@
     // Title
     if (_titleViewControl)
         self.title = _titleViewControl;
-    else {
-        
-        //AMX
-        self.title = NSLocalizedString(@"_available_offline_", nil);
-        //self.title = NSLocalizedString(@"_local_storage_", nil);
-    }
+    else
+        self.title = NSLocalizedString(@"_local_storage_", nil);
 }
 
 // Apparirà
@@ -154,11 +150,13 @@
 
 - (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller
 {
+    tableAccount *tableAccount = [[NCManageDatabase sharedInstance] getAccountActive];
+    
     // evitiamo il rimando della eventuale photo e/o video
-    if ([CCCoreData getCameraUploadActiveAccount:app.activeAccount]) {
+    if (tableAccount.autoUpload) {
         
-        [CCCoreData setCameraUploadDatePhoto:[NSDate date]];
-        [CCCoreData setCameraUploadDateVideo:[NSDate date]];
+        [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeImage assetDate:[NSDate date]];
+        [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeVideo assetDate:[NSDate date]];
     }
 }
 
@@ -166,11 +164,11 @@
 #pragma mark ===== menu =====
 #pragma--------------------------------------------------------------------------------------------
 
-- (void)openModel:(CCMetadata *)metadata
+- (void)openModel:(tableMetadata *)metadata
 {
     UIViewController *viewController;
     BOOL isLocal = YES;
-    NSString *serverUrl = [CCCoreData getServerUrlFromDirectoryID:_metadata.directoryID activeAccount:app.activeAccount];
+    NSString *serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:_metadata.directoryID];
     
     if ([metadata.model isEqualToString:@"cartadicredito"])
         viewController = [[CCCartaDiCredito alloc] initWithDelegate:self fileName:metadata.fileName uuid:metadata.uuid fileID:metadata.fileID isLocal:isLocal serverUrl:serverUrl];
@@ -211,7 +209,7 @@
     }
 }
 
-- (void)openWith:(CCMetadata *)metadata
+- (void)openWith:(tableMetadata *)metadata
 {
     NSString *fileNamePath = [NSString stringWithFormat:@"%@/%@", _serverUrl, metadata.fileNameData];
         
@@ -229,7 +227,7 @@
     }
 }
 
-- (void)requestDeleteMetadata:(CCMetadata *)metadata indexPath:(NSIndexPath *)indexPath
+- (void)requestDeleteMetadata:(tableMetadata *)metadata indexPath:(NSIndexPath *)indexPath
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -258,115 +256,19 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
--(void)cellButtonDownWasTapped:(id)sender
-{
-    CGPoint touchPoint = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:touchPoint];
-    CCMetadata *metadata = [CCMetadata new];
-    UIImage *iconHeader;
-    
-    NSString *cameraFolderName = [CCCoreData getCameraUploadFolderNameActiveAccount:app.activeAccount];
-    NSString *cameraFolderPath = [CCCoreData getCameraUploadFolderPathActiveAccount:app.activeAccount activeUrl:app.activeUrl];
-        
-    metadata = [CCUtility insertFileSystemInMetadata:[dataSource objectAtIndex:indexPath.row] directory:_serverUrl activeAccount:app.activeAccount cameraFolderName:cameraFolderName cameraFolderPath:cameraFolderPath];
-        
-    
-    AHKActionSheet *actionSheet = [[AHKActionSheet alloc] initWithView:self.view title:nil];
-    
-    actionSheet.animationDuration = 0.2;
-    
-    actionSheet.blurRadius = 0.0f;
-    actionSheet.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.50f];
-    
-    actionSheet.buttonHeight = 50.0;
-    actionSheet.cancelButtonHeight = 50.0f;
-    actionSheet.separatorHeight = 5.0f;
-    
-    actionSheet.automaticallyTintButtonImages = @(NO);
-    
-    actionSheet.encryptedButtonTextAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:16], NSForegroundColorAttributeName:[NCBrandColor sharedInstance].cryptocloud };
-    actionSheet.buttonTextAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:16], NSForegroundColorAttributeName:[UIColor blackColor] };
-    actionSheet.cancelButtonTextAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:16], NSForegroundColorAttributeName:[NCBrandColor sharedInstance].brand };
-    actionSheet.disableButtonTextAttributes = @{ NSFontAttributeName:[UIFont systemFontOfSize:16], NSForegroundColorAttributeName:[UIColor blackColor] };
-    
-    actionSheet.separatorColor = [NCBrandColor sharedInstance].seperator;
-    actionSheet.cancelButtonTitle = NSLocalizedString(@"_cancel_",nil);
-    
-    // assegnamo l'immagine anteprima se esiste, altrimenti metti quella standars
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@.ico", app.directoryUser, metadata.fileID]])
-        iconHeader = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.ico", app.directoryUser, metadata.fileID]];
-    else
-        iconHeader = [UIImage imageNamed:metadata.iconName];
-    
-    [actionSheet addButtonWithTitle: metadata.fileNamePrint
-                              image: iconHeader
-                    backgroundColor: [NCBrandColor sharedInstance].tabBar
-                             height: 50.0
-                               type: AHKActionSheetButtonTypeDisabled
-                            handler: nil
-    ];
-
-    // Remove file/folder offline
-    if (_serverUrl == nil) {
-        
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"_remove_offline_", nil) image:[UIImage imageNamed:@"actionSheetOffline"] backgroundColor:[UIColor whiteColor] height: 50.0 type:AHKActionSheetButtonTypeDefault handler:^(AHKActionSheet *as) {
-                                    
-            if (metadata.directory) {
-                                        
-                // remove tag offline for all folder/subfolder/file
-                NSString *relativeRoot = [CCCoreData getServerUrlFromDirectoryID:metadata.directoryID activeAccount:app.activeAccount];
-                NSString *dirServerUrl = [CCUtility stringAppendServerUrl:relativeRoot addFileName:metadata.fileNameData];
-                NSArray *directories = [CCCoreData getOfflineDirectoryActiveAccount:app.activeAccount];
-                                        
-                for (TableDirectory *directory in directories)
-                    if ([directory.serverUrl containsString:dirServerUrl]) {
-                        [CCCoreData setOfflineDirectoryServerUrl:directory.serverUrl offline:NO activeAccount:app.activeAccount];
-                        [CCCoreData removeOfflineAllFileFromServerUrl:directory.serverUrl activeAccount:app.activeAccount];
-                    }
-                                        
-            } else {
-                                        
-                [CCCoreData setOfflineLocalFileID:metadata.fileID offline:NO activeAccount:app.activeAccount];
-            }
-                                    
-            [self.tableView setEditing:NO animated:YES];
-                                    
-            [self reloadDatasource];
-        }];
-    }
-    
-    // NO Directory - NO Template
-    if (metadata.directory == NO && [metadata.type isEqualToString:k_metadataType_template] == NO) {
-        
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"_open_in_", nil) image:[UIImage imageNamed:@"actionSheetOpenIn"] backgroundColor:[UIColor whiteColor] height: 50.0 type:AHKActionSheetButtonTypeDefault handler:^(AHKActionSheet *as) {
-            
-            [self.tableView setEditing:NO animated:YES];
-            [self openWith:metadata];
-        }];
-    }
-    
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"_delete_", nil) image:[UIImage imageNamed:@"delete"] backgroundColor:[UIColor whiteColor] height: 50.0 type:AHKActionSheetButtonTypeDestructive handler:^(AHKActionSheet *as) {
-        
-        [self requestDeleteMetadata:metadata indexPath:indexPath];
-    }];
-
-    
-    [actionSheet show];
-}
-
 #pragma --------------------------------------------------------------------------------------------
 #pragma mark ==== Table ====
 #pragma --------------------------------------------------------------------------------------------
 
-- (CCMetadata *)setSelfMetadataFromIndexPath:(NSIndexPath *)indexPath
+- (tableMetadata *)setSelfMetadataFromIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cameraFolderName = [CCCoreData getCameraUploadFolderNameActiveAccount:app.activeAccount];
-    NSString *cameraFolderPath = [CCCoreData getCameraUploadFolderPathActiveAccount:app.activeAccount activeUrl:app.activeUrl];
+    NSString *autoUploadFileName = [[NCManageDatabase sharedInstance] getAccountAutoUploadFileName];
+    NSString *AutoUploadDirectory = [[NCManageDatabase sharedInstance] getAccountAutoUploadDirectory:app.activeUrl];
         
-    return [CCUtility insertFileSystemInMetadata:[dataSource objectAtIndex:indexPath.row] directory:_serverUrl activeAccount:app.activeAccount cameraFolderName:cameraFolderName cameraFolderPath:cameraFolderPath];
+    return [CCUtility insertFileSystemInMetadata:[dataSource objectAtIndex:indexPath.row] directory:_serverUrl activeAccount:app.activeAccount autoUploadFileName:autoUploadFileName autoUploadDirectory:AutoUploadDirectory];
 }
 
-- (void)readFolderWithForced:(BOOL)forced serverUrl:(NSString *)serverUrl
+- (void)readFolder:(NSString *)serverUrl
 {
     [self reloadDatasource];
 }
@@ -403,7 +305,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CCLocalStorageCell *cell = (CCLocalStorageCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    CCMetadata *metadata;
+    tableMetadata *metadata;
     
     // separator
     cell.separatorInset = UIEdgeInsetsMake(0.f, 60.f, 0.f, 0.f);
@@ -416,11 +318,11 @@
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [[NCBrandColor sharedInstance] getColorSelectBackgrond];
     cell.selectedBackgroundView = selectionColor;
-
-    NSString *cameraFolderName = [CCCoreData getCameraUploadFolderNameActiveAccount:app.activeAccount];
-    NSString *cameraFolderPath = [CCCoreData getCameraUploadFolderPathActiveAccount:app.activeAccount activeUrl:app.activeUrl];
+    
+    NSString *autoUploadFileName = [[NCManageDatabase sharedInstance] getAccountAutoUploadFileName];
+    NSString *autoUploadDirectory = [[NCManageDatabase sharedInstance] getAccountAutoUploadDirectory:app.activeUrl];
         
-    metadata = [CCUtility insertFileSystemInMetadata:[dataSource objectAtIndex:indexPath.row] directory:_serverUrl activeAccount:app.activeAccount cameraFolderName:cameraFolderName cameraFolderPath:cameraFolderPath];
+    metadata = [CCUtility insertFileSystemInMetadata:[dataSource objectAtIndex:indexPath.row] directory:_serverUrl activeAccount:app.activeAccount autoUploadFileName:autoUploadFileName autoUploadDirectory:autoUploadDirectory];
         
     cell.fileImageView.image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/.%@.ico", _serverUrl, metadata.fileNamePrint]];
         
@@ -429,13 +331,10 @@
         UIImage *icon = [CCGraphics createNewImageFrom:metadata.fileID directoryUser:_serverUrl fileNameTo:metadata.fileID fileNamePrint:metadata.fileNamePrint size:@"m" imageForUpload:NO typeFile:metadata.typeFile writePreview:NO optimizedFileName:[CCUtility getOptimizedPhoto]];
             
         if (icon) {
-            [CCGraphics saveIcoWithFileID:metadata.fileNamePrint image:icon writeToFile:[NSString stringWithFormat:@"%@/.%@.ico", _serverUrl, metadata.fileNamePrint] copy:NO move:NO fromPath:nil toPath:nil];
+            [CCGraphics saveIcoWithEtag:metadata.fileNamePrint image:icon writeToFile:[NSString stringWithFormat:@"%@/.%@.ico", _serverUrl, metadata.fileNamePrint] copy:NO move:NO fromPath:nil toPath:nil];
             cell.fileImageView.image = icon;
         }
     }
-    
-    // ButtonDown Tapped
-    [cell.buttonDown addTarget:self action:@selector(cellButtonDownWasTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     // encrypted color
     if (metadata.cryptated) {
@@ -560,13 +459,13 @@
     
     NSMutableArray *allRecordsDataSourceImagesVideos = [NSMutableArray new];
     
-    NSString *cameraFolderName = [CCCoreData getCameraUploadFolderNameActiveAccount:app.activeAccount];
-    NSString *cameraFolderPath = [CCCoreData getCameraUploadFolderPathActiveAccount:app.activeAccount activeUrl:app.activeUrl];
+    NSString *autoUploadFileName = [[NCManageDatabase sharedInstance] getAccountAutoUploadFileName];
+    NSString *autoUploadDirectory = [[NCManageDatabase sharedInstance] getAccountAutoUploadDirectory:app.activeUrl];
         
     for (NSString *fileName in dataSource) {
             
-        CCMetadata *metadata = [CCMetadata new];
-        metadata = [CCUtility insertFileSystemInMetadata:fileName directory:_serverUrl activeAccount:app.activeAccount cameraFolderName:cameraFolderName cameraFolderPath:cameraFolderPath];
+        tableMetadata *metadata = [tableMetadata new];
+        metadata = [CCUtility insertFileSystemInMetadata:fileName directory:_serverUrl activeAccount:app.activeAccount autoUploadFileName:autoUploadFileName autoUploadDirectory:autoUploadDirectory];
             
         if ([metadata.typeFile isEqualToString: k_metadataTypeFile_image] || [metadata.typeFile isEqualToString: k_metadataTypeFile_video])
             [allRecordsDataSourceImagesVideos addObject:metadata];
@@ -575,7 +474,6 @@
     _detailViewController.sourceDirectoryLocal = YES;
     _detailViewController.metadataDetail = _metadata;
     _detailViewController.dateFilterQuery = nil;
-    _detailViewController.isCameraUpload = NO;
     _detailViewController.dataSourceImagesVideos = allRecordsDataSourceImagesVideos;
 
     [_detailViewController setTitle:_metadata.fileNamePrint];

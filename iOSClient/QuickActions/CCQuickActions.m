@@ -67,7 +67,10 @@
 
 - (void)startQuickActionsEncrypted:(BOOL)cryptated viewController:(UITableViewController *)viewController
 {
-    _numTaskUploadInProgress =  [[CCCoreData getTableMetadataWithPredicate:[NSPredicate predicateWithFormat:@"(account == %@) AND (session CONTAINS 'upload') AND ((sessionTaskIdentifier >= 0) OR (sessionTaskIdentifierPlist >= 0))", app.activeAccount] context:nil] count];
+    NSArray *metadatas = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND session CONTAINS 'upload' AND (sessionTaskIdentifier >= 0 OR sessionTaskIdentifierPlist >= 0)", app.activeAccount] sorted:nil ascending:NO];
+    
+    _numTaskUploadInProgress = [metadatas count];
+    
     _cryptated = cryptated;
     _mainVC = (CCMain *)viewController;
     
@@ -141,7 +144,7 @@
         }];
     }
     
-    if (imageSize > k_MaxDimensionUpload || (picker.selectedAssets.count >= (k_pickerControllerMax - _numTaskUploadInProgress))) {
+    if (picker.selectedAssets.count >= (k_pickerControllerMax - _numTaskUploadInProgress)) {
         
         [app messageNotification:@"_info_" description:@"_limited_dimension_" visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeInfo errorCode:0];
         

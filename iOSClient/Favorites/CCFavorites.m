@@ -23,6 +23,8 @@
 
 #import "CCFavorites.h"
 #import "AppDelegate.h"
+#import "CCSynchronize.h"
+
 #import "NCBridgeSwift.h"
 
 @interface CCFavorites () <CCActionsDeleteDelegate, CCActionsSettingFavoriteDelegate>
@@ -46,6 +48,8 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerProgressTask:) name:@"NotificationProgressTask" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTheming) name:@"changeTheming" object:nil];
+        
+        app.activeFavorites = self;
     }
     return self;
 }
@@ -61,7 +65,7 @@
     _dataSource = [NSMutableArray new];
     
     // Metadata
-    _metadata = [CCMetadata new];
+    _metadata = [tableMetadata new];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 1)];
     self.tableView.separatorColor = [NCBrandColor sharedInstance].seperator;
@@ -157,11 +161,13 @@
 
 - (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller
 {
+    tableAccount *tableAccount = [[NCManageDatabase sharedInstance] getAccountActive];
+    
     // evitiamo il rimando della eventuale photo e/o video
-    if ([CCCoreData getCameraUploadActiveAccount:app.activeAccount]) {
+    if (tableAccount.autoUpload) {
         
-        [CCCoreData setCameraUploadDatePhoto:[NSDate date]];
-        [CCCoreData setCameraUploadDateVideo:[NSDate date]];
+        [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeImage assetDate:[NSDate date]];
+        [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeVideo assetDate:[NSDate date]];
     }
 }
 
@@ -190,9 +196,110 @@
 
 - (void)settingFavoriteSuccess:(CCMetadataNet *)metadataNet
 {
-    [CCCoreData setMetadataFavoriteFileID:metadataNet.fileID favorite:[metadataNet.options boolValue] activeAccount:app.activeAccount context:nil];
+    [[NCManageDatabase sharedInstance] setMetadataFavoriteWithFileID:metadataNet.fileID favorite:[metadataNet.options boolValue]];
  
     [self reloadDatasource];
+}
+
+- (void)readListingFavorites
+{
+    // test
+    if (app.activeAccount.length == 0)
+        return;
+    
+    // verify is offline procedure is in progress selectorDownloadSynchronize
+    if ([[app verifyExistsInQueuesDownloadSelector:selectorDownloadSynchronize] count] > 0)
+        return;
+    
+    [[CCActions sharedInstance] listingFavorites:@"" delegate:self];
+}
+
+- (void)addFavoriteFolder:(NSString *)serverUrl
+{
+    NSString *directoryID = [[NCManageDatabase sharedInstance] getDirectoryID:serverUrl];
+    NSString *selector;
+    CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:app.activeAccount];
+    
+    metadataNet.action = actionReadFolder;
+    metadataNet.directoryID = directoryID;
+    metadataNet.priority = NSOperationQueuePriorityNormal;
+    
+    if ([CCUtility getFavoriteOffline])
+        selector = selectorReadFolderWithDownload;
+    else
+        selector = selectorReadFolder;
+    
+    metadataNet.selector = selector;
+    metadataNet.serverUrl = serverUrl;
+    
+    [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
+}
+
+- (void)listingFavoritesSuccess:(CCMetadataNet *)metadataNet metadatas:(NSArray *)metadatas
+{
+    // verify active user
+    tableAccount *record = [[NCManageDatabase sharedInstance] getAccountActive];
+    
+    if (![record.account isEqualToString:metadataNet.account])
+        return;
+    
+    NSString *father = @"";
+    NSMutableArray *filesEtag = [NSMutableArray new];
+    
+    for (tableMetadata *metadata in metadatas) {
+        
+        // type of file
+        NSInteger typeFilename = [CCUtility getTypeFileName:metadata.fileName];
+        
+        // do not insert cryptated favorite file
+        if (typeFilename == k_metadataTypeFilenameCrypto || typeFilename == k_metadataTypeFilenamePlist)
+            continue;
+        
+        // insert for test NOT favorite
+        [filesEtag addObject:metadata.fileID];
+        
+        // Get ServerUrl
+        NSString *serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:metadata.directoryID];
+        serverUrl = [CCUtility stringAppendServerUrl:serverUrl addFileName:metadata.fileNameData];
+        
+        if (![serverUrl containsString:father]) {
+            
+            if (metadata.directory) {
+                
+                NSString *selector;
+                
+                if ([CCUtility getFavoriteOffline])
+                    selector = selectorReadFolderWithDownload;
+                else
+                    selector = selectorReadFolder;
+                
+                [[CCSynchronize sharedSynchronize] synchronizedFolder:serverUrl selector:selector];
+                
+            } else {
+                
+                if ([CCUtility getFavoriteOffline])
+                    [[CCSynchronize sharedSynchronize] synchronizedFile:metadata selector:selectorReadFileWithDownload];
+                else
+                    [[CCSynchronize sharedSynchronize] synchronizedFile:metadata selector:selectorReadFile];
+            }
+            
+            father = serverUrl;
+        }
+    }
+    
+    // Verify remove favorite
+    NSArray *allRecordFavorite = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND favorite = true", app.activeAccount] sorted:nil ascending:NO];
+    
+    for (tableMetadata *metadata in allRecordFavorite)
+        if (![filesEtag containsObject:metadata.fileID])
+            [[NCManageDatabase sharedInstance] setMetadataFavoriteWithFileID:metadata.fileID favorite:NO];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationOnMainThreadName:@"clearDateReadDataSource" object:nil];
+}
+
+- (void)listingFavoritesFailure:(CCMetadataNet *)metadataNet message:(NSString *)message errorCode:(NSInteger)errorCode
+{
+    NSLog(@"Read Favorites Failure");
 }
 
 #pragma --------------------------------------------------------------------------------------------
@@ -215,7 +322,7 @@
 
 - (void)downloadFileSuccess:(NSString *)fileID serverUrl:(NSString *)serverUrl selector:(NSString *)selector selectorPost:(NSString *)selectorPost
 {
-    _metadata = [CCCoreData getMetadataWithPreficate:[NSPredicate predicateWithFormat:@"(fileID == %@) AND (account == %@)", fileID, app.activeAccount] context:nil];
+    _metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", fileID]];
     
     if ([_metadata.typeFile isEqualToString: k_metadataTypeFile_compress]) {
         
@@ -230,17 +337,17 @@
         
         if ([self shouldPerformSegue])
             [self performSegueWithIdentifier:@"segueDetail" sender:self];
-    }    
+    }
 }
 
 #pragma --------------------------------------------------------------------------------------------
 #pragma mark ===== menu =====
 #pragma--------------------------------------------------------------------------------------------
 
-- (void)openModel:(CCMetadata *)metadata
+- (void)openModel:(tableMetadata *)metadata
 {
     UIViewController *viewController;
-    NSString *serverUrl = [CCCoreData getServerUrlFromDirectoryID:_metadata.directoryID activeAccount:app.activeAccount];
+    NSString *serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:_metadata.directoryID];
     
     if ([metadata.model isEqualToString:@"cartadicredito"])
         viewController = [[CCCartaDiCredito alloc] initWithDelegate:self fileName:metadata.fileName uuid:metadata.uuid fileID:metadata.fileID isLocal:NO serverUrl:serverUrl];
@@ -281,7 +388,7 @@
     }
 }
 
-- (void)openWith:(CCMetadata *)metadata
+- (void)openWith:(tableMetadata *)metadata
 {
     NSString *fileNamePath = [NSString stringWithFormat:@"%@/%@", app.directoryUser, metadata.fileID];
     
@@ -299,7 +406,7 @@
     }
 }
 
-- (void)requestDeleteMetadata:(CCMetadata *)metadata indexPath:(NSIndexPath *)indexPath
+- (void)requestDeleteMetadata:(tableMetadata *)metadata indexPath:(NSIndexPath *)indexPath
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -322,6 +429,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+/*
 #pragma --------------------------------------------------------------------------------------------
 #pragma mark ===== UnZipFile =====
 #pragma --------------------------------------------------------------------------------------------
@@ -354,8 +462,9 @@
         }];
     });
 }
+*/
 
-- (void)requestMoreMetadata:(CCMetadata *)metadata indexPath:(NSIndexPath *)indexPath
+- (void)requestMoreMetadata:(tableMetadata *)metadata indexPath:(NSIndexPath *)indexPath
 {
     UIImage *iconHeader;
     
@@ -467,17 +576,16 @@
 #pragma mark ==== Table ====
 #pragma --------------------------------------------------------------------------------------------
 
-- (CCMetadata *)setSelfMetadataFromIndexPath:(NSIndexPath *)indexPath
+- (tableMetadata *)setSelfMetadataFromIndexPath:(NSIndexPath *)indexPath
 {
-    CCMetadata *metadata;
-    
     NSManagedObject *record = [_dataSource objectAtIndex:indexPath.row];
-    metadata = [CCCoreData getMetadataWithPreficate:[NSPredicate predicateWithFormat:@"(fileID == %@) AND (account == %@)", [record valueForKey:@"fileID"], app.activeAccount] context:nil];
+    
+    tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", [record valueForKey:@"fileID"]]];
 
     return metadata;
 }
 
-- (void)readFolderWithForced:(BOOL)forced serverUrl:(NSString *)serverUrl
+- (void)readFolder:(NSString *)serverUrl
 {
     [self reloadDatasource];
 }
@@ -489,12 +597,13 @@
         
     if (!_serverUrl) {
             
-        recordsTableMetadata = [CCCoreData  getTableMetadataWithPredicate:[NSPredicate predicateWithFormat:@"(account == %@) AND (favorite == 1)", app.activeAccount] context:nil];
+        recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND favorite = true", app.activeAccount] sorted:nil ascending:NO];
             
     } else {
-            
-        NSString *directoryID = [CCCoreData getDirectoryIDFromServerUrl:_serverUrl activeAccount:app.activeAccount];
-        recordsTableMetadata = [CCCoreData getTableMetadataWithPredicate:[NSPredicate predicateWithFormat:@"(account == %@) AND (directoryID == %@)", app.activeAccount, directoryID] fieldOrder:[CCUtility getOrderSettings]  ascending:[CCUtility getAscendingSettings]];
+        
+        NSString *directoryID = [[NCManageDatabase sharedInstance] getDirectoryID:_serverUrl];        
+        
+        recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@", app.activeAccount, directoryID] sorted:[CCUtility getOrderSettings] ascending:[CCUtility getAscendingSettings]];
     }
         
     CCSectionDataSourceMetadata *sectionDataSource = [CCSectionMetadata creataDataSourseSectionMetadata:recordsTableMetadata listProgressMetadata:nil groupByField:nil replaceDateToExifDate:NO activeAccount:app.activeAccount];
@@ -526,7 +635,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CCFavoritesCell *cell = (CCFavoritesCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    CCMetadata *metadata;
+    tableMetadata *metadata;
     
     // separator
     cell.separatorInset = UIEdgeInsetsMake(0.f, 60.f, 0.f, 0.f);
@@ -535,7 +644,7 @@
     cell.status.image = nil;
     cell.favorite.image = nil;
     cell.local.image = nil;
-    
+        
     // change color selection
     UIView *selectionColor = [[UIView alloc] init];
     selectionColor.backgroundColor = [[NCBrandColor sharedInstance] getColorSelectBackgrond];
@@ -630,7 +739,7 @@
     if (([_metadata.type isEqualToString: k_metadataType_file]) && _metadata.directory == NO) {
         
         // File do not exists
-        NSString *serverUrl = [CCCoreData getServerUrlFromDirectoryID:_metadata.directoryID activeAccount:_metadata.account];
+        NSString *serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:_metadata.directoryID];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", app.directoryUser, _metadata.fileID]]) {
             
@@ -638,7 +747,7 @@
             
         } else {
             
-            [[CCNetworking sharedNetworking] downloadFile:_metadata serverUrl:serverUrl downloadData:YES downloadPlist:NO selector:selectorLoadFileView selectorPost:nil session:k_download_session taskStatus:k_taskStatusResume delegate:self];
+            [[CCNetworking sharedNetworking] downloadFile:_metadata.fileID serverUrl:serverUrl downloadData:YES downloadPlist:NO selector:selectorLoadFileView selectorPost:nil session:k_download_session taskStatus:k_taskStatusResume delegate:self];
         }
     }
     
@@ -655,8 +764,8 @@
 {
     CCFavorites *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CCFavorites"];
     
-    NSString *serverUrl = [CCCoreData getServerUrlFromDirectoryID:_metadata.directoryID activeAccount:app.activeAccount];
-        
+    NSString *serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:_metadata.directoryID];
+    
     vc.serverUrl = [CCUtility stringAppendServerUrl:serverUrl addFileName:_metadata.fileNameData];
     vc.titleViewControl = _metadata.fileNamePrint;
     
@@ -699,14 +808,13 @@
     
     NSMutableArray *allRecordsDataSourceImagesVideos = [NSMutableArray new];
     
-    for (CCMetadata *metadata in _dataSource) {
+    for (tableMetadata *metadata in _dataSource) {
         if ([metadata.typeFile isEqualToString: k_metadataTypeFile_image] || [metadata.typeFile isEqualToString: k_metadataTypeFile_video])
             [allRecordsDataSourceImagesVideos addObject:metadata];
     }
     
     _detailViewController.metadataDetail = _metadata;
     _detailViewController.dateFilterQuery = nil;
-    _detailViewController.isCameraUpload = NO;
     _detailViewController.dataSourceImagesVideos = allRecordsDataSourceImagesVideos;
     
     [_detailViewController setTitle:_metadata.fileNamePrint];
