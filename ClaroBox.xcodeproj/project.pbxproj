@@ -482,6 +482,9 @@
 		F78ECC5E1EF2F52F0039AC42 /* NCAutoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = F78ECC5D1EF2F52F0039AC42 /* NCAutoUpload.m */; };
 		F798E39B1ED60FFD005A60A1 /* CCCellShareExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F798E3991ED60FFD005A60A1 /* CCCellShareExt.m */; };
 		F798E39C1ED60FFD005A60A1 /* CCCellShareExt.xib in Resources */ = {isa = PBXBuildFile; fileRef = F798E39A1ED60FFD005A60A1 /* CCCellShareExt.xib */; };
+		F7A8035B1EF413FD00236EA2 /* NCRequestAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A8035A1EF413FD00236EA2 /* NCRequestAsset.m */; };
+		F7A8035C1EF413FD00236EA2 /* NCRequestAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A8035A1EF413FD00236EA2 /* NCRequestAsset.m */; };
+		F7A8035D1EF413FD00236EA2 /* NCRequestAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A8035A1EF413FD00236EA2 /* NCRequestAsset.m */; };
 		F7ACC5441EB1FFBA00CF3E98 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ACC53B1EB1FFBA00CF3E98 /* RECommonFunctions.m */; };
 		F7ACC5451EB1FFBA00CF3E98 /* REMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ACC53D1EB1FFBA00CF3E98 /* REMenu.m */; };
 		F7ACC5461EB1FFBA00CF3E98 /* REMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7ACC53F1EB1FFBA00CF3E98 /* REMenuContainerView.m */; };
@@ -1362,6 +1365,8 @@
 		F7A54C351C6267B500E2C8BF /* CCExifGeo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCExifGeo.m; sourceTree = "<group>"; };
 		F7A582D61A24DAB500E903D7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; };
 		F7A582D71A24DAB500E903D7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; };
+		F7A803591EF413FD00236EA2 /* NCRequestAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCRequestAsset.h; sourceTree = "<group>"; };
+		F7A8035A1EF413FD00236EA2 /* NCRequestAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCRequestAsset.m; sourceTree = "<group>"; };
 		F7ACC53A1EB1FFBA00CF3E98 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		F7ACC53B1EB1FFBA00CF3E98 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
 		F7ACC53C1EB1FFBA00CF3E98 /* REMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REMenu.h; sourceTree = "<group>"; };
@@ -3277,6 +3282,8 @@
 				F7514EDB1C7B1336008F3338 /* CCHud.m */,
 				F7053E3C1C639DF500741EA5 /* CCUtility.h */,
 				F7053E3D1C639DF500741EA5 /* CCUtility.m */,
+				F7A803591EF413FD00236EA2 /* NCRequestAsset.h */,
+				F7A8035A1EF413FD00236EA2 /* NCRequestAsset.m */,
 				F7813ACE1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.h */,
 				F7813ACF1EF2F29C00E5D2FD /* NSNotificationCenter+MainThread.m */,
 				F73049B81CB567F000C7C320 /* NSString+TruncateToWidth.h */,
@@ -4181,6 +4188,7 @@
 				F73CCE321DC13798007E38D8 /* UICKeyChainStore.m in Sources */,
 				F74D8D161ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
 				F7813AB01EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */,
+				F7A8035C1EF413FD00236EA2 /* NCRequestAsset.m in Sources */,
 				F74D8D101ED4237D00D18098 /* OCXMLServerErrorsParser.m in Sources */,
 				F798E39B1ED60FFD005A60A1 /* CCCellShareExt.m in Sources */,
 				F74D8CCB1ED4237D00D18098 /* AFHTTPSessionManager.m in Sources */,
@@ -4275,6 +4283,7 @@
 				F7813A9C1EF2F1E300E5D2FD /* CCCoreData.m in Sources */,
 				F74344841E127F84001CC831 /* RNCryptorEngine.m in Sources */,
 				F74344851E127F86001CC831 /* RNDecryptor.m in Sources */,
+				F7A8035D1EF413FD00236EA2 /* NCRequestAsset.m in Sources */,
 				F74344881E127F9C001CC831 /* UIImage+animatedGIF.m in Sources */,
 				F7813ABA1EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F74D8D171ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
@@ -4317,6 +4326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7A8035B1EF413FD00236EA2 /* NCRequestAsset.m in Sources */,
 				F7ACC5B81EB1FFC900CF3E98 /* ReaderThumbCache.m in Sources */,
 				F74D8CE51ED4237D00D18098 /* OCExternalSites.m in Sources */,
 				F7F06EC51DBFACC600099AE9 /* CTAssetsPickerController.m in Sources */,
