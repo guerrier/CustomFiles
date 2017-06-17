@@ -88,8 +88,12 @@
 }
 
 // MULTI THREAD
-- (void)readFolderSuccess:(CCMetadataNet *)metadataNet permissions:(NSString *)permissions etag:(NSString *)etag metadatas:(NSArray *)metadatas
+- (void)readFolderSuccess:(CCMetadataNet *)metadataNet metadataFolder:(tableMetadata *)metadataFolder metadatas:(NSArray *)metadatas
 {
+    // Add/update self Folder
+    NSString *serverUrlFolded = [[NCManageDatabase sharedInstance] getServerUrl:metadataFolder.directoryID];
+    (void)[[NCManageDatabase sharedInstance] addMetadata:metadataFolder activeUrl:app.activeUrl serverUrl:serverUrlFolded];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         tableAccount *recordAccount = [[NCManageDatabase sharedInstance] getAccountActive];
