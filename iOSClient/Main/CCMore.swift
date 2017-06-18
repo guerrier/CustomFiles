@@ -439,7 +439,7 @@ extension CCMore: SwiftModalWebVCDelegate, SwiftWebVCDelegate{
     
     public func didReceiveServerRedirectForProvisionalNavigation(url: URL) {
         
-        let urlString: String = url.absoluteString
+        let urlString: String = url.absoluteString.lowercased()
         
         // Protocol close webVC
         if (urlString.contains(NCBrandOptions.sharedInstance.webCloseViewProtocol) == true) {
