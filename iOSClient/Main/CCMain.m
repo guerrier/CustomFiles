@@ -46,10 +46,14 @@
     BOOL _isPickerCriptate;              // if is cryptated image or video back from picker
     BOOL _isSelectedMode;
         
-    NSMutableArray *_selectedMetadatas;
-    NSMutableSet *_selectedFileIDs;
+    NSMutableDictionary *_selectedFileIDsMetadatas;
+    NSUInteger _numSelectedFileIDsMetadatas;
+
     NSMutableArray *_queueSelector;
+    
+    NSMutableArray *_selectedMetadatas;
     NSUInteger _numSelectedMetadatas;
+    
     UIImageView *_ImageTitleHomeCryptoCloud;
     UIView *_reMenuBackgroundView;
     UITapGestureRecognizer *_singleFingerTap;
@@ -125,7 +129,7 @@
     _hud = [[CCHud alloc] initWithView:[[[UIApplication sharedApplication] delegate] window]];
     _hudDeterminate = [[CCHud alloc] initWithView:[[[UIApplication sharedApplication] delegate] window]];
     _selectedMetadatas = [NSMutableArray new];
-    _selectedFileIDs = [NSMutableSet new];
+    _selectedFileIDsMetadatas = [NSMutableDictionary new];
     _queueSelector = [NSMutableArray new];
     _sectionDataSource = [CCSectionDataSourceMetadata new];
     _isViewDidLoad = YES;
@@ -225,6 +229,10 @@
     else
         [self setUINavigationBarDefault];
     
+    // If not editing mode remove _selectedFileIDs
+    if (!self.tableView.editing)
+        [_selectedFileIDsMetadatas removeAllObjects];
+    
     // Plus Button
     [app plusButtonVisibile:true];
 }
@@ -234,9 +242,6 @@
 {
     [super viewDidAppear:animated];
     
-    // Active Main
-    app.activeMain = self;
-    
     // Test viewDidLoad
     if (_isViewDidLoad) {
         
@@ -244,7 +249,7 @@
         
     } else {
         
-        if (app.activeAccount.length > 0) {
+        if (app.activeAccount.length > 0 && app.activeMain != self) {
             
             // Load Datasource
             [self reloadDatasource:_serverUrl];
@@ -253,6 +258,9 @@
             [self readFileReloadFolder];
         }
     }
+    
+    // Active Main
+    app.activeMain = self;
 
     // Title
     [self setTitle];
@@ -2179,18 +2187,24 @@
         
         [_hud hideHud];
         
-        if (_isSearchMode)
-            [self readFolder:metadataNet.serverUrl];
-        else
-            [self reloadDatasource:metadataNet.serverUrl];
-        
         // next
-        if ([_selectedMetadatas count] > 0) {
+        [_selectedFileIDsMetadatas removeObjectForKey:metadataNet.fileID];
             
-            [_selectedMetadatas removeObjectAtIndex:0];
+        if ([_selectedFileIDsMetadatas count] > 0) {
             
-            if ([_selectedMetadatas count] > 0)
-                [self deleteFileOrFolder:[_selectedMetadatas objectAtIndex:0] numFile:[_selectedMetadatas count] ofFile:_numSelectedMetadatas];
+            NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
+            [self deleteFileOrFolder:[metadatas objectAtIndex:0] numFile:[_selectedFileIDsMetadatas count] ofFile:_numSelectedFileIDsMetadatas];
+            
+        } else {
+            
+            // End Select Table View
+            [self tableViewSelect:NO];
+            
+            // Reload
+            if (_isSearchMode)
+                [self readFolder:metadataNet.serverUrl];
+            else
+                [self reloadDatasource:metadataNet.serverUrl];
         }
     }
 }
@@ -2209,32 +2223,29 @@
     [_hud visibleHudTitle:[NSString stringWithFormat:NSLocalizedString(@"_delete_file_n_", nil), ofFile - numFile + 1, ofFile] mode:MBProgressHUDModeIndeterminate color:nil];
 }
 
-- (void)deleteSelectionFile
-{
-    [_selectedMetadatas removeAllObjects];
-    [_queueSelector removeAllObjects];
-    
-    _selectedMetadatas = [[NSMutableArray alloc] initWithArray: [self getMetadatasFromSelectedRows:[self.tableView indexPathsForSelectedRows]]];
-    _numSelectedMetadatas = [_selectedMetadatas count];
-    
-    if ([_selectedMetadatas count] > 0)
-        [self deleteFileOrFolder:[_selectedMetadatas objectAtIndex:0] numFile:[_selectedMetadatas count] ofFile:_numSelectedMetadatas];
-    
-    [self tableViewSelect:NO];
-}
-
 - (void)deleteFile
 {
-    [_selectedMetadatas removeAllObjects];
     [_queueSelector removeAllObjects];
-    _numSelectedMetadatas = 1;
     
-    [_selectedMetadatas addObject:_metadata];
-    
-    if ([_selectedMetadatas count] > 0)
-        [self deleteFileOrFolder:[_selectedMetadatas objectAtIndex:0] numFile:[_selectedMetadatas count] ofFile:_numSelectedMetadatas];
-    
-    [self tableViewSelect:NO];
+    if (self.tableView.editing) {
+        
+        // ON : Editing Mode
+        
+        if ([_selectedFileIDsMetadatas count] > 0) {
+        
+            _numSelectedFileIDsMetadatas = [_selectedFileIDsMetadatas count];
+            NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
+            [self deleteFileOrFolder:[metadatas objectAtIndex:0] numFile:[_selectedFileIDsMetadatas count] ofFile:_numSelectedFileIDsMetadatas];
+        }
+        
+    } else {
+        
+        // OFF : Editing Mode
+        
+        [_selectedFileIDsMetadatas removeAllObjects];
+        _numSelectedFileIDsMetadatas = 1;
+        [self deleteFileOrFolder:_metadata numFile:1 ofFile:_numSelectedFileIDsMetadatas];
+    }
 }
 
 #pragma --------------------------------------------------------------------------------------------
@@ -2290,7 +2301,16 @@
             [app messageNotification:@"_move_" description:message visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeError errorCode:errorCode];
         
         [_selectedMetadatas removeAllObjects];
-        [_queueSelector removeAllObjects];
+        
+        // End Select Table View
+        [self tableViewSelect:NO];
+        
+        // reload Datasource
+        if ([metadataNet.selectorPost isEqualToString:selectorReadFolderForced] || _isSearchMode)
+            [self readFolder:metadataNet.serverUrl];
+        else
+            [self reloadDatasource];
+
     }
 }
 
@@ -2331,111 +2351,141 @@
             (void)[[NCManageDatabase sharedInstance] addDirectoryWithServerUrl:newDirectory permissions:@""];
         }
     
-        // reload Datasource
-        if ([metadataNet.selectorPost isEqualToString:selectorReadFolderForced] || _isSearchMode)
-            [self readFolder:metadataNet.serverUrl];
-        else
-            [self reloadDatasource];
-
-        // Next file
-        [_selectedMetadatas removeObjectAtIndex:0];
-        [self performSelectorOnMainThread:@selector(moveFileOrFolder:) withObject:metadataNet.serverUrlTo waitUntilDone:NO];
+        // next
+        [_selectedFileIDsMetadatas removeObjectForKey:metadataNet.fileID];
+        
+        if ([_selectedFileIDsMetadatas count] > 0) {
+        
+            NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
+            
+            [self performSelectorOnMainThread:@selector(moveFileOrFolderMetadata:) withObject:@[[metadatas objectAtIndex:0], serverUrlTo, [NSNumber numberWithInteger:[_selectedFileIDsMetadatas count]], [NSNumber numberWithInteger:_numSelectedFileIDsMetadatas]] waitUntilDone:NO];
+            
+        } else {
+            
+            // End Select Table View
+            [self tableViewSelect:NO];
+            
+            // reload Datasource
+            if ([metadataNet.selectorPost isEqualToString:selectorReadFolderForced] || _isSearchMode)
+                [self readFolder:metadataNet.serverUrl];
+            else
+                [self reloadDatasource];
+        }
     }
 }
 
-- (void)moveFileOrFolder:(NSString *)serverUrlTo
+- (void)moveFileOrFolderMetadata:(NSArray *)arguments
 {
-    if ([_selectedMetadatas count] > 0) {
-        
-        tableMetadata *metadata = [_selectedMetadatas objectAtIndex:0];
-        
-        // Plain
-        if (metadata.cryptated == NO) {
+    tableMetadata *metadata = [arguments objectAtIndex:0];
+    NSString *serverUrlTo = [arguments objectAtIndex:1];
+    NSInteger numFile = [[arguments objectAtIndex:2] integerValue];
+    NSInteger ofFile = [[arguments objectAtIndex:3] integerValue];
+    
+    // Plain
+    if (metadata.cryptated == NO) {
             
-            OCnetworking *ocNetworking = [[OCnetworking alloc] initWithDelegate:nil metadataNet:nil withUser:app.activeUser withPassword:app.activePassword withUrl:app.activeUrl isCryptoCloudMode:NO];
+        OCnetworking *ocNetworking = [[OCnetworking alloc] initWithDelegate:nil metadataNet:nil withUser:app.activeUser withPassword:app.activePassword withUrl:app.activeUrl isCryptoCloudMode:NO];
             
-            NSError *error = [ocNetworking readFileSync:[NSString stringWithFormat:@"%@/%@", serverUrlTo, metadata.fileName]];
+        NSError *error = [ocNetworking readFileSync:[NSString stringWithFormat:@"%@/%@", serverUrlTo, metadata.fileName]];
             
-            if(!error) {
+        if(!error) {
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                     
-                    UIAlertController * alert= [UIAlertController alertControllerWithTitle:NSLocalizedString(@"_error_", nil) message:NSLocalizedString(@"_file_already_exists_", nil) preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction* ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"_ok_", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    }];
-                    [alert addAction:ok];
-                    [self presentViewController:alert animated:YES completion:nil];
-                });
-                
-                return;
-            }
+                UIAlertController * alert= [UIAlertController alertControllerWithTitle:NSLocalizedString(@"_error_", nil) message:NSLocalizedString(@"_file_already_exists_", nil) preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"_ok_", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                }];
+                [alert addAction:ok];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
             
-            CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:app.activeAccount];
+            // End Select Table View
+            [self tableViewSelect:NO];
             
-            metadataNet.action = actionMoveFileOrFolder;
-            metadataNet.directory = metadata.directory;
-            metadataNet.fileID = metadata.fileID;
-            metadataNet.directoryID = metadata.directoryID;
-            metadataNet.directoryIDTo = [[NCManageDatabase sharedInstance] getDirectoryID:serverUrlTo];
-            metadataNet.fileName = metadata.fileName;
-            metadataNet.fileNamePrint = metadataNet.fileNamePrint;
-            metadataNet.fileNameTo = metadata.fileName;
-            metadataNet.etag = metadata.etag;
-            metadataNet.selector = selectorMove;
-            metadataNet.serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:metadata.directoryID];
-            metadataNet.serverUrlTo = serverUrlTo;
+            // reload Datasource
+            [self readFileReloadFolder];
             
-            [_queueSelector addObject:metadataNet.selector];
-            
-            [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
+            return;
         }
+            
+        CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:app.activeAccount];
         
-        // cyptated
-        if (metadata.cryptated == YES) {
+        metadataNet.action = actionMoveFileOrFolder;
+        metadataNet.directory = metadata.directory;
+        metadataNet.fileID = metadata.fileID;
+        metadataNet.directoryID = metadata.directoryID;
+        metadataNet.directoryIDTo = [[NCManageDatabase sharedInstance] getDirectoryID:serverUrlTo];
+        metadataNet.fileName = metadata.fileName;
+        metadataNet.fileNamePrint = metadataNet.fileNamePrint;
+        metadataNet.fileNameTo = metadata.fileName;
+        metadataNet.etag = metadata.etag;
+        metadataNet.selector = selectorMove;
+        metadataNet.serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:metadata.directoryID];
+        metadataNet.serverUrlTo = serverUrlTo;
             
-            CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:app.activeAccount];
+        [_queueSelector addObject:metadataNet.selector];
             
-            metadataNet.action = actionMoveFileOrFolder;
-            metadataNet.directory = metadata.directory;
-            metadataNet.fileID = metadata.fileID;
-            metadataNet.directoryID = metadata.directoryID;
-            metadataNet.directoryIDTo = [[NCManageDatabase sharedInstance] getDirectoryID:serverUrlTo];
-            metadataNet.fileNamePrint = metadata.fileNamePrint;
-            metadataNet.etag = metadata.etag;
-            metadataNet.serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:metadata.directoryID];
-            metadataNet.serverUrlTo = serverUrlTo;
-            
-            // data
-            metadataNet.fileName = metadata.fileNameData;
-            metadataNet.fileNameTo = metadata.fileNameData;
-            metadataNet.selector = selectorMoveCrypto;
-            
-            [_queueSelector addObject:metadataNet.selector];
-            [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
-            
-            // plist
-            metadataNet.fileName = metadata.fileName;
-            metadataNet.fileNameTo = metadata.fileName;
-            metadataNet.selector = selectorMovePlist;
-            
-            [_queueSelector addObject:metadataNet.selector];
-            [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
-        }
-        
-        [_hud visibleHudTitle:[NSString stringWithFormat:NSLocalizedString(@"_move_file_n_", nil), _numSelectedMetadatas - [_selectedMetadatas count] + 1, _numSelectedMetadatas] mode:MBProgressHUDModeIndeterminate color:nil];
+        [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
     }
+        
+    // cyptated
+    if (metadata.cryptated == YES) {
+            
+        CCMetadataNet *metadataNet = [[CCMetadataNet alloc] initWithAccount:app.activeAccount];
+            
+        metadataNet.action = actionMoveFileOrFolder;
+        metadataNet.directory = metadata.directory;
+        metadataNet.fileID = metadata.fileID;
+        metadataNet.directoryID = metadata.directoryID;
+        metadataNet.directoryIDTo = [[NCManageDatabase sharedInstance] getDirectoryID:serverUrlTo];
+        metadataNet.fileNamePrint = metadata.fileNamePrint;
+        metadataNet.etag = metadata.etag;
+        metadataNet.serverUrl = [[NCManageDatabase sharedInstance] getServerUrl:metadata.directoryID];
+        metadataNet.serverUrlTo = serverUrlTo;
+            
+        // data
+        metadataNet.fileName = metadata.fileNameData;
+        metadataNet.fileNameTo = metadata.fileNameData;
+        metadataNet.selector = selectorMoveCrypto;
+            
+        [_queueSelector addObject:metadataNet.selector];
+        [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
+            
+        // plist
+        metadataNet.fileName = metadata.fileName;
+        metadataNet.fileNameTo = metadata.fileName;
+        metadataNet.selector = selectorMovePlist;
+            
+        [_queueSelector addObject:metadataNet.selector];
+        [app addNetworkingOperationQueue:app.netQueue delegate:self metadataNet:metadataNet];
+    }
+        
+    [_hud visibleHudTitle:[NSString stringWithFormat:NSLocalizedString(@"_move_file_n_", nil), ofFile - numFile + 1, ofFile] mode:MBProgressHUDModeIndeterminate color:nil];
 }
 
-- (void)moveServerUrlTo:(NSString *)serverUrlTo title:(NSString *)title selectedMetadatas:(NSArray *)selectedMetadatas
+- (void)moveServerUrlTo:(NSString *)serverUrlTo title:(NSString *)title
 {
-    [_selectedMetadatas removeAllObjects];
     [_queueSelector removeAllObjects];
     
-    _selectedMetadatas = [[NSMutableArray alloc] initWithArray:selectedMetadatas];
-    _numSelectedMetadatas = [_selectedMetadatas count];
-    
-    [self performSelectorOnMainThread:@selector(moveFileOrFolder:) withObject:serverUrlTo waitUntilDone:NO];
-    [self tableViewSelect:NO];
+    if (self.tableView.editing) {
+        
+        // ON : Editing Mode
+        if ([_selectedFileIDsMetadatas count] > 0) {
+            
+            _numSelectedFileIDsMetadatas = [_selectedFileIDsMetadatas count];
+            NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
+            
+            [self performSelectorOnMainThread:@selector(moveFileOrFolderMetadata:) withObject:@[[metadatas objectAtIndex:0], serverUrlTo, [NSNumber numberWithInteger:[_selectedFileIDsMetadatas count]], [NSNumber numberWithInteger:_numSelectedFileIDsMetadatas]] waitUntilDone:NO];
+        }
+        
+    } else {
+        
+        // OFF : Editing Mode
+        [_selectedFileIDsMetadatas removeAllObjects];
+        _numSelectedFileIDsMetadatas = 1;
+        
+        [self performSelectorOnMainThread:@selector(moveFileOrFolderMetadata:) withObject:@[_metadata, serverUrlTo, [NSNumber numberWithInteger:1], [NSNumber numberWithInteger:_numSelectedFileIDsMetadatas]] waitUntilDone:NO];
+    }
 }
 
 - (void)moveOpenWindow:(NSArray *)indexPaths
@@ -2446,7 +2496,6 @@
 
     viewController.delegate = self;
     viewController.move.title = NSLocalizedString(@"_move_", nil);
-    viewController.selectedMetadatas = [self getMetadatasFromSelectedRows:indexPaths];
     viewController.tintColor = [NCBrandColor sharedInstance].navigationBarText;
     viewController.barTintColor = [NCBrandColor sharedInstance].brand;
     viewController.tintColorTitle = [NCBrandColor sharedInstance].navigationBarText;
@@ -3630,7 +3679,7 @@
     // ITEM DELETE ------------------------------------------------------------------------------------------------------
     
     app.deleteItem = [[REMenuItem alloc] initWithTitle:NSLocalizedString(@"_delete_selected_files_", nil) subtitle:@"" image:[CCGraphics changeThemingColorImage:[UIImage imageNamed:@"deleteSelectedFiles"] color:[NCBrandColor sharedInstance].brand] highlightedImage:nil action:^(REMenuItem *item) {
-            [self deleteSelectionFile];
+            [self deleteFile];
     }];
     
     // ITEM MOVE ------------------------------------------------------------------------------------------------------
@@ -4857,7 +4906,8 @@
 - (void)tableViewSelect:(BOOL)edit
 {
     // chiudiamo eventuali swipe aperti
-    if (edit) [self.tableView setEditing:NO animated:NO];
+    if (edit)
+        [self.tableView setEditing:NO animated:NO];
     
     [self.tableView setAllowsMultipleSelectionDuringEditing:edit];
     [self.tableView setEditing:edit animated:YES];
@@ -4868,7 +4918,7 @@
     else
         [self setUINavigationBarDefault];
     
-    [_selectedFileIDs removeAllObjects];
+    [_selectedFileIDsMetadatas removeAllObjects];
     
     [self setTitle];
 }
@@ -5475,7 +5525,7 @@
     // se siamo in modalità editing impostiamo il titolo dei selezioati e usciamo subito
     if (self.tableView.editing) {
         
-        [_selectedFileIDs addObject:_metadata.fileID];
+        [_selectedFileIDsMetadatas setObject:_metadata forKey:_metadata.fileID];
         [self setTitle];
         return;
     }
@@ -5576,8 +5626,9 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     tableMetadata *metadata = [self getMetadataFromSectionDataSource:indexPath];
-
-    [_selectedFileIDs removeObject:metadata.fileID];
+    
+    [_selectedFileIDsMetadatas removeObjectForKey:metadata.fileID];
+    
     [self setTitle];
 }
 
