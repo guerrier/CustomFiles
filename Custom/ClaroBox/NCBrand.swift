@@ -70,7 +70,8 @@ class NCBrandOptions: NSObject {
     public let loginBaseUrl:                    String = "https://skylake.weasel.rocks"
     public let loginBaseUrlMultiDomains:        [String] = ["domain.com", "domain.it"]
     public let pushNotificationServer:          String = "https://push-notifications.nextcloud.com"
-    public let loginButtonLabelLink:            String = "https://nextcloud.com/providers"
+    public let linkLoginProvider:               String = "https://nextcloud.com/providers"
+    public let textLoginProvider:               String = "_login_bottom_label_"
     public let middlewarePingUrl:               String = "https://35.163.169.207/ocs/v2.php/apps/amx_ping_middleware/api/v1/ping"
     public let webLoginAutenticationProtocol:   String = "amx://"
     public let webCloseViewProtocol:            String = "amx://change/plan"
@@ -93,6 +94,7 @@ class NCBrandOptions: NSObject {
     public let use_storeLocalAutoUploadAll:     Bool = false
 
     public let disable_intro:                   Bool = true
+    public let disable_linkLoginProvider:       Bool = true
     public let disable_request_login_url:       Bool = false
     public let disable_multiaccount:            Bool = true
     public let disable_cryptocloudsystem:       Bool = true
