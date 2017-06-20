@@ -1995,9 +1995,14 @@
     });
     
     // Search Mode
-    if (_isSearchMode)
+    if (_isSearchMode) {
+        
+        // Fix managed -> Unmanaged _searchResultMetadatas
+        _searchResultMetadatas = [[NSMutableArray alloc] initWithArray:metadatasToInsertInDB];
+        
         [self reloadDatasource:metadataNet.serverUrl];
-
+    }
+    
     // this is the same directory
     if ([metadataNet.serverUrl isEqualToString:_serverUrl] && !_isSearchMode) {
         
@@ -2220,22 +2225,14 @@
 {
     [_queueSelector removeAllObjects];
     
-    if (self.tableView.editing) {
+    if ([_selectedFileIDsMetadatas count] > 0) {
         
-        // ON : Editing Mode
-        
-        if ([_selectedFileIDsMetadatas count] > 0) {
-        
-            _numSelectedFileIDsMetadatas = [_selectedFileIDsMetadatas count];
-            NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
-            [self deleteFileOrFolder:[metadatas objectAtIndex:0] numFile:[_selectedFileIDsMetadatas count] ofFile:_numSelectedFileIDsMetadatas];
-        }
+        _numSelectedFileIDsMetadatas = [_selectedFileIDsMetadatas count];
+        NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
+        [self deleteFileOrFolder:[metadatas objectAtIndex:0] numFile:[_selectedFileIDsMetadatas count] ofFile:_numSelectedFileIDsMetadatas];
         
     } else {
         
-        // OFF : Editing Mode
-        
-        [_selectedFileIDsMetadatas removeAllObjects];
         _numSelectedFileIDsMetadatas = 1;
         [self deleteFileOrFolder:_metadata numFile:1 ofFile:_numSelectedFileIDsMetadatas];
     }
@@ -2458,23 +2455,16 @@
 {
     [_queueSelector removeAllObjects];
     
-    if (self.tableView.editing) {
+    if ([_selectedFileIDsMetadatas count] > 0) {
         
-        // ON : Editing Mode
-        if ([_selectedFileIDsMetadatas count] > 0) {
+        _numSelectedFileIDsMetadatas = [_selectedFileIDsMetadatas count];
+        NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
             
-            _numSelectedFileIDsMetadatas = [_selectedFileIDsMetadatas count];
-            NSArray *metadatas = [_selectedFileIDsMetadatas allValues];
-            
-            [self performSelectorOnMainThread:@selector(moveFileOrFolderMetadata:) withObject:@[[metadatas objectAtIndex:0], serverUrlTo, [NSNumber numberWithInteger:[_selectedFileIDsMetadatas count]], [NSNumber numberWithInteger:_numSelectedFileIDsMetadatas]] waitUntilDone:NO];
-        }
+        [self performSelectorOnMainThread:@selector(moveFileOrFolderMetadata:) withObject:@[[metadatas objectAtIndex:0], serverUrlTo, [NSNumber numberWithInteger:[_selectedFileIDsMetadatas count]], [NSNumber numberWithInteger:_numSelectedFileIDsMetadatas]] waitUntilDone:NO];
         
     } else {
         
-        // OFF : Editing Mode
-        [_selectedFileIDsMetadatas removeAllObjects];
         _numSelectedFileIDsMetadatas = 1;
-        
         [self performSelectorOnMainThread:@selector(moveFileOrFolderMetadata:) withObject:@[_metadata, serverUrlTo, [NSNumber numberWithInteger:1], [NSNumber numberWithInteger:_numSelectedFileIDsMetadatas]] waitUntilDone:NO];
     }
 }
