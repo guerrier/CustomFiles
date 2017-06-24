@@ -1,5 +1,5 @@
 
-ClaroBox.xcodeproj V 2.17.4.00019		Project Xcode Version 8.3 (8E162)
+ClaroBox.xcodeproj V 2.17.4.00020		Project Xcode Version 8.3 (8E162)
 
 DevicePushKey-Info.plist			Plist content Keys "devicePublicKeyDevelopment" & "devicePublicKeyProduction" for Push Notification
 GoogleService-Info.plist			Plist for Google Firebase (Statistic & Push Notification)
