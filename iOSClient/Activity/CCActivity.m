@@ -68,9 +68,7 @@
     
     _sectionDataSource = [NSArray new];
     
-    //AMX
-    self.title = NSLocalizedStringFromTable(@"_recent_activity_", @"amx", nil);
-    //self.title = NSLocalizedString(@"_activity_", nil);
+    self.title = NSLocalizedString(@"_activity_", nil);
 
     [self reloadDatasource];
 }
@@ -128,7 +126,7 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIImage imageNamed:@"activityNoRecord"];
+    return [CCGraphics changeThemingColorImage:[UIImage imageNamed:@"activityNoRecord"] color:[NCBrandColor sharedInstance].brand];
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView

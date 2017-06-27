@@ -428,41 +428,6 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-/*
-#pragma --------------------------------------------------------------------------------------------
-#pragma mark ===== UnZipFile =====
-#pragma --------------------------------------------------------------------------------------------
-
-- (void)unZipFile:(NSString *)fileID
-{
-    [_hudDeterminate visibleHudTitle:NSLocalizedString(@"_unzip_in_progress_", nil) mode:MBProgressHUDModeDeterminate color:nil];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSString *fileZip = [NSString stringWithFormat:@"%@/%@", app.directoryUser, fileID];
-        
-        [SSZipArchive unzipFileAtPath:fileZip toDestination:[CCUtility getDirectoryLocal] overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                float progress = (float) entryNumber / (float)total;
-                [_hudDeterminate progress:progress];
-            });
-            
-        } completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [_hudDeterminate hideHud];
-                
-                if (succeeded) [app messageNotification:@"_info_" description:@"_file_unpacked_" visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeSuccess errorCode:0];
-                else [app messageNotification:@"_error_" description:[NSString stringWithFormat:@"Error %ld", (long)error.code] visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeError errorCode:0];
-            });
-            
-        }];
-    });
-}
-*/
-
 - (void)requestMoreMetadata:(tableMetadata *)metadata indexPath:(NSIndexPath *)indexPath
 {
     UIImage *iconHeader;
@@ -506,16 +471,6 @@
     [actionSheet addButtonWithTitle: metadata.fileNamePrint image: iconHeader backgroundColor: [NCBrandColor sharedInstance].tabBar height: 50.0 type: AHKActionSheetButtonTypeDisabled handler: nil
     ];
 
-    // ONLY Root Favorites : Remove file/folder Favorites
-    if (_serverUrl == nil) {
-        
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"_remove_favorites_", nil) image:[CCGraphics changeThemingColorImage:[UIImage imageNamed:@"actionSheetOffline"] color:[NCBrandColor sharedInstance].brand] backgroundColor:[UIColor whiteColor] height: 50.0 type:AHKActionSheetButtonTypeDefault handler:^(AHKActionSheet *as) {
-                                    
-            [self.tableView setEditing:NO animated:YES];
-            [[CCActions sharedInstance] settingFavorite:metadata favorite:NO delegate:self];
-        }];
-    }
-    
     // Share
     if (_metadata.cryptated == NO) {
         
@@ -544,32 +499,35 @@
 #pragma mark ===== Swipe Tablet -> menu =====
 #pragma --------------------------------------------------------------------------------------------
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
 {
-    return UITableViewCellEditingStyleDelete;
+    return YES;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForSwipeAccessoryButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NSLocalizedString(@"_more_", nil);
-}
-
-- (void)tableView:(UITableView *)tableView swipeAccessoryButtonPushedForRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
-    [self requestMoreMetadata:[_dataSource objectAtIndex:indexPath.row] indexPath:indexPath];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NSLocalizedString(@"_delete_", nil);
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-                
-        [self requestDeleteMetadata:[_dataSource objectAtIndex:indexPath.row] indexPath:indexPath];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    if (direction == MGSwipeDirectionRightToLeft) {
+        
+        // Delete
+        if (index == 0)
+            [self requestDeleteMetadata:[_dataSource objectAtIndex:indexPath.row] indexPath:indexPath];
+        
+        // More
+        if (index == 1)
+            [self requestMoreMetadata:[_dataSource objectAtIndex:indexPath.row] indexPath:indexPath];
     }
+    
+    if (direction == MGSwipeDirectionLeftToRight) {
+        
+        tableMetadata *metadata = [_dataSource objectAtIndex:indexPath.row];
+        [[CCActions sharedInstance] settingFavorite:metadata favorite:NO delegate:self];
+    }
+    
+    return YES;
 }
+
 
 #pragma --------------------------------------------------------------------------------------------
 #pragma mark ==== Table ====
@@ -577,10 +535,8 @@
 
 - (tableMetadata *)setSelfMetadataFromIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *record = [_dataSource objectAtIndex:indexPath.row];
+    tableMetadata *metadata = [_dataSource objectAtIndex:indexPath.row];
     
-    tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", [record valueForKey:@"fileID"]]];
-
     return metadata;
 }
 
@@ -635,6 +591,10 @@
 {
     CCFavoritesCell *cell = (CCFavoritesCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     tableMetadata *metadata;
+    
+    // variable base
+    cell.delegate = self;
+    cell.indexPath = indexPath;
     
     // separator
     cell.separatorInset = UIEdgeInsetsMake(0.f, 60.f, 0.f, 0.f);
@@ -712,13 +672,25 @@
                 cell.local.image = nil;
             
             cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ %@", date, length];
-            //cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ • %@", date, length];
-            //cell.labelInfoFile.text = [NSString stringWithFormat:@"%@ ◦ %@", date, length];
         }
         
         cell.accessoryType = UITableViewCellAccessoryNone;
         
     }
+    
+    // ======== MGSwipe ========
+    
+    //configure left buttons : ONLY Root Favorites : Remove file/folder Favorites
+    
+    if (_serverUrl == nil) {
+        cell.leftButtons = @[[MGSwipeButton buttonWithTitle:[NSString stringWithFormat:@" %@ ", NSLocalizedString(@"_unfavorite_", nil)] icon:[UIImage imageNamed:@"swipeUnfavorite"] backgroundColor:[UIColor colorWithRed:242.0/255.0 green:220.0/255.0 blue:132.0/255.0 alpha:1.000]]];
+        cell.leftExpansion.buttonIndex = 0;
+        cell.leftExpansion.fillOnTrigger = NO;
+    }
+    
+    //configure right buttons
+    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:[NSString stringWithFormat:@" %@ ", NSLocalizedString(@"_delete_", nil)] icon:[UIImage imageNamed:@"swipeDelete"] backgroundColor:[UIColor redColor]], [MGSwipeButton buttonWithTitle:[NSString stringWithFormat:@" %@ ", NSLocalizedString(@"_more_", nil)] icon:[UIImage imageNamed:@"swipeMore"] backgroundColor:[UIColor lightGrayColor]]];
+    cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
     
     return cell;
 }
