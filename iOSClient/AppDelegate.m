@@ -365,9 +365,6 @@
         NSLog(@"[LOG] Listning Favorites");
         [_activeFavorites readListingFavorites];
     });
-    
-    // Initialize Auto upload
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"initStateAutoUpload" object:@{@"afterDelay": @(2)}];
 }
 
 #pragma --------------------------------------------------------------------------------------------
@@ -1609,6 +1606,9 @@
         NSArray *listAccount = [CCCoreData migrateAccount];
         for (TableAccount *account in listAccount)
             [[NCManageDatabase sharedInstance] addTableAccountFromCoredata:account];
+        
+        // Align Photo Library
+        [[NCAutoUpload sharedInstance] alignPhotoLibrary];
         
         // Most important is done
         [CCUtility setVersionCryptoCloud];

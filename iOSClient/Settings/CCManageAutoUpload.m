@@ -85,9 +85,9 @@
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"autoUploadPhoto" rowType:XLFormRowDescriptorTypeBooleanSwitch title:NSLocalizedString(@"_autoupload_photos_", nil)];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"autoUploadImage" rowType:XLFormRowDescriptorTypeBooleanSwitch title:NSLocalizedString(@"_autoupload_photos_", nil)];
     row.hidden = [NSString stringWithFormat:@"$%@==0", @"autoUpload"];
-    if (tableAccount.autoUploadPhoto) row.value = @1;
+    if (tableAccount.autoUploadImage) row.value = @1;
     else row.value = @0;
     [row.cellConfig setObject:[UIFont systemFontOfSize:15.0]forKey:@"textLabel.font"];
     [section addFormRow:row];
@@ -200,7 +200,7 @@
 {
     [super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue];
     
-    tableAccount *tableAccount = [[NCManageDatabase sharedInstance] getAccountActive];
+    tableAccount *account = [[NCManageDatabase sharedInstance] getAccountActive];
     
     if ([rowDescriptor.tag isEqualToString:@"autoUpload"]) {
         
@@ -217,31 +217,21 @@
             [[NCManageDatabase sharedInstance] setAccountAutoUploadDirectory:nil activeUrl:app.activeUrl];
             
             // verifichiamo che almeno uno dei servizi (foto video) siano attivi, in caso contrario attiviamo le foto
-            if (tableAccount.autoUploadPhoto == NO && tableAccount.autoUploadVideo == NO) {
-                [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadPhoto" state:YES];
+            if (account.autoUploadImage == NO && account.autoUploadVideo == NO) {
+                [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadImage" state:YES];
                 [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadVideo" state:YES];
             }
             
-            // Settings date
-            if (tableAccount.autoUploadPhoto)
-                [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeImage assetDate:[NSDate date]];
-            if (tableAccount.autoUploadVideo)
-                [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeVideo assetDate:[NSDate date]];
+            [[NCAutoUpload sharedInstance] alignPhotoLibrary];
             
         } else {
             
             [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUpload" state:NO];
             [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadFull" state:NO];
-            
-            [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeImage assetDate:nil];
-            [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeVideo assetDate:nil];
 
             // remove
             [[NCManageDatabase sharedInstance] clearTable:[tableAutoUpload class] account:app.activeAccount];
         }
-        
-        // Initialize Auto Upload
-        [[NCAutoUpload sharedInstance] initStateAutoUpload];
         
         [self reloadForm];
     }
@@ -293,19 +283,12 @@
         }
     }
 
-    if ([rowDescriptor.tag isEqualToString:@"autoUploadPhoto"]) {
+    if ([rowDescriptor.tag isEqualToString:@"autoUploadImage"]) {
         
-        if ([[rowDescriptor.value valueData] boolValue] == YES) {
-            
-            [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeImage assetDate:[NSDate date]];
-            
-        } else {
-            
-            [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeImage assetDate:nil];
-        }
-                
-        [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadPhoto" state:[[rowDescriptor.value valueData] boolValue]];
-        
+        [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadImage" state:[[rowDescriptor.value valueData] boolValue]];
+
+        if ([[rowDescriptor.value valueData] boolValue] == YES)
+            [[NCAutoUpload sharedInstance] alignPhotoLibrary];
     }
     
     if ([rowDescriptor.tag isEqualToString:@"autoUploadWWAnPhoto"]) {
@@ -315,16 +298,10 @@
     
     if ([rowDescriptor.tag isEqualToString:@"autoUploadVideo"]) {
     
-        if ([[rowDescriptor.value valueData] boolValue] == YES) {
-                
-            [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeVideo assetDate:[NSDate date]];
-
-        } else {
-                
-            [[NCManageDatabase sharedInstance] setAccountAutoUploadDateAssetType:PHAssetMediaTypeVideo assetDate:nil];
-        }
-            
         [[NCManageDatabase sharedInstance] setAccountAutoUploadFiled:@"autoUploadVideo" state:[[rowDescriptor.value valueData] boolValue]];
+
+        if ([[rowDescriptor.value valueData] boolValue] == YES)
+            [[NCAutoUpload sharedInstance] alignPhotoLibrary];            
     }
     
     if ([rowDescriptor.tag isEqualToString:@"autoUploadWWAnVideo"]) {
@@ -349,7 +326,7 @@
     
     XLFormRowDescriptor *rowAutoUpload = [self.form formRowWithTag:@"autoUpload"];
     
-    XLFormRowDescriptor *rowAutoUploadPhoto = [self.form formRowWithTag:@"autoUploadPhoto"];
+    XLFormRowDescriptor *rowAutoUploadImage = [self.form formRowWithTag:@"autoUploadImage"];
     XLFormRowDescriptor *rowAutoUploadWWAnPhoto = [self.form formRowWithTag:@"autoUploadWWAnPhoto"];
     
     XLFormRowDescriptor *rowAutoUploadVideo = [self.form formRowWithTag:@"autoUploadVideo"];
@@ -368,8 +345,8 @@
     if (tableAccount.autoUpload)
         [rowAutoUpload setValue:@1]; else [rowAutoUpload setValue:@0];
     
-    if (tableAccount.autoUploadPhoto)
-        [rowAutoUploadPhoto setValue:@1]; else [rowAutoUploadPhoto setValue:@0];
+    if (tableAccount.autoUploadImage)
+        [rowAutoUploadImage setValue:@1]; else [rowAutoUploadImage setValue:@0];
     
     if (tableAccount.autoUploadWWAnPhoto)
         [rowAutoUploadWWAnPhoto setValue:@1]; else [rowAutoUploadWWAnPhoto setValue:@0];
@@ -391,7 +368,7 @@
     
     // - HIDDEN ---------------------
     
-    rowAutoUploadPhoto.hidden = [NSString stringWithFormat:@"$%@==0", @"autoUpload"];
+    rowAutoUploadImage.hidden = [NSString stringWithFormat:@"$%@==0", @"autoUpload"];
     rowAutoUploadWWAnPhoto.hidden = [NSString stringWithFormat:@"$%@==0", @"autoUpload"];
     
     rowAutoUploadVideo.hidden = [NSString stringWithFormat:@"$%@==0", @"autoUpload"];

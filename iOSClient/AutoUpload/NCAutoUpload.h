@@ -26,7 +26,9 @@
 #import "CCManageAutoUpload.h"
 #import "NCRequestAsset.h"
 
-@interface NCAutoUpload : NSObject <PHPhotoLibraryChangeObserver, CCManageLocationDelegate, NCRequestAssetDelegate>
+@class tableAccount;
+
+@interface NCAutoUpload : NSObject <CCManageLocationDelegate, NCRequestAssetDelegate>
 
 + (NCAutoUpload *)sharedInstance;
 
@@ -37,5 +39,7 @@
 - (void)loadAutoUpload:(NSNumber *)maxConcurrent;
 
 - (BOOL)createFolderSubFolderAutoUploadFolderPhotos:(NSString *)folderPhotos useSubFolder:(BOOL)useSubFolder assets:(PHFetchResult *)assets selector:(NSString *)selector;
+
+- (void)alignPhotoLibrary;
 
 @end
