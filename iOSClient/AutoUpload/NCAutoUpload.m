@@ -658,25 +658,23 @@
             
             if (assetsFull == NO) {
             
+                NSString *creationDate;
+                NSString *modificationDate;
+                NSString *idAsset;
+                
                 NSArray *idsAsset = [[NCManageDatabase sharedInstance] getPhotoLibraryIdAssetWithImage:account.autoUploadImage video:account.autoUploadVideo];
                 
                 for (PHAsset *asset in assets) {
                     
-                    NSString *creationDate = @"";
-                    NSString *modificationDate = @"";
-                    NSString *idAsset = @"";
-                    
-                    if (asset.creationDate != nil)
-                        creationDate = [NSString stringWithFormat:@"%@", asset.creationDate];
-                    
-                    if (asset.modificationDate != nil)
-                        modificationDate = [NSString stringWithFormat:@"%@", asset.modificationDate];
+                    (asset.creationDate != nil) ? (creationDate = [NSString stringWithFormat:@"%@", asset.creationDate]) : (creationDate = @"");
+                    (asset.modificationDate != nil) ? (modificationDate = [NSString stringWithFormat:@"%@", asset.modificationDate]) : (modificationDate = @"");
                     
                     idAsset = [NSString stringWithFormat:@"%@%@%@", asset.localIdentifier, creationDate, modificationDate];
                     
                     if (![idsAsset containsObject: idAsset])
                         [newAssets addObject:asset];
                 }
+                
                 return (PHFetchResult *)newAssets;
                 
             } else {
