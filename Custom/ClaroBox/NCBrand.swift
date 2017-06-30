@@ -67,7 +67,7 @@ class NCBrandOptions: NSObject {
     public let mailMe:                          String = "info@clarobox.com"
     public let textCopyrightNextcloudiOS:       String = "ClaroBox for iOS %@ © 2017 T.W.S. Inc."
     public let textCopyrightNextcloudServer:    String = "ClaroBox Server %@"
-    public let loginBaseUrl:                    String = "https://skylake.weasel.rocks"
+    public let loginBaseUrl:                    String = "https://www.clarodrive.com"
     public let loginBaseUrlMultiDomains:        [String] = ["domain.com", "domain.it"]
     public let pushNotificationServer:          String = "https://push-notifications.nextcloud.com"
     public let linkLoginProvider:               String = "https://nextcloud.com/providers"

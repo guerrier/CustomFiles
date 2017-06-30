@@ -25,26 +25,19 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
+#import "CTAssetThumbnailView.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
-@class CTAssetsGridViewController;
+@interface CTAssetThumbnailStacks : UIView
 
+@property (nonatomic, assign) CGSize thumbnailSize;
+@property (nonatomic, copy, readonly) NSArray<CTAssetThumbnailView*> *thumbnailViews;
+@property (nonatomic, assign, readonly) UIEdgeInsets edgeInsets;
 
-
-@protocol CTAssetsGridViewControllerDelegate <NSObject>
-
-- (void)assetsGridViewController:(nonnull CTAssetsGridViewController *)picker photoLibraryDidChangeForAssetCollection:(nonnull PHAssetCollection *)assetCollection;
-
-@end
-
-
-
-@interface CTAssetsGridViewController : UICollectionViewController
-
-@property (nonatomic, weak) id<CTAssetsGridViewControllerDelegate> delegate;
-@property (nonatomic, strong, nonnull) PHAssetCollection *assetCollection;
+- (nonnull CTAssetThumbnailView *)thumbnailAtIndex:(NSUInteger)index;
+- (void)setHighlighted:(BOOL)highlighted;
 
 @end
 
-
+NS_ASSUME_NONNULL_END

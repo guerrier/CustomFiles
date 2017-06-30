@@ -25,15 +25,26 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "CTAssetThumbnailView.h"
+#import <Photos/Photos.h>
 
-@interface CTAssetThumbnailStacks : UIView
 
-@property (nonatomic, assign) CGSize thumbnailSize;
-@property (nonatomic, copy, readonly) NSArray<CTAssetThumbnailView*> *thumbnailViews;
-@property (nonatomic, assign, readonly) UIEdgeInsets edgeInsets;
+@class CTAssetsGridViewController;
 
-- (nonnull CTAssetThumbnailView *)thumbnailAtIndex:(NSUInteger)index;
-- (void)setHighlighted:(BOOL)highlighted;
+
+
+@protocol CTAssetsGridViewControllerDelegate <NSObject>
+
+- (void)assetsGridViewController:(nonnull CTAssetsGridViewController *)picker photoLibraryDidChangeForAssetCollection:(nonnull PHAssetCollection *)assetCollection;
 
 @end
+
+
+
+@interface CTAssetsGridViewController : UICollectionViewController
+
+@property (nonatomic, weak, nullable) id<CTAssetsGridViewControllerDelegate> delegate;
+@property (nonatomic, strong, nonnull) PHAssetCollection *assetCollection;
+
+@end
+
+
