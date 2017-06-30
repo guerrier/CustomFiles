@@ -1605,34 +1605,6 @@
 		F7BFCCC11B68C21900548E76 /* CCManageLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCManageLocation.m; sourceTree = "<group>"; };
 		F7C5259F1E3B48B700FFE02C /* CCNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCNotification.swift; path = Notification/CCNotification.swift; sourceTree = "<group>"; };
 		F7C525A11E3B6DA800FFE02C /* CCNotification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CCNotification.storyboard; path = Notification/CCNotification.storyboard; sourceTree = "<group>"; };
-		F7C597391ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/BKPasscodeView.strings; sourceTree = "<group>"; };
-		F7C5973A1ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
-		F7C5973B1ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Error.strings; sourceTree = "<group>"; };
-		F7C5973C1ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F7C5973D1ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intro.strings; sourceTree = "<group>"; };
-		F7C5973E1ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F7C5973F1ED6D1FB00ECCB34 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SwiftWebVC.strings; sourceTree = "<group>"; };
-		F7C597401ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/BKPasscodeView.strings; sourceTree = "<group>"; };
-		F7C597411ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
-		F7C597421ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Error.strings; sourceTree = "<group>"; };
-		F7C597431ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F7C597441ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intro.strings; sourceTree = "<group>"; };
-		F7C597451ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F7C597461ED6D20200ECCB34 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SwiftWebVC.strings; sourceTree = "<group>"; };
-		F7C597711ED6D26B00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/BKPasscodeView.strings"; sourceTree = "<group>"; };
-		F7C597721ED6D26B00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
-		F7C597731ED6D26B00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Error.strings"; sourceTree = "<group>"; };
-		F7C597741ED6D26B00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		F7C597751ED6D26B00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Intro.strings"; sourceTree = "<group>"; };
-		F7C597761ED6D26C00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		F7C597771ED6D26C00ECCB34 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/SwiftWebVC.strings"; sourceTree = "<group>"; };
-		F7C597781ED6D27100ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/BKPasscodeView.strings; sourceTree = "<group>"; };
-		F7C597791ED6D27100ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
-		F7C5977A1ED6D27100ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Error.strings; sourceTree = "<group>"; };
-		F7C5977B1ED6D27200ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F7C5977C1ED6D27200ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Intro.strings; sourceTree = "<group>"; };
-		F7C5977D1ED6D27200ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F7C5977E1ED6D27200ECCB34 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SwiftWebVC.strings; sourceTree = "<group>"; };
 		F7C597861ED6D28100ECCB34 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/BKPasscodeView.strings"; sourceTree = "<group>"; };
 		F7C597871ED6D28100ECCB34 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
 		F7C597881ED6D28200ECCB34 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Error.strings"; sourceTree = "<group>"; };
@@ -3736,10 +3708,6 @@
 			knownRegions = (
 				en,
 				Base,
-				fr,
-				de,
-				"pt-BR",
-				ru,
 				"es-MX",
 			);
 			mainGroup = F7F67B9F1A24D27800EE80DA;
@@ -4582,10 +4550,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7151A801D477A4B00E6AF45 /* en */,
-				F7C597391ED6D1FB00ECCB34 /* fr */,
-				F7C597401ED6D20200ECCB34 /* de */,
-				F7C597711ED6D26B00ECCB34 /* pt-BR */,
-				F7C597781ED6D27100ECCB34 /* ru */,
 				F7C597861ED6D28100ECCB34 /* es-MX */,
 			);
 			name = BKPasscodeView.strings;
@@ -4595,10 +4559,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F73CC0251E813B61006E3047 /* en */,
-				F7C5973A1ED6D1FB00ECCB34 /* fr */,
-				F7C597411ED6D20200ECCB34 /* de */,
-				F7C597721ED6D26B00ECCB34 /* pt-BR */,
-				F7C597791ED6D27100ECCB34 /* ru */,
 				F7C597871ED6D28100ECCB34 /* es-MX */,
 			);
 			name = CTAssetsPicker.strings;
@@ -4608,10 +4568,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F73CC0281E813B6A006E3047 /* en */,
-				F7C5973F1ED6D1FB00ECCB34 /* fr */,
-				F7C597461ED6D20200ECCB34 /* de */,
-				F7C597771ED6D26C00ECCB34 /* pt-BR */,
-				F7C5977E1ED6D27200ECCB34 /* ru */,
 				F7C5978C1ED6D28200ECCB34 /* es-MX */,
 			);
 			name = SwiftWebVC.strings;
@@ -4621,10 +4577,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7151A831D477A4B00E6AF45 /* en */,
-				F7C5973D1ED6D1FB00ECCB34 /* fr */,
-				F7C597441ED6D20200ECCB34 /* de */,
-				F7C597751ED6D26B00ECCB34 /* pt-BR */,
-				F7C5977C1ED6D27200ECCB34 /* ru */,
 				F7C5978A1ED6D28200ECCB34 /* es-MX */,
 			);
 			name = Intro.strings;
@@ -4643,10 +4595,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7151A841D477A4B00E6AF45 /* en */,
-				F7C5973B1ED6D1FB00ECCB34 /* fr */,
-				F7C597421ED6D20200ECCB34 /* de */,
-				F7C597731ED6D26B00ECCB34 /* pt-BR */,
-				F7C5977A1ED6D27100ECCB34 /* ru */,
 				F7C597881ED6D28200ECCB34 /* es-MX */,
 			);
 			name = Error.strings;
@@ -4656,10 +4604,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7151A821D477A4B00E6AF45 /* en */,
-				F7C5973C1ED6D1FB00ECCB34 /* fr */,
-				F7C597431ED6D20200ECCB34 /* de */,
-				F7C597741ED6D26B00ECCB34 /* pt-BR */,
-				F7C5977B1ED6D27200ECCB34 /* ru */,
 				F7C597891ED6D28200ECCB34 /* es-MX */,
 			);
 			name = InfoPlist.strings;
@@ -4669,10 +4613,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F7151A811D477A4B00E6AF45 /* en */,
-				F7C5973E1ED6D1FB00ECCB34 /* fr */,
-				F7C597451ED6D20200ECCB34 /* de */,
-				F7C597761ED6D26C00ECCB34 /* pt-BR */,
-				F7C5977D1ED6D27200ECCB34 /* ru */,
 				F7C5978B1ED6D28200ECCB34 /* es-MX */,
 			);
 			name = Localizable.strings;
