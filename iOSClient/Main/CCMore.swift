@@ -422,8 +422,12 @@ class CCMore: UIViewController, UITableViewDelegate, UITableViewDataSource, CCLo
         self.navigationController?.pushViewController(controller, animated: true)
         */
     }
-
+    
     func loginSuccess(_ loginType: NSInteger) {
+        
+        if (UInt32(loginType) != loginModifyPasswordUser.rawValue) {
+            NCAutoUpload.sharedInstance().alignPhotoLibrary()
+        }
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initializeMain"), object: nil)
         
