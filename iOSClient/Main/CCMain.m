@@ -4266,10 +4266,7 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
+         
                                         if (_metadata.favorite)
                                             [self removeFavorite:_metadata];
                                         else
@@ -4287,9 +4284,6 @@
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
                                         
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
                                         [self openWindowShare:_metadata];
                                     }];
         }
@@ -4302,9 +4296,6 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
                                         
                                         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"_rename_",nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
                                         
@@ -4344,9 +4335,6 @@
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
                                         
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
                                         [self moveOpenWindow:[[NSArray alloc] initWithObjects:indexPath, nil]];
                                     }];
         }
@@ -4359,9 +4347,6 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
                                         
                                         // Settings new folder Automatatic upload
                                         NSString *oldAutoUploadDirectory = [[NCManageDatabase sharedInstance] getAccountAutoUploadDirectory:app.activeUrl];
@@ -4392,9 +4377,6 @@
                                        type:AHKActionSheetButtonTypeEncrypted
                                     handler:^(AHKActionSheet *as) {
                                         
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
                                         [self performSelector:@selector(comandoLockPassword) withObject:nil];
                                     }];
         }
@@ -4407,9 +4389,6 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeEncrypted
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
                                         
                                         [self performSelector:@selector(encyptedDecryptedFolder) withObject:nil];
                                     }];
@@ -4447,10 +4426,7 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
+         
                                         if (_metadata.favorite)
                                             [self  removeFavorite:_metadata];
                                         else
@@ -4468,9 +4444,6 @@
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
                                         
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
                                         [self openWindowShare:_metadata];
                                     }];
         }
@@ -4482,9 +4455,6 @@
                                    type:AHKActionSheetButtonTypeDefault
                                 handler:^(AHKActionSheet *as) {
                                     
-                                    // close swipe
-                                    [self setEditing:NO animated:YES];
-                                    
                                     [self performSelector:@selector(openIn:) withObject:_metadata];
                                 }];
         
@@ -4494,9 +4464,6 @@
                                  height: 50.0
                                    type:AHKActionSheetButtonTypeDefault
                                 handler:^(AHKActionSheet *as) {
-                                    
-                                    // close swipe
-                                    [self setEditing:NO animated:YES];
                                     
                                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"_rename_",nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
                                     
@@ -4532,9 +4499,6 @@
                                    type:AHKActionSheetButtonTypeDefault
                                 handler:^(AHKActionSheet *as) {
                                     
-                                    // close swipe
-                                    [self setEditing:NO animated:YES];
-                                    
                                     [self moveOpenWindow:[[NSArray alloc] initWithObjects:indexPath, nil]];
                                 }];
         
@@ -4546,9 +4510,6 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
                                         
                                         [self performSelector:@selector(removeLocalFile:) withObject:_metadata];
                                     }];
@@ -4563,13 +4524,28 @@
                                        type:AHKActionSheetButtonTypeEncrypted
                                     handler:^(AHKActionSheet *as) {
                                         
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
-                                        
                                         [self performSelector:@selector(cmdEncryptedDecryptedFile) withObject:nil];
                                     }];
         }
         
+#ifdef DEBUG
+        
+        /*
+        [actionSheet addButtonWithTitle:@"Hide file"
+                                  image:[CCGraphics changeThemingColorImage:[UIImage imageNamed:@"admin"] color:[NCBrandColor sharedInstance].brand]
+                        backgroundColor:[UIColor whiteColor]
+                                 height: 50.0
+                                   type:AHKActionSheetButtonTypeDefault
+                                handler:^(AHKActionSheet *as) {
+                                    
+                                    [[NCManageDatabase sharedInstance] setMetadataStatusWithFileID:_metadata.fileID status:k_metadataStatusHide];
+                                    
+                                    [self reloadDatasource];
+                                }];
+       */  
+        
+#endif
+
         [actionSheet show];
     }
     
@@ -4593,9 +4569,6 @@
                                      height: 50.0
                                        type:AHKActionSheetButtonTypeDefault
                                     handler:^(AHKActionSheet *as) {
-                                        
-                                        // close swipe
-                                        [self setEditing:NO animated:YES];
                                         
                                         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"_rename_",nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
                                         
@@ -4630,10 +4603,7 @@
                                  height: 50.0
                                    type:AHKActionSheetButtonTypeDefault
                                 handler:^(AHKActionSheet *as) {
-                                    
-                                    // close swipe
-                                    [self setEditing:NO animated:YES];
-                                    
+                                                                        
                                     [self moveOpenWindow:[[NSArray alloc] initWithObjects:indexPath, nil]];
                                 }];
         
@@ -4750,7 +4720,7 @@
     
         // Data Source
     
-        NSArray *recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@", app.activeAccount, [[NCManageDatabase sharedInstance] getDirectoryID:serverUrl]] sorted:[CCUtility getOrderSettings] ascending:[CCUtility getAscendingSettings]];
+        NSArray *recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND status = %i", app.activeAccount, [[NCManageDatabase sharedInstance] getDirectoryID:serverUrl], k_metadataStatusNormal] sorted:[CCUtility getOrderSettings] ascending:[CCUtility getAscendingSettings]];
         
         _sectionDataSource = [CCSectionDataSourceMetadata new];
         _sectionDataSource = [CCSectionMetadata creataDataSourseSectionMetadata:recordsTableMetadata listProgressMetadata:nil groupByField:_directoryGroupBy replaceDateToExifDate:NO activeAccount:app.activeAccount];
