@@ -4152,6 +4152,11 @@
         return YES;
 }
 
+-(void)swipeTableCell:(nonnull MGSwipeTableCell *)cell didChangeSwipeState:(MGSwipeState)state gestureIsActive:(BOOL)gestureIsActive
+{
+    //
+}
+
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
@@ -4722,7 +4727,7 @@
     NSInteger section = indexPath.section + 1;
     NSInteger row = indexPath.row + 1;
     
-    NSInteger totSections =[_sectionDataSource.sections count] ;
+    NSInteger totSections = [_sectionDataSource.sections count] ;
     
     if ((totSections < section) || (section > totSections)) {
       
@@ -4749,7 +4754,7 @@
         NSLog(@"[LOG] DEBUG [2] : fileIDs is NIL");
         return nil;
     }
-    
+        
     NSString *fileID = [fileIDs objectAtIndex:indexPath.row];
     tableMetadata *metadata = [_sectionDataSource.allRecordsDataSource objectForKey:fileID];
     
@@ -4806,8 +4811,8 @@
     //store swipeOffset before relod
     [_statusSwipeCell removeAllObjects];
     for (MGSwipeTableCell *cell in self.tableView.visibleCells) {
-        NSIndexPath *path = [self.tableView indexPathForCell:cell];
-        [_statusSwipeCell setObject:[NSNumber numberWithDouble:cell.swipeOffset] forKey:[@(path.row) stringValue]];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        [_statusSwipeCell setObject:[NSNumber numberWithDouble:cell.swipeOffset] forKey:indexPath];
     }
     
     // reload table view
@@ -4877,22 +4882,23 @@
     float shift;
     UIVisualEffectView *visualEffectView;
     
-    // Titolo
     NSString *titleSection;
     
-    // Controllo
-    if ([_sectionDataSource.sections count] == 0)
+    if (![self indexPathIsValid:[NSIndexPath indexPathForRow:0 inSection:section]])
         return nil;
     
-    if ([[_sectionDataSource.sections objectAtIndex:section] isKindOfClass:[NSString class]]) titleSection = [_sectionDataSource.sections objectAtIndex:section];
-    if ([[_sectionDataSource.sections objectAtIndex:section] isKindOfClass:[NSDate class]]) titleSection = [CCUtility getTitleSectionDate:[_sectionDataSource.sections objectAtIndex:section]];
+    if ([[_sectionDataSource.sections objectAtIndex:section] isKindOfClass:[NSString class]])
+        titleSection = [_sectionDataSource.sections objectAtIndex:section];
+    
+    if ([[_sectionDataSource.sections objectAtIndex:section] isKindOfClass:[NSDate class]])
+        titleSection = [CCUtility getTitleSectionDate:[_sectionDataSource.sections objectAtIndex:section]];
     
     if ([titleSection isEqualToString:@"_none_"]) titleSection = @"";
     else if ([titleSection rangeOfString:@"download"].location != NSNotFound) titleSection = NSLocalizedString(@"_title_section_download_",nil);
     else if ([titleSection rangeOfString:@"upload"].location != NSNotFound) titleSection = NSLocalizedString(@"_title_section_upload_",nil);
     else titleSection = NSLocalizedString(titleSection,nil);
     
-    // Formato titolo
+    // Format title
     NSString *currentDevice = [CCUtility currentDevice];
     if ([currentDevice rangeOfString:@"iPad3"].location != NSNotFound) {
         
@@ -5376,9 +5382,8 @@
     [moreButton centerIconOverText];
 
     //restore swipeOffset after relod
-    CGFloat swipeOffset = [[_statusSwipeCell objectForKey:[@(indexPath.row) stringValue]] doubleValue];
+    CGFloat swipeOffset = [[_statusSwipeCell objectForKey:indexPath] doubleValue];
     if (swipeOffset < 0) {
-        //[cell setSwipeOffset:swipeOffset animated:NO completion:nil];
         [cell showSwipe:MGSwipeDirectionRightToLeft animated:NO];
     } else if (swipeOffset > 0) {
         [cell showSwipe:MGSwipeDirectionLeftToRight animated:NO];
