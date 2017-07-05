@@ -946,6 +946,9 @@
 
 - (void)saveSelectedFiles
 {
+    if (_isSelectedMode && [_selectedFileIDsMetadatas count] == 0)
+        return;
+
     NSLog(@"[LOG] Start download selected files ...");
     
     [_hud visibleHudTitle:@"" mode:MBProgressHUDModeIndeterminate color:nil];
@@ -1512,6 +1515,9 @@
 
 - (void)downloadSelectedFilesFolders
 {
+    if (_isSelectedMode && [_selectedFileIDsMetadatas count] == 0)
+        return;
+
     NSLog(@"[LOG] Start download selected ...");
     
     [_hud visibleHudTitle:NSLocalizedString(@"_downloading_progress_", nil) mode:MBProgressHUDModeIndeterminate color:nil];
@@ -4818,16 +4824,25 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    tableMetadata *metadata = [self getMetadataFromSectionDataSource:indexPath];
+{    
+    if (tableView.editing == 1) {
+        
+        tableMetadata *metadata = [self getMetadataFromSectionDataSource:indexPath];
+        
+        if (!metadata || [[NCManageDatabase sharedInstance] isTableInvalidated:metadata])
+            return NO;
+        
+        if (metadata == nil || metadata.errorPasscode || (metadata.cryptated && [metadata.title length] == 0) || metadata.sessionTaskIdentifier  != k_taskIdentifierDone || metadata.sessionTaskIdentifier != k_taskIdentifierDone)
+            return NO;
+        else
+            return YES;
+        
+    } else {
+        
+        [_selectedFileIDsMetadatas removeAllObjects];
+    }
     
-    if (!metadata || [[NCManageDatabase sharedInstance] isTableInvalidated:metadata])
-        return NO;
-    
-    if (metadata == nil || metadata.errorPasscode || (metadata.cryptated && [metadata.title length] == 0) || metadata.sessionTaskIdentifier  != k_taskIdentifierDone || metadata.sessionTaskIdentifier != k_taskIdentifierDone)
-        return NO;
-    else
-        return YES;
+    return YES;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
