@@ -158,11 +158,12 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableAccount.self).filter("account = %@", account).first
-        
-        if result != nil {
-            result?.password = password
+        guard let result = realm.objects(tableAccount.self).filter("account = %@", account).first else {
+            realm.cancelWrite()
+            return
         }
+        
+        result.password = password
         
         do {
             try realm.commitWrite()
@@ -177,11 +178,12 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableAccount.self).filter("account = %@", account).first
-        
-        if result != nil {
-            realm.delete(result!)
+        guard let result = realm.objects(tableAccount.self).filter("account = %@", account).first else {
+            realm.cancelWrite()
+            return
         }
+        
+        realm.delete(result)
         
         do {
             try realm.commitWrite()
@@ -194,12 +196,11 @@ class NCManageDatabase: NSObject {
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableAccount.self).filter("active = true").first
-        if result != nil {
-            return result
-        } else {
+        guard let result = realm.objects(tableAccount.self).filter("active = true").first else {
             return nil
         }
+        
+        return result
     }
 
     func getAccounts() -> [String] {
@@ -221,42 +222,36 @@ class NCManageDatabase: NSObject {
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableAccount.self).filter("active = true").first
-        
-        if result != nil {
-            
-            if result!.autoUploadFileName.characters.count > 0 {
-                
-                return result!.autoUploadFileName
-                
-            } else {
-                
-                return NCBrandOptions.sharedInstance.folderDefaultAutoUpload
-            }
+        guard let result = realm.objects(tableAccount.self).filter("active = true").first else {
+            return ""
         }
         
-        return ""
+        if result.autoUploadFileName.characters.count > 0 {
+                
+            return result.autoUploadFileName
+                
+        } else {
+                
+            return NCBrandOptions.sharedInstance.folderDefaultAutoUpload
+        }
     }
     
     func getAccountAutoUploadDirectory(_ activeUrl : String) -> String {
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableAccount.self).filter("active = true").first
-        
-        if result != nil {
-            
-            if result!.autoUploadDirectory.characters.count > 0 {
-                
-                return result!.autoUploadDirectory
-                
-            } else {
-                
-                return CCUtility.getHomeServerUrlActiveUrl(activeUrl)
-            }
+        guard let result = realm.objects(tableAccount.self).filter("active = true").first else {
+            return ""
         }
         
-        return ""
+        if result.autoUploadDirectory.characters.count > 0 {
+                
+            return result.autoUploadDirectory
+                
+        } else {
+                
+            return CCUtility.getHomeServerUrlActiveUrl(activeUrl)
+        }
     }
 
     func getAccountAutoUploadPath(_ activeUrl : String) -> String {
@@ -272,6 +267,7 @@ class NCManageDatabase: NSObject {
     func setAccountActive(_ account: String) -> tableAccount {
         
         let realm = try! Realm()
+        
         var activeAccount = tableAccount()
         
         do {
@@ -305,30 +301,30 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableAccount.self).filter("active = true").first
+        guard let result = realm.objects(tableAccount.self).filter("active = true").first else {
+            realm.cancelWrite()
+            return
+        }
         
-        if result != nil {
-            
-            switch field {
-            case "autoUpload":
-                result?.autoUpload = state
-            case "autoUploadBackground":
-                result?.autoUploadBackground = state
-            case "autoUploadCreateSubfolder":
-                result?.autoUploadCreateSubfolder = state
-            case "autoUploadFull":
-                result?.autoUploadFull = state
-            case "autoUploadImage":
-                result?.autoUploadImage = state
-            case "autoUploadVideo":
-                result?.autoUploadVideo = state
-            case "autoUploadWWAnPhoto":
-                result?.autoUploadWWAnPhoto = state
-            case "autoUploadWWAnVideo":
-                result?.autoUploadWWAnVideo = state
-            default:
-                print("No founfd field")
-            }
+        switch field {
+        case "autoUpload":
+            result.autoUpload = state
+        case "autoUploadBackground":
+            result.autoUploadBackground = state
+        case "autoUploadCreateSubfolder":
+            result.autoUploadCreateSubfolder = state
+        case "autoUploadFull":
+            result.autoUploadFull = state
+        case "autoUploadImage":
+            result.autoUploadImage = state
+        case "autoUploadVideo":
+            result.autoUploadVideo = state
+        case "autoUploadWWAnPhoto":
+            result.autoUploadWWAnPhoto = state
+        case "autoUploadWWAnVideo":
+            result.autoUploadWWAnVideo = state
+        default:
+            print("No founfd field")
         }
         
         do {
@@ -341,6 +337,7 @@ class NCManageDatabase: NSObject {
     func setAccountAutoUploadFileName(_ fileName: String?) {
         
         let realm = try! Realm()
+        
         var fileName : String? = fileName
         
         if fileName == nil {
@@ -364,6 +361,7 @@ class NCManageDatabase: NSObject {
     func setAccountAutoUploadDirectory(_ serverUrl: String?, activeUrl: String) {
         
         let realm = try! Realm()
+        
         var serverUrl : String? = serverUrl
         
         if serverUrl == nil {
@@ -386,8 +384,7 @@ class NCManageDatabase: NSObject {
     
     func setAccountsUserProfile(_ userProfile: OCUserProfile) {
      
-        let tblAccount = self.getAccountActive()
-        if tblAccount == nil {
+        guard let tblAccount = self.getAccountActive() else {
             return
         }
         
@@ -396,24 +393,23 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
                 
-                let result = realm.objects(tableAccount.self).filter("account = %@", tblAccount!.account).first
-
-                if result != nil {
-
-                    result?.enabled = userProfile.enabled
-                    result?.address = userProfile.address
-                    result?.displayName = userProfile.displayName
-                    result?.email = userProfile.email
-                    result?.phone = userProfile.phone
-                    result?.twitter = userProfile.twitter
-                    result?.webpage = userProfile.webpage
-                
-                    result?.quota = userProfile.quota
-                    result?.quotaFree = userProfile.quotaFree
-                    result?.quotaRelative = userProfile.quotaRelative
-                    result?.quotaTotal = userProfile.quotaTotal
-                    result?.quotaUsed = userProfile.quotaUsed
+                guard let result = realm.objects(tableAccount.self).filter("account = %@", tblAccount.account).first else {
+                    return
                 }
+                
+                result.enabled = userProfile.enabled
+                result.address = userProfile.address
+                result.displayName = userProfile.displayName
+                result.email = userProfile.email
+                result.phone = userProfile.phone
+                result.twitter = userProfile.twitter
+                result.webpage = userProfile.webpage
+                
+                result.quota = userProfile.quota
+                result.quotaFree = userProfile.quotaFree
+                result.quotaRelative = userProfile.quotaRelative
+                result.quotaTotal = userProfile.quotaTotal
+                result.quotaUsed = userProfile.quotaUsed
             }
         } catch let error {
             print("Could not write to database: ", error)
@@ -440,8 +436,7 @@ class NCManageDatabase: NSObject {
 
     func addActivityServer(_ listOfActivity: [OCActivity]) {
     
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -451,28 +446,25 @@ class NCManageDatabase: NSObject {
             try realm.write {
             
                 for activity in listOfActivity {
+                    
+                    if realm.objects(tableActivity.self).filter("idActivity = %d", activity.idActivity).first == nil {
+                        
+                        // Add new Activity
+                        let addActivity = tableActivity()
                 
-                    let result = realm.objects(tableActivity.self).filter("idActivity = %d", activity.idActivity).first
+                        addActivity.account = tableAccount.account
                 
-                    if result != nil {
-                        continue
-                    }
+                        if activity.date != nil {
+                            addActivity.date = activity.date! as NSDate
+                        }
                 
-                    // Add new Activity
-                    let addActivity = tableActivity()
-                
-                    addActivity.account = tableAccount!.account
-                
-                    if activity.date != nil {
-                        addActivity.date = activity.date! as NSDate
-                    }
-                
-                    addActivity.idActivity = Double(activity.idActivity)
-                    addActivity.link = activity.link
-                    addActivity.note = activity.subject
-                    addActivity.type = k_activityTypeInfo
+                        addActivity.idActivity = Double(activity.idActivity)
+                        addActivity.link = activity.link
+                        addActivity.note = activity.subject
+                        addActivity.type = k_activityTypeInfo
 
-                    realm.add(addActivity)
+                        realm.add(addActivity)
+                    }
                 }
             }
         } catch let error {
@@ -482,8 +474,7 @@ class NCManageDatabase: NSObject {
     
     func addActivityClient(_ file: String, fileID: String, action: String, selector: String, note: String, type: String, verbose: Bool, activeUrl: String?) {
 
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -502,7 +493,7 @@ class NCManageDatabase: NSObject {
                 // Add new Activity
                 let addActivity = tableActivity()
                 
-                addActivity.account = tableAccount!.account
+                addActivity.account = tableAccount.account
                 addActivity.action = action
                 addActivity.file = file
                 addActivity.fileID = fileID
@@ -523,8 +514,7 @@ class NCManageDatabase: NSObject {
     
     func addAutoUpload(metadataNet: CCMetadataNet) -> Bool {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return false
         }
         
@@ -532,34 +522,30 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount!.account, metadataNet.assetLocalIdentifier).first
+        if realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, metadataNet.assetLocalIdentifier).first == nil {
         
-        if result != nil {
-            realm.cancelWrite()
-            return false
-        }
-        
-        // Add new Auto Upload
-        let addAutoUpload = tableAutoUpload()
+            // Add new Auto Upload
+            let addAutoUpload = tableAutoUpload()
             
-        addAutoUpload.account = tableAccount!.account
-        addAutoUpload.assetLocalIdentifier = metadataNet.assetLocalIdentifier
-        addAutoUpload.fileName = metadataNet.fileName
-        addAutoUpload.selector = metadataNet.selector
-        if (metadataNet.selectorPost != nil) {
-            addAutoUpload.selectorPost = metadataNet.selectorPost
-        }
-        addAutoUpload.serverUrl = metadataNet.serverUrl
-        addAutoUpload.session = metadataNet.session
-        addAutoUpload.priority = metadataNet.priority
+            addAutoUpload.account = tableAccount.account
+            addAutoUpload.assetLocalIdentifier = metadataNet.assetLocalIdentifier
+            addAutoUpload.fileName = metadataNet.fileName
+            addAutoUpload.selector = metadataNet.selector
+            if (metadataNet.selectorPost != nil) {
+                addAutoUpload.selectorPost = metadataNet.selectorPost
+            }
+            addAutoUpload.serverUrl = metadataNet.serverUrl
+            addAutoUpload.session = metadataNet.session
+            addAutoUpload.priority = metadataNet.priority
             
-        realm.add(addAutoUpload)
+            realm.add(addAutoUpload)
         
-        do {
-            try realm.commitWrite()
-        } catch let error {
-            print("[LOG] Could not write to database: ", error)
-            return false
+            do {
+                try realm.commitWrite()
+            } catch let error {
+                print("[LOG] Could not write to database: ", error)
+                return false
+            }
         }
         
         return true
@@ -567,8 +553,7 @@ class NCManageDatabase: NSObject {
     
     func addAutoUpload(metadatasNet: [CCMetadataNet]) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -579,27 +564,24 @@ class NCManageDatabase: NSObject {
             
                 for metadataNet in metadatasNet {
             
-                    let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount!.account, metadataNet.assetLocalIdentifier).first
-            
-                    if result != nil {
-                        continue
+                    if realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, metadataNet.assetLocalIdentifier).first == nil {
+                        
+                        // Add new Auto Upload
+                        let addAutoUpload = tableAutoUpload()
+                        
+                        addAutoUpload.account = tableAccount.account
+                        addAutoUpload.assetLocalIdentifier = metadataNet.assetLocalIdentifier
+                        addAutoUpload.fileName = metadataNet.fileName
+                        addAutoUpload.selector = metadataNet.selector
+                        if (metadataNet.selectorPost != nil) {
+                            addAutoUpload.selectorPost = metadataNet.selectorPost
+                        }
+                        addAutoUpload.serverUrl = metadataNet.serverUrl
+                        addAutoUpload.session = metadataNet.session
+                        addAutoUpload.priority = metadataNet.priority
+                        
+                        realm.add(addAutoUpload)
                     }
-            
-                    // Add new Auto Upload
-                    let addAutoUpload = tableAutoUpload()
-            
-                    addAutoUpload.account = tableAccount!.account
-                    addAutoUpload.assetLocalIdentifier = metadataNet.assetLocalIdentifier
-                    addAutoUpload.fileName = metadataNet.fileName
-                    addAutoUpload.selector = metadataNet.selector
-                    if (metadataNet.selectorPost != nil) {
-                        addAutoUpload.selectorPost = metadataNet.selectorPost
-                    }
-                    addAutoUpload.serverUrl = metadataNet.serverUrl
-                    addAutoUpload.session = metadataNet.session
-                    addAutoUpload.priority = metadataNet.priority
-            
-                    realm.add(addAutoUpload)
                 }
             }
         } catch let error {
@@ -609,8 +591,7 @@ class NCManageDatabase: NSObject {
     
     func getAutoUpload(selector: String) -> CCMetadataNet? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
@@ -618,9 +599,7 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
         
-        let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND selector = %@ AND lock == false", tableAccount!.account, selector).first
-        
-        if result == nil {
+        guard let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND selector = %@ AND lock == false", tableAccount.account, selector).first else {
             realm.cancelWrite()
             return nil
         }
@@ -628,17 +607,17 @@ class NCManageDatabase: NSObject {
         let metadataNet = CCMetadataNet()
         
         metadataNet.action = actionUploadAsset
-        metadataNet.assetLocalIdentifier = result?.assetLocalIdentifier
-        metadataNet.fileName = result?.fileName
-        metadataNet.priority = result!.priority
-        metadataNet.selector = result?.selector
-        metadataNet.selectorPost = result?.selectorPost
-        metadataNet.serverUrl = result?.serverUrl
-        metadataNet.session = result?.session
+        metadataNet.assetLocalIdentifier = result.assetLocalIdentifier
+        metadataNet.fileName = result.fileName
+        metadataNet.priority = result.priority
+        metadataNet.selector = result.selector
+        metadataNet.selectorPost = result.selectorPost
+        metadataNet.serverUrl = result.serverUrl
+        metadataNet.session = result.session
         metadataNet.taskStatus = Int(k_taskStatusResume)
         
         // Lock
-        result?.lock = true
+        result.lock = true
         
         do {
             try realm.commitWrite()
@@ -652,8 +631,7 @@ class NCManageDatabase: NSObject {
     
     func getLockAutoUpload() -> [tableAutoUpload]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
     
@@ -661,7 +639,7 @@ class NCManageDatabase: NSObject {
 
         let realm = try! Realm()
         
-        let results = realm.objects(tableAutoUpload.self).filter("account = %@ AND lock = true", tableAccount!.account)
+        let results = realm.objects(tableAutoUpload.self).filter("account = %@ AND lock = true", tableAccount.account)
         
         for autoUpload in results {
             unmanageAutoUploads.append(tableAutoUpload.init(value: autoUpload))
@@ -672,8 +650,7 @@ class NCManageDatabase: NSObject {
 
     func unlockAutoUpload(assetLocalIdentifier: String) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -681,12 +658,13 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount!.account, assetLocalIdentifier).first
-        
-        if result != nil {
-            // UnLock
-            result?.lock = false
+        guard let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, assetLocalIdentifier).first else {
+            realm.cancelWrite()
+            return
         }
+        
+        // UnLock
+        result.lock = false
         
         do {
             try realm.commitWrite()
@@ -697,8 +675,7 @@ class NCManageDatabase: NSObject {
     
     func deleteAutoUpload(assetLocalIdentifier: String) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
 
@@ -707,7 +684,7 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
                 
-                let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount!.account, assetLocalIdentifier).first
+                let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, assetLocalIdentifier).first
                 
                 if result != nil {
                     realm.delete(result!)
@@ -720,8 +697,7 @@ class NCManageDatabase: NSObject {
     
     func countAutoUpload(session: String?) -> Int {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return 0
         }
 
@@ -730,11 +706,11 @@ class NCManageDatabase: NSObject {
         
         if (session == nil) {
             
-            results = realm.objects(tableAutoUpload.self).filter("account = %@", tableAccount!.account)
+            results = realm.objects(tableAutoUpload.self).filter("account = %@", tableAccount.account)
             
         } else {
             
-            results = realm.objects(tableAutoUpload.self).filter("account = %@ AND session = %@", tableAccount!.account, session!)
+            results = realm.objects(tableAutoUpload.self).filter("account = %@ AND session = %@", tableAccount.account, session!)
         }
         
         return results.count
@@ -745,8 +721,7 @@ class NCManageDatabase: NSObject {
     
     func addCapabilities(_ capabilities: OCCapabilities) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
 
@@ -755,7 +730,7 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
             
-                let result = realm.objects(tableCapabilities.self).filter("account = %@", tableAccount!.account).first
+                let result = realm.objects(tableCapabilities.self).filter("account = %@", tableAccount.account).first
 
                 var resultCapabilities = tableCapabilities()
             
@@ -763,7 +738,7 @@ class NCManageDatabase: NSObject {
                     resultCapabilities = result!
                 }
             
-                resultCapabilities.account = tableAccount!.account
+                resultCapabilities.account = tableAccount.account
                 resultCapabilities.themingBackground = capabilities.themingBackground
                 resultCapabilities.themingColor = capabilities.themingColor
                 resultCapabilities.themingLogo = capabilities.themingLogo
@@ -786,38 +761,28 @@ class NCManageDatabase: NSObject {
     
     func getCapabilites() -> tableCapabilities? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
         let realm = try! Realm()
 
-        let result = realm.objects(tableCapabilities.self).filter("account = %@", tableAccount!.account).first
-        
-        if result != nil {
-        return result
-        } else {
-            return nil
-        }
+        return realm.objects(tableCapabilities.self).filter("account = %@", tableAccount.account).first
     }
     
     func getServerVersion() -> Int {
 
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return 0
         }
 
         let realm = try! Realm()
         
-        let result = realm.objects(tableCapabilities.self).filter("account = %@", tableAccount!.account).first
-
-        if result != nil {
-            return result!.versionMajor
-        } else {
+        guard let result = realm.objects(tableCapabilities.self).filter("account = %@", tableAccount.account).first else {
             return 0
         }
+
+        return result.versionMajor
     }
 
     //MARK: -
@@ -861,8 +826,7 @@ class NCManageDatabase: NSObject {
     
     func addDirectory(serverUrl: String, permissions: String) -> String {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return ""
         }
         
@@ -873,12 +837,12 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
             
-                let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount!.account, serverUrl).first
+                let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount.account, serverUrl).first
             
                 if result == nil || (result?.isInvalidated)! {
                 
                     let addDirectory = tableDirectory()
-                    addDirectory.account = tableAccount!.account
+                    addDirectory.account = tableAccount.account
                 
                     directoryID = NSUUID().uuidString
                     addDirectory.directoryID = directoryID
@@ -903,14 +867,13 @@ class NCManageDatabase: NSObject {
     
     func deleteDirectoryAndSubDirectory(serverUrl: String) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
         let realm = try! Realm()
         
-        let results = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl BEGINSWITH %@", tableAccount!.account, serverUrl)
+        let results = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl BEGINSWITH %@", tableAccount.account, serverUrl)
         
         for result in results {
             
@@ -945,8 +908,7 @@ class NCManageDatabase: NSObject {
     
     func setDirectory(serverUrl: String, serverUrlTo: String?, etag: String?) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -955,17 +917,15 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
             
-                let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount!.account, serverUrl).first
-            
-                if result != nil {
+                guard let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount.account, serverUrl).first else {
+                    return
+                }
                 
-                    if serverUrlTo != nil {
-                        result?.serverUrl = serverUrlTo!
-                    }
-                    if etag != nil {
-                        result?.etag = etag!
-                    }
-                
+                if serverUrlTo != nil {
+                    result.serverUrl = serverUrlTo!
+                }
+                if etag != nil {
+                    result.etag = etag!
                 }
             }
         } catch let error {
@@ -975,8 +935,7 @@ class NCManageDatabase: NSObject {
     
     func clearDateRead(serverUrl: String?, directoryID: String?) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -985,25 +944,23 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
 
-                var results : Results<tableDirectory>?
+                var predicate = NSPredicate()
             
                 if serverUrl != nil {
-                    results = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount!.account, serverUrl!)
+                    predicate = NSPredicate(format: "account = %@ AND serverUrl = %@", tableAccount.account, serverUrl!)
                 }
             
                 if directoryID != nil {
-                    results = realm.objects(tableDirectory.self).filter("account = %@ AND directoryID = %@", tableAccount!.account, directoryID!)
+                    predicate = NSPredicate(format: "account = %@ AND directoryID = %@", tableAccount.account, directoryID!)
                 }
             
-                if results != nil {
-                
-                    if results!.count > 0 {
-                    
-                        results![0].dateReadDirectory = nil
-                        results![0].etag = ""
-                        realm.add(results!, update: true)
-                    }
+                guard let result = realm.objects(tableDirectory.self).filter(predicate).first else {
+                    return
                 }
+                
+                result.dateReadDirectory = nil
+                result.etag = ""
+                realm.add(result, update: true)
             }
         } catch let error {
             print("Could not write to database: ", error)
@@ -1012,26 +969,22 @@ class NCManageDatabase: NSObject {
     
     func getTableDirectory(predicate: NSPredicate) -> tableDirectory? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableDirectory.self).filter(predicate).first
-        
-        if result != nil {
-            return tableDirectory.init(value: result!)
-        } else {
+        guard let result = realm.objects(tableDirectory.self).filter(predicate).first else {
             return nil
         }
+        
+        return tableDirectory.init(value: result)
     }
     
     func getTablesDirectory(predicate: NSPredicate, sorted: String?, ascending: Bool) -> [tableDirectory]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -1065,44 +1018,37 @@ class NCManageDatabase: NSObject {
     
     func getDirectoryID(_ serverUrl: String) -> String {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return ""
         }
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount!.account,serverUrl).first
-        
-        if result != nil {
-            return (result?.directoryID)!
-        } else {
+        guard let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount.account,serverUrl).first else {
             return self.addDirectory(serverUrl: serverUrl, permissions: "")
         }
+        
+        return result.directoryID
     }
     
     func getServerUrl(_ directoryID: String) -> String {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return ""
         }
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableDirectory.self).filter("account = %@ AND directoryID = %@", tableAccount!.account, directoryID).first
-        
-        if result != nil {
-            return (result?.serverUrl)!
-        } else {
+        guard let result = realm.objects(tableDirectory.self).filter("account = %@ AND directoryID = %@", tableAccount.account, directoryID).first else {
             return ""
         }
+        
+        return result.serverUrl
     }
     
     func setDateReadDirectory(directoryID: String) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1110,11 +1056,12 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
         
-        let result = realm.objects(tableDirectory.self).filter("account = %@ AND directoryID = %@", tableAccount!.account, directoryID).first
-            
-        if result != nil {
-            result?.dateReadDirectory = NSDate()
+        guard let result = realm.objects(tableDirectory.self).filter("account = %@ AND directoryID = %@", tableAccount.account, directoryID).first else {
+            realm.cancelWrite()
+            return
         }
+            
+        result.dateReadDirectory = NSDate()
         
         do {
             try realm.commitWrite()
@@ -1125,8 +1072,7 @@ class NCManageDatabase: NSObject {
     
     func setClearAllDateReadDirectory() {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return
         }
         
@@ -1149,25 +1095,23 @@ class NCManageDatabase: NSObject {
     
     func setDirectoryLock(serverUrl: String, lock: Bool) -> Bool {
         
-        var update = false
-
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
-            return update
+        guard let tableAccount = self.getAccountActive() else {
+            return false
         }
         
         let realm = try! Realm()
         
+        var update = false
+        
         do {
             try realm.write {
             
-                let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount!.account, serverUrl).first
-            
-                if result != nil {
-                
-                    result?.lock = lock
-                    update = true
+                guard let result = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl = %@", tableAccount.account, serverUrl).first else {
+                    return
                 }
+                
+                result.lock = lock
+                update = true
             }
         } catch let error {
             print("Could not write to database: ", error)
@@ -1179,17 +1123,16 @@ class NCManageDatabase: NSObject {
     
     func setAllDirectoryUnLock() {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
-        
+
         let realm = try! Realm()
         
         do {
             try realm.write {
             
-                let results = realm.objects(tableDirectory.self).filter("account = %@", tableAccount!.account)
+                let results = realm.objects(tableDirectory.self).filter("account = %@", tableAccount.account)
 
                 for result in results {
                     result.lock = false;
@@ -1205,8 +1148,7 @@ class NCManageDatabase: NSObject {
     
     func addExternalSites(_ externalSites: OCExternalSites) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1217,7 +1159,7 @@ class NCManageDatabase: NSObject {
             
                 let addExternalSite = tableExternalSites()
             
-                addExternalSite.account = tableAccount!.account
+                addExternalSite.account = tableAccount.account
                 addExternalSite.idExternalSite = externalSites.idExternalSite
                 addExternalSite.icon = externalSites.icon
                 addExternalSite.lang = externalSites.lang
@@ -1234,8 +1176,7 @@ class NCManageDatabase: NSObject {
 
     func deleteExternalSites() {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1244,7 +1185,7 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
             
-                let results = realm.objects(tableExternalSites.self).filter("account = %@", tableAccount!.account)
+                let results = realm.objects(tableExternalSites.self).filter("account = %@", tableAccount.account)
 
                 realm.delete(results)
             }
@@ -1272,9 +1213,7 @@ class NCManageDatabase: NSObject {
         realm.beginWrite()
 
         // Verify if exists
-        let result = realm.objects(tableGPS.self).filter("latitude = %@ AND longitude = %@", latitude, longitude).first
-        
-        if result != nil {
+        guard realm.objects(tableGPS.self).filter("latitude = %@ AND longitude = %@", latitude, longitude).first == nil else {
             realm.cancelWrite()
             return
         }
@@ -1318,8 +1257,7 @@ class NCManageDatabase: NSObject {
     
     func addLocalFile(metadata: tableMetadata) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1330,7 +1268,7 @@ class NCManageDatabase: NSObject {
             
                 let addLocaFile = tableLocalFile()
             
-                addLocaFile.account = tableAccount!.account
+                addLocaFile.account = tableAccount.account
                 addLocaFile.date = metadata.date
                 addLocaFile.etag = metadata.etag
                 addLocaFile.exifDate = NSDate()
@@ -1350,8 +1288,7 @@ class NCManageDatabase: NSObject {
     
     func deleteLocalFile(predicate: NSPredicate) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return
         }
         
@@ -1371,8 +1308,7 @@ class NCManageDatabase: NSObject {
     
     func setLocalFile(fileID: String, date: NSDate?, exifDate: NSDate?, exifLatitude: String?, exifLongitude: String?, fileName: String?, fileNamePrint: String?) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return
         }
         
@@ -1412,8 +1348,7 @@ class NCManageDatabase: NSObject {
     
     func getTableLocalFile(predicate: NSPredicate) -> tableLocalFile? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -1433,8 +1368,7 @@ class NCManageDatabase: NSObject {
     
     func addMetadata(_ metadata: tableMetadata, activeUrl: String, serverUrl: String) -> tableMetadata? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -1501,8 +1435,7 @@ class NCManageDatabase: NSObject {
 
     func deleteMetadata(predicate: NSPredicate, clearDateReadDirectoryID: String?) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return
         }
         
@@ -1538,8 +1471,7 @@ class NCManageDatabase: NSObject {
     
     func moveMetadata(fileName: String, directoryID: String, directoryIDTo: String) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1548,7 +1480,7 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
             
-                let results = realm.objects(tableMetadata.self).filter("account = %@ AND fileName = %@ AND directoryID = %@", tableAccount!.account, fileName, directoryID)
+                let results = realm.objects(tableMetadata.self).filter("account = %@ AND fileName = %@ AND directoryID = %@", tableAccount.account, fileName, directoryID)
         
                 for result in results {
                     result.directoryID = directoryIDTo
@@ -1589,8 +1521,7 @@ class NCManageDatabase: NSObject {
     
     func setMetadataSession(_ session: String?, sessionError: String?, sessionSelector: String?, sessionSelectorPost: String?, sessionTaskIdentifier: Int, sessionTaskIdentifierPlist: Int, predicate: NSPredicate) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return
         }
         
@@ -1600,31 +1531,31 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableMetadata.self).filter(predicate).first
-        
-        if result != nil {
-            
-            if session != nil {
-                result?.session = session!
-            }
-            if sessionError != nil {
-                result?.sessionError = sessionError!
-            }
-            if sessionSelector != nil {
-                result?.sessionSelector = sessionSelector!
-            }
-            if sessionSelectorPost != nil {
-                result?.sessionSelectorPost = sessionSelectorPost!
-            }
-            if sessionTaskIdentifier != Int(k_taskIdentifierNULL) {
-                result?.sessionTaskIdentifier = sessionTaskIdentifier
-            }
-            if sessionTaskIdentifierPlist != Int(k_taskIdentifierNULL) {
-                result?.sessionTaskIdentifierPlist = sessionTaskIdentifierPlist
-            }
-            
-            directoryID = (result?.directoryID)!
+        guard let result = realm.objects(tableMetadata.self).filter(predicate).first else {
+            realm.cancelWrite()
+            return
         }
+        
+        if session != nil {
+            result.session = session!
+        }
+        if sessionError != nil {
+            result.sessionError = sessionError!
+        }
+        if sessionSelector != nil {
+            result.sessionSelector = sessionSelector!
+        }
+        if sessionSelectorPost != nil {
+            result.sessionSelectorPost = sessionSelectorPost!
+        }
+        if sessionTaskIdentifier != Int(k_taskIdentifierNULL) {
+            result.sessionTaskIdentifier = sessionTaskIdentifier
+        }
+        if sessionTaskIdentifierPlist != Int(k_taskIdentifierNULL) {
+            result.sessionTaskIdentifierPlist = sessionTaskIdentifierPlist
+        }
+        
+        directoryID = result.directoryID
         
         do {
             try realm.commitWrite()
@@ -1640,8 +1571,7 @@ class NCManageDatabase: NSObject {
     
     func setMetadataFavorite(fileID: String, favorite: Bool) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1651,12 +1581,13 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let result = realm.objects(tableMetadata.self).filter("account = %@ AND fileID = %@", tableAccount!.account, fileID).first
-        
-        if result != nil {
-            result?.favorite = favorite
-            directoryID = result?.directoryID
+        guard let result = realm.objects(tableMetadata.self).filter("account = %@ AND fileID = %@", tableAccount.account, fileID).first else {
+            realm.cancelWrite()
+            return
         }
+        
+        result.favorite = favorite
+        directoryID = result.directoryID
         
         do {
             try realm.commitWrite()
@@ -1672,8 +1603,7 @@ class NCManageDatabase: NSObject {
     
     func setMetadataStatus(fileID: String, status: Double) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -1683,12 +1613,13 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
         
-        let result = realm.objects(tableMetadata.self).filter("account = %@ AND fileID = %@", tableAccount!.account, fileID).first
-        
-        if result != nil {
-            result?.status = status
-            directoryID = result?.directoryID
+        guard let result = realm.objects(tableMetadata.self).filter("account = %@ AND fileID = %@", tableAccount.account, fileID).first else {
+            realm.cancelWrite()
+            return
         }
+        
+        result.status = status
+        directoryID = result.directoryID
         
         do {
             try realm.commitWrite()
@@ -1702,11 +1633,9 @@ class NCManageDatabase: NSObject {
         }
     }
 
-    
     func getMetadata(predicate: NSPredicate) -> tableMetadata? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -1723,8 +1652,7 @@ class NCManageDatabase: NSObject {
     
     func getMetadatas(predicate: NSPredicate, sorted: String?, ascending: Bool) -> [tableMetadata]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -1737,7 +1665,13 @@ class NCManageDatabase: NSObject {
             
         } else {
             
-            results = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted!, ascending: ascending)
+            var sorted: String = sorted!
+            
+            if sorted == "fileName" {
+                sorted = "fileNamePrint"
+            }
+            
+            results = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted, ascending: ascending)
         }
         
         if (results.count > 0) {
@@ -1758,8 +1692,7 @@ class NCManageDatabase: NSObject {
     
     func getMetadataAtIndex(predicate: NSPredicate, sorted: String?, ascending: Bool, index: Int) -> tableMetadata? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -1779,98 +1712,92 @@ class NCManageDatabase: NSObject {
     
     func getMetadataFromFileName(_ fileName: String, directoryID: String) -> tableMetadata? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
         let realm = try! Realm()
         
-        let result = realm.objects(tableMetadata.self).filter("account = %@ AND directoryID = %@ AND (fileName = %@ OR fileNameData = %@)", tableAccount!.account, directoryID, fileName, fileName).first
-        
-        if result != nil {
-            return tableMetadata.init(value: result!)
-        } else {
+        guard let result = realm.objects(tableMetadata.self).filter("account = %@ AND directoryID = %@ AND (fileName = %@ OR fileNameData = %@)", tableAccount.account, directoryID, fileName, fileName).first else {
             return nil
         }
+        
+        return tableMetadata.init(value: result)
     }
     
     func getTableMetadataDownload() -> [tableMetadata]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
-        let predicate = NSPredicate(format: "account = %@ AND (session = %@ OR session = %@) AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount!.account, k_download_session, k_download_session_foreground, k_taskIdentifierDone, k_taskIdentifierDone)
+        let predicate = NSPredicate(format: "account = %@ AND (session = %@ OR session = %@) AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount.account, k_download_session, k_download_session_foreground, k_taskIdentifierDone, k_taskIdentifierDone)
         
         return self.getMetadatas(predicate: predicate, sorted: nil, ascending: false)
     }
     
     func getTableMetadataDownloadWWan() -> [tableMetadata]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
-        
-        let predicate = NSPredicate(format: "account = %@ AND session = %@ AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount!.account, k_download_session_wwan, k_taskIdentifierDone, k_taskIdentifierDone)
+
+        let predicate = NSPredicate(format: "account = %@ AND session = %@ AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount.account, k_download_session_wwan, k_taskIdentifierDone, k_taskIdentifierDone)
         
         return self.getMetadatas(predicate: predicate, sorted: nil, ascending: false)
     }
     
     func getTableMetadataUpload() -> [tableMetadata]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
-        
-        let predicate = NSPredicate(format: "account = %@ AND (session = %@ OR session = %@) AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount!.account, k_upload_session, k_upload_session_foreground, k_taskIdentifierDone, k_taskIdentifierDone)
+
+        let predicate = NSPredicate(format: "account = %@ AND (session = %@ OR session = %@) AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount.account, k_upload_session, k_upload_session_foreground, k_taskIdentifierDone, k_taskIdentifierDone)
         
         return self.getMetadatas(predicate: predicate, sorted: nil, ascending: false)
     }
     
     func getTableMetadataUploadWWan() -> [tableMetadata]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
-        let predicate = NSPredicate(format: "account = %@ AND session = %@ AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount!.account, k_upload_session_wwan, k_taskIdentifierDone, k_taskIdentifierDone)
+        let predicate = NSPredicate(format: "account = %@ AND session = %@ AND (sessionTaskIdentifier != %i OR sessionTaskIdentifierPlist != %i)", tableAccount.account, k_upload_session_wwan, k_taskIdentifierDone, k_taskIdentifierDone)
         
         return self.getMetadatas(predicate: predicate, sorted: nil, ascending: false)
     }
     
     func getTableMetadatasPhotos(serverUrl: String) -> [tableMetadata]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
         let realm = try! Realm()
+        
         let sorted = CCUtility.getOrderSettings()
         let ascending = CCUtility.getAscendingSettings()
         
         var recordsPhotosAutoUpload = [tableMetadata]()
-        let directories = self.getTablesDirectory(predicate: NSPredicate(format: "account = %@ AND serverUrl BEGINSWITH %@", tableAccount!.account, serverUrl), sorted: "serverUrl", ascending: true)
         
-        if directories != nil {
+        let results = self.getTablesDirectory(predicate: NSPredicate(format: "account = %@ AND serverUrl BEGINSWITH %@", tableAccount.account, serverUrl), sorted: "serverUrl", ascending: true)
+        
+        if results != nil {
             
-            for directory in directories! {
+            for directory in results! {
             
-                let predicate = NSPredicate(format: "account = %@ AND directoryID = %@ AND session = '' AND type = 'file' AND (typeFile = %@ OR typeFile = %@)", tableAccount!.account, directory.directoryID, k_metadataTypeFile_image, k_metadataTypeFile_video)
-            let metadatas = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted!, ascending: ascending)
+                let predicate = NSPredicate(format: "account = %@ AND directoryID = %@ AND session = '' AND type = 'file' AND (typeFile = %@ OR typeFile = %@)", tableAccount.account, directory.directoryID, k_metadataTypeFile_image, k_metadataTypeFile_video)
+                let metadatas = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted!, ascending: ascending)
                 
-            if metadatas.count > 0 {
+                if metadatas.count > 0 {
                     
-                for metadata in metadatas {
-                    recordsPhotosAutoUpload.append(tableMetadata.init(value: metadata))
+                    for metadata in metadatas {
+                        recordsPhotosAutoUpload.append(tableMetadata.init(value: metadata))
+                    }
                 }
             }
-        }
         }
         
         if recordsPhotosAutoUpload.count > 0 {
@@ -1883,8 +1810,7 @@ class NCManageDatabase: NSObject {
         }
     }
     
-    /*
-    func convertMetadataToUnmanagedMetadata(_ metadatas: Results<tableMetadata>) -> [tableMetadata] {
+    func convertMetadataToUnmanagedMetadata(_ metadatas: Results<tableMetadata>) -> [tableMetadata]? {
         
         var unmanageMetadatas = [tableMetadata]()
         
@@ -1894,15 +1820,13 @@ class NCManageDatabase: NSObject {
         
         return unmanageMetadatas
     }
-    */
     
     //MARK: -
     //MARK: Table Photo Library
     
     func addPhotoLibrary(_ assets: [PHAsset]) {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
 
@@ -1918,7 +1842,7 @@ class NCManageDatabase: NSObject {
                     
                     let addRecord = tablePhotoLibrary()
                     
-                    addRecord.account = tableAccount!.account
+                    addRecord.account = tableAccount.account
                     addRecord.assetLocalIdentifier = asset.localIdentifier
                     addRecord.mediaType = asset.mediaType.rawValue
                     
@@ -1948,8 +1872,7 @@ class NCManageDatabase: NSObject {
     
     func getPhotoLibraryIdAsset(image: Bool, video: Bool) -> [String]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
@@ -1959,15 +1882,15 @@ class NCManageDatabase: NSObject {
         
         if (image && video) {
          
-            predicate = NSPredicate(format: "account = %@ AND (mediaType = %i || mediaType = %i)", tableAccount!.account, PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
+            predicate = NSPredicate(format: "account = %@ AND (mediaType = %i || mediaType = %i)", tableAccount.account, PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
             
         } else if (image) {
             
-            predicate = NSPredicate(format: "account = %@ AND mediaType = %i", tableAccount!.account, PHAssetMediaType.image.rawValue)
+            predicate = NSPredicate(format: "account = %@ AND mediaType = %i", tableAccount.account, PHAssetMediaType.image.rawValue)
 
         } else if (video) {
             
-            predicate = NSPredicate(format: "account = %@ AND mediaType = %i", tableAccount!.account, PHAssetMediaType.video.rawValue)
+            predicate = NSPredicate(format: "account = %@ AND mediaType = %i", tableAccount.account, PHAssetMediaType.video.rawValue)
         }
         
         let results = realm.objects(tablePhotoLibrary.self).filter(predicate)
@@ -1982,8 +1905,7 @@ class NCManageDatabase: NSObject {
     
     func addShareLink(_ share: String, fileName: String, serverUrl: String) -> [String:String]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
@@ -1992,7 +1914,7 @@ class NCManageDatabase: NSObject {
         realm.beginWrite()
 
         // Verify if exists
-        let result = realm.objects(tableShare.self).filter("account = %@ AND fileName = %@ AND serverUrl = %@", tableAccount!.account, fileName, serverUrl).first
+        let result = realm.objects(tableShare.self).filter("account = %@ AND fileName = %@ AND serverUrl = %@", tableAccount.account, fileName, serverUrl).first
         
         if result != nil {
             
@@ -2003,7 +1925,7 @@ class NCManageDatabase: NSObject {
             // Add new record
             let addShare = tableShare()
             
-            addShare.account = tableAccount!.account
+            addShare.account = tableAccount.account
             addShare.fileName = fileName
             addShare.serverUrl = serverUrl
             addShare.shareLink = share
@@ -2022,8 +1944,7 @@ class NCManageDatabase: NSObject {
 
     func addShareUserAndGroup(_ share: String, fileName: String, serverUrl: String) -> [String:String]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
@@ -2032,7 +1953,7 @@ class NCManageDatabase: NSObject {
         realm.beginWrite()
 
         // Verify if exists
-        let result = realm.objects(tableShare.self).filter("account = %@ AND fileName = %@ AND serverUrl = %@", tableAccount!.account, fileName, serverUrl).first
+        let result = realm.objects(tableShare.self).filter("account = %@ AND fileName = %@ AND serverUrl = %@", tableAccount.account, fileName, serverUrl).first
         
         if result != nil {
             
@@ -2043,7 +1964,7 @@ class NCManageDatabase: NSObject {
             // Add new record
             let addShare = tableShare()
                 
-            addShare.account = tableAccount!.account
+            addShare.account = tableAccount.account
             addShare.fileName = fileName
             addShare.serverUrl = serverUrl
             addShare.shareUserAndGroup = share
@@ -2062,8 +1983,7 @@ class NCManageDatabase: NSObject {
     
     func unShare(_ share: String, fileName: String, serverUrl: String, sharesLink: [String:String], sharesUserAndGroup: [String:String]) -> [Any]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
@@ -2074,7 +1994,7 @@ class NCManageDatabase: NSObject {
         
         realm.beginWrite()
 
-        let results = realm.objects(tableShare.self).filter("account = %@ AND (shareLink CONTAINS %@ OR shareUserAndGroup CONTAINS %@)", tableAccount!.account, share, share)
+        let results = realm.objects(tableShare.self).filter("account = %@ AND (shareLink CONTAINS %@ OR shareUserAndGroup CONTAINS %@)", tableAccount.account, share, share)
         
         if (results.count > 0) {
             
@@ -2121,8 +2041,7 @@ class NCManageDatabase: NSObject {
     
     func removeShareActiveAccount() {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return
         }
         
@@ -2131,7 +2050,7 @@ class NCManageDatabase: NSObject {
         do {
             try realm.write {
             
-                let results = realm.objects(tableShare.self).filter("account = %@", tableAccount!.account)
+                let results = realm.objects(tableShare.self).filter("account = %@", tableAccount.account)
 
                 realm.delete(results)
             }
@@ -2142,8 +2061,7 @@ class NCManageDatabase: NSObject {
     
     func updateShare(_ items: [String:OCSharedDto], activeUrl: String) -> [Any]? {
         
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard self.getAccountActive() != nil else {
             return nil
         }
         
@@ -2233,17 +2151,17 @@ class NCManageDatabase: NSObject {
     
     func getShares() -> [Any]? {
 
-        let tableAccount = self.getAccountActive()
-        if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
+
         
         var sharesLink = [String:String]()
         var sharesUserAndGroup = [String:String]()
         
         let realm = try! Realm()
 
-        let results = realm.objects(tableShare.self).filter("account = %@", tableAccount!.account)
+        let results = realm.objects(tableShare.self).filter("account = %@", tableAccount.account)
         
         for resultShare in results {
             
@@ -2261,14 +2179,13 @@ class NCManageDatabase: NSObject {
     
     func getTableShares() -> [tableShare]? {
         
-        let tableAccount = self.getAccountActive()
-            if tableAccount == nil {
+        guard let tableAccount = self.getAccountActive() else {
             return nil
         }
         
         let realm = try! Realm()
         
-        let results = realm.objects(tableShare.self).filter("account = %@", tableAccount!.account).sorted(byKeyPath: "fileName", ascending: true)
+        let results = realm.objects(tableShare.self).filter("account = %@", tableAccount.account).sorted(byKeyPath: "fileName", ascending: true)
         
         return Array(results)
     }
