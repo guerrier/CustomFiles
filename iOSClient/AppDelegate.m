@@ -1624,25 +1624,17 @@
         [self maintenanceMode:NO];
     }
     
-    // VERSION == 2.17.4 BUILD < 23
-    
+    // VERSION == 2.17.4
+
     if ([actualVersion isEqualToString:@"2.17.4"]) {
         
-        // Build 23 - remove all directory Group and exit
-        if (([actualBuild compare:@"23" options:NSNumericSearch] == NSOrderedAscending) || actualBuild == nil) {
+        // Build < 28
+        if (([actualBuild compare:@"28" options:NSNumericSearch] == NSOrderedAscending) || actualBuild == nil) {
+            
+            // Align Photo Library
+            [[NCAutoUpload sharedInstance] alignPhotoLibrary];
             
             [CCUtility setBuild];
-            
-            NSString *file;
-            NSURL *dirGroup = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:[NCBrandOptions sharedInstance].capabilitiesGroups];
-            NSString *dirIniziale = [[dirGroup URLByAppendingPathComponent:appApplicationSupport] path];
-            
-            NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:dirIniziale];
-            
-            while (file = [enumerator nextObject])
-                [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", dirIniziale, file] error:nil];
-            
-            exit(0);
         }
     }
     
