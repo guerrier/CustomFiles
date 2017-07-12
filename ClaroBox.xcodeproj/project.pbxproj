@@ -251,9 +251,6 @@
 		F7555BFD1F02A57F00C935EA /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F7555BFA1F02A57F00C935EA /* MGSwipeButton.m */; };
 		F7555BFE1F02A57F00C935EA /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7555BFC1F02A57F00C935EA /* MGSwipeTableCell.m */; };
 		F75ADF451DC75FFE008A7347 /* CCLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75ADF441DC75FFE008A7347 /* CCLogin.storyboard */; };
-		F76183381F03B83E00D8D483 /* NCRequestAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = F76183371F03B83E00D8D483 /* NCRequestAsset.m */; };
-		F76183391F03B83E00D8D483 /* NCRequestAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = F76183371F03B83E00D8D483 /* NCRequestAsset.m */; };
-		F761833A1F03B83E00D8D483 /* NCRequestAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = F76183371F03B83E00D8D483 /* NCRequestAsset.m */; };
 		F7659A271DC0B726004860C4 /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = F7659A231DC0B726004860C4 /* EAIntroPage.m */; };
 		F7659A291DC0B726004860C4 /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7659A251DC0B726004860C4 /* EAIntroView.m */; };
 		F7659A2E1DC0B72F004860C4 /* EARestrictedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7659A2C1DC0B72F004860C4 /* EARestrictedScrollView.m */; };
@@ -1150,8 +1147,6 @@
 		F7555BFB1F02A57F00C935EA /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
 		F7555BFC1F02A57F00C935EA /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		F75ADF441DC75FFE008A7347 /* CCLogin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CCLogin.storyboard; sourceTree = "<group>"; };
-		F76183361F03B83E00D8D483 /* NCRequestAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCRequestAsset.h; sourceTree = "<group>"; };
-		F76183371F03B83E00D8D483 /* NCRequestAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NCRequestAsset.m; sourceTree = "<group>"; };
 		F76344751BF259A800188725 /* synchronized.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = synchronized.gif; sourceTree = "<group>"; };
 		F76344761BF259A800188725 /* synchronizedcrypto.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = synchronizedcrypto.gif; sourceTree = "<group>"; };
 		F7659A221DC0B726004860C4 /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
@@ -3230,8 +3225,6 @@
 			children = (
 				F7BFCCC01B68C21900548E76 /* CCManageLocation.h */,
 				F7BFCCC11B68C21900548E76 /* CCManageLocation.m */,
-				F76183361F03B83E00D8D483 /* NCRequestAsset.h */,
-				F76183371F03B83E00D8D483 /* NCRequestAsset.m */,
 				F777F0301C29717F00CE81CB /* PHAsset+Utility.h */,
 				F777F0311C29717F00CE81CB /* PHAsset+Utility.m */,
 			);
@@ -4092,7 +4085,6 @@
 				F73CCE321DC13798007E38D8 /* UICKeyChainStore.m in Sources */,
 				F74D8D161ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
 				F7813AB01EF2F1E300E5D2FD /* TableDirectory+CoreDataClass.m in Sources */,
-				F76183391F03B83E00D8D483 /* NCRequestAsset.m in Sources */,
 				F74D8D101ED4237D00D18098 /* OCXMLServerErrorsParser.m in Sources */,
 				F798E39B1ED60FFD005A60A1 /* CCCellShareExt.m in Sources */,
 				F74D8CCB1ED4237D00D18098 /* AFHTTPSessionManager.m in Sources */,
@@ -4187,7 +4179,6 @@
 				F7813A9C1EF2F1E300E5D2FD /* CCCoreData.m in Sources */,
 				F74344841E127F84001CC831 /* RNCryptorEngine.m in Sources */,
 				F74344851E127F86001CC831 /* RNDecryptor.m in Sources */,
-				F761833A1F03B83E00D8D483 /* NCRequestAsset.m in Sources */,
 				F74344881E127F9C001CC831 /* UIImage+animatedGIF.m in Sources */,
 				F7813ABA1EF2F1E300E5D2FD /* TableLocalFile+CoreDataProperties.m in Sources */,
 				F74D8D171ED4237D00D18098 /* OCXMLSharedParser.m in Sources */,
@@ -4283,7 +4274,6 @@
 				F77B0E121D118A16002130FE /* CCPatenteGuida.m in Sources */,
 				F79F75851F06427500704147 /* ReaderDocument.m in Sources */,
 				F77B0E131D118A16002130FE /* AppDelegate.m in Sources */,
-				F76183381F03B83E00D8D483 /* NCRequestAsset.m in Sources */,
 				F750374F1DBFA91A008FB480 /* NSArray+PureLayout.m in Sources */,
 				F732B2BE1E7FDE26002B7D75 /* CCProgressView.m in Sources */,
 				F79F75821F06427500704147 /* ReaderContentPage.m in Sources */,

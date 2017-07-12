@@ -708,8 +708,11 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            CTAssetCheckmark *checkmark = [CTAssetCheckmark appearance];
+            [checkmark setMargin:0.0 forVerticalEdge:NSLayoutAttributeRight horizontalEdge:NSLayoutAttributeBottom];
+            
             // init picker
-            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+            CTAssetsPickerController *picker = [CTAssetsPickerController new];
             
             // set delegate
             picker.delegate = self;
@@ -725,6 +728,18 @@
             [self presentViewController:picker animated:YES completion:nil];
         });
     }];
+}
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset
+{
+    if (picker.selectedAssets.count > k_pickerControllerMax) {
+        
+        [app messageNotification:@"_info_" description:@"_limited_dimension_" visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeInfo errorCode:0];
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSMutableArray *)assets
@@ -3323,7 +3338,7 @@
     if ([NCBrandOptions sharedInstance].disable_multiaccount)
         return;
     
-    if ([app.netQueue operationCount] > 0 || [app.netQueueDownload operationCount] > 0 || [app.netQueueDownloadWWan operationCount] > 0 || [app.netQueueUpload operationCount] > 0 || [app.netQueueUploadWWan operationCount] > 0 || [[NCManageDatabase sharedInstance] countAutoUploadWithSession:nil] > 0) {
+    if ([app.netQueue operationCount] > 0 || [app.netQueueDownload operationCount] > 0 || [app.netQueueDownloadWWan operationCount] > 0 || [app.netQueueUpload operationCount] > 0 || [app.netQueueUploadWWan operationCount] > 0 || [[NCManageDatabase sharedInstance] countQueueUploadWithSession:nil] > 0) {
         
         [app messageNotification:@"_transfers_in_queue_" description:nil visible:YES delay:k_dismissAfterSecond type:TWMessageBarMessageTypeInfo errorCode:0];
         return;
@@ -3822,18 +3837,28 @@
             
             NSData *dataFileID = [dic objectForKey: k_metadataKeyedUnarchiver];
             NSString *fileID = [NSKeyedUnarchiver unarchiveObjectWithData:dataFileID];
-                        
-            tableAccount *account = [[NCManageDatabase sharedInstance] getAccountActive];
-            NSString *directoryUser = [CCUtility getDirectoryActiveUser:account.user activeUrl:account.url];
             
-            if (directoryUser) {
-                if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, fileID]])
-                    return YES;
+            if (fileID) {
+                
+                tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", fileID]];
+            
+                if (metadata) {
+            
+                    tableAccount *account = [[NCManageDatabase sharedInstance] getAccountWithPredicate:[NSPredicate predicateWithFormat:@"account = %@", metadata.account]];
+                
+                    if (account) {
+                
+                        NSString *directoryUser = [CCUtility getDirectoryActiveUser:account.user activeUrl:account.url];
+            
+                        if (directoryUser)
+                            if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, fileID]])
+                                return YES;
+                    }
+                }
             }
+        }
             
-            return NO;
-
-        } else return NO;
+        return NO;
     }
     
     if (@selector(pasteFiles:) == action || @selector(pasteFilesEncrypted:) == action) {
@@ -3851,13 +3876,35 @@
             
             NSData *dataFileID = [dic objectForKey: k_metadataKeyedUnarchiver];
             NSString *fileID = [NSKeyedUnarchiver unarchiveObjectWithData:dataFileID];
-            tableAccount *account = [[NCManageDatabase sharedInstance] getAccountActive];
+
+            tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", fileID]];
             
-            NSString *directoryUser = [CCUtility getDirectoryActiveUser:account.user activeUrl:account.url];
+            if (metadata) {
             
-            if (directoryUser) {
-                if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, fileID]])
-                    isValid = YES;
+                tableAccount *account = [[NCManageDatabase sharedInstance] getAccountWithPredicate:[NSPredicate predicateWithFormat:@"account = %@", metadata.account]];
+
+                if (account) {
+                
+                    NSString *directoryUser = [CCUtility getDirectoryActiveUser:account.user activeUrl:account.url];
+            
+                    if (directoryUser) {
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, fileID]]) {
+                            isValid = YES;
+                        } else {
+                            isValid = NO;
+                            break;
+                        }
+                    } else {
+                        isValid = NO;
+                        break;
+                    }
+                } else {
+                    isValid = NO;
+                    break;
+                }
+            } else {
+                isValid = NO;
+                break;
             }
         }
         
@@ -3960,6 +4007,8 @@
 
 - (void)uploadFilePasteArray:(NSArray *)items cryptated:(BOOL)cryptated
 {
+    float timer = 0;
+    
     for (NSDictionary *dic in items) {
         
         // Value : (NSData) fileID
@@ -3967,20 +4016,29 @@
         NSData *dataFileID = [dic objectForKey: k_metadataKeyedUnarchiver];
         NSString *fileID = [NSKeyedUnarchiver unarchiveObjectWithData:dataFileID];
         
-        tableAccount *account = [[NCManageDatabase sharedInstance] getAccountActive];
         tableMetadata *metadata = [[NCManageDatabase sharedInstance] getMetadataWithPredicate:[NSPredicate predicateWithFormat:@"fileID = %@", fileID]];
         
-        if (!metadata || !account) return;
-        
-        NSString *directoryUser = [CCUtility getDirectoryActiveUser:account.user activeUrl:account.url];
+        if (metadata) {
             
-        if (directoryUser) {
+            tableAccount *account = [[NCManageDatabase sharedInstance] getAccountWithPredicate:[NSPredicate predicateWithFormat:@"account = %@", metadata.account]];
             
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, fileID]]) {
+            if (account) {
                 
-                [CCUtility copyFileAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, metadata.fileID] toPath:[NSString stringWithFormat:@"%@/%@", app.directoryUser, metadata.fileNamePrint]];
-            
-                [[CCNetworking sharedNetworking] uploadFile:metadata.fileNamePrint serverUrl:_serverUrl cryptated:cryptated onlyPlist:NO session:k_upload_session taskStatus:k_taskStatusResume selector:nil selectorPost:nil errorCode:0 delegate:nil];
+                NSString *directoryUser = [CCUtility getDirectoryActiveUser:account.user activeUrl:account.url];
+                
+                if (directoryUser) {
+                    
+                    if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, fileID]]) {
+                        
+                        [CCUtility copyFileAtPath:[NSString stringWithFormat:@"%@/%@", directoryUser, metadata.fileID] toPath:[NSString stringWithFormat:@"%@/%@", app.directoryUser, metadata.fileNamePrint]];
+                        
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, timer * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                            [[CCNetworking sharedNetworking] uploadFile:metadata.fileNamePrint serverUrl:_serverUrl cryptated:cryptated onlyPlist:NO session:k_upload_session taskStatus:k_taskStatusResume selector:nil selectorPost:nil errorCode:0 delegate:nil];
+                        });
+                        
+                        timer += 0.1;
+                    }
+                }
             }
         }
     }

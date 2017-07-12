@@ -70,7 +70,7 @@ class tableActivity: Object {
     dynamic var verbose: Bool = false
 }
 
-class tableAutoUpload: Object {
+class tableQueueUpload: Object {
     
     dynamic var account = ""
     dynamic var assetLocalIdentifier = ""
@@ -200,6 +200,10 @@ class tableMetadata: Object {
     
     override static func primaryKey() -> String {
         return "fileID"
+    }
+    
+    override static func indexedProperties() -> [String] {
+        return ["directoryID"]
     }
 }
 

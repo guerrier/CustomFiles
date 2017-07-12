@@ -36,11 +36,11 @@ class NCManageDatabase: NSObject {
         let config = Realm.Configuration(
         
             fileURL: dirGroup?.appendingPathComponent("\(appDatabaseNextcloud)/\(k_databaseDefault)"),
-            schemaVersion: 2,
+            schemaVersion: 4,
             
             migrationBlock: { migration, oldSchemaVersion in
                 // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                if (oldSchemaVersion < 2) {
+                if (oldSchemaVersion < 4) {
                     // Nothing to do!
                     // Realm will automatically detect new properties and removed properties
                     // And will update the schema on disk automatically
@@ -206,16 +206,23 @@ class NCManageDatabase: NSObject {
     func getAccounts() -> [String] {
         
         let realm = try! Realm()
-        let results : Results<tableAccount>
-        var accounts = [String]()
         
-        results = realm.objects(tableAccount.self).sorted(byKeyPath: "account", ascending: true)
-            
-        for result in results {
-            accounts.append(result.account)
+        let results = realm.objects(tableAccount.self).sorted(byKeyPath: "account", ascending: true)
+        
+        return Array(results.map { $0.account })
+    }
+    
+    func getAccount(predicate: NSPredicate) -> tableAccount? {
+        
+        let realm = try! Realm()
+        
+        let result = realm.objects(tableAccount.self).filter(predicate).first
+        
+        if result != nil {
+            return tableAccount.init(value: result!)
+        } else {
+            return nil
         }
-
-        return Array(accounts)
     }
     
     func getAccountAutoUploadFileName() -> String {
@@ -425,13 +432,7 @@ class NCManageDatabase: NSObject {
         
         let results = realm.objects(tableActivity.self).filter(predicate).sorted(byKeyPath: "date", ascending: false)
         
-        var unmanageActivities = [tableActivity]()
-        
-        for activity in results {
-            unmanageActivities.append(tableActivity.init(value: activity))
-        }
-        
-        return unmanageActivities
+        return Array(results.map { tableActivity.init(value:$0) })
     }
 
     func addActivityServer(_ listOfActivity: [OCActivity]) {
@@ -514,213 +515,6 @@ class NCManageDatabase: NSObject {
                 print("[LOG] Could not write to database: ", error)
             }
         }
-    }
-    
-    //MARK: -
-    //MARK: Table Auto Upload
-    
-    func addAutoUpload(metadataNet: CCMetadataNet) -> Bool {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return false
-        }
-        
-        let realm = try! Realm()
-        
-        realm.beginWrite()
-
-        if realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, metadataNet.assetLocalIdentifier).first == nil {
-        
-            // Add new Auto Upload
-            let addAutoUpload = tableAutoUpload()
-            
-            addAutoUpload.account = tableAccount.account
-            addAutoUpload.assetLocalIdentifier = metadataNet.assetLocalIdentifier
-            addAutoUpload.fileName = metadataNet.fileName
-            addAutoUpload.selector = metadataNet.selector
-            if (metadataNet.selectorPost != nil) {
-                addAutoUpload.selectorPost = metadataNet.selectorPost
-            }
-            addAutoUpload.serverUrl = metadataNet.serverUrl
-            addAutoUpload.session = metadataNet.session
-            addAutoUpload.priority = metadataNet.priority
-            
-            realm.add(addAutoUpload)
-        
-            do {
-                try realm.commitWrite()
-            } catch let error {
-                print("[LOG] Could not write to database: ", error)
-                return false
-            }
-        }
-        
-        return true
-    }
-    
-    func addAutoUpload(metadatasNet: [CCMetadataNet]) {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return
-        }
-        
-        let realm = try! Realm()
-        
-        do {
-            try realm.write {
-            
-                for metadataNet in metadatasNet {
-            
-                    if realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, metadataNet.assetLocalIdentifier).first == nil {
-                        
-                        // Add new Auto Upload
-                        let addAutoUpload = tableAutoUpload()
-                        
-                        addAutoUpload.account = tableAccount.account
-                        addAutoUpload.assetLocalIdentifier = metadataNet.assetLocalIdentifier
-                        addAutoUpload.fileName = metadataNet.fileName
-                        addAutoUpload.selector = metadataNet.selector
-                        if (metadataNet.selectorPost != nil) {
-                            addAutoUpload.selectorPost = metadataNet.selectorPost
-                        }
-                        addAutoUpload.serverUrl = metadataNet.serverUrl
-                        addAutoUpload.session = metadataNet.session
-                        addAutoUpload.priority = metadataNet.priority
-                        
-                        realm.add(addAutoUpload)
-                    }
-                }
-            }
-        } catch let error {
-            print("[LOG] Could not write to database: ", error)
-        }
-    }
-    
-    func getAutoUpload(selector: String) -> CCMetadataNet? {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return nil
-        }
-        
-        let realm = try! Realm()
-        
-        realm.beginWrite()
-        
-        guard let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND selector = %@ AND lock == false", tableAccount.account, selector).first else {
-            realm.cancelWrite()
-            return nil
-        }
-        
-        let metadataNet = CCMetadataNet()
-        
-        metadataNet.action = actionUploadAsset
-        metadataNet.assetLocalIdentifier = result.assetLocalIdentifier
-        metadataNet.fileName = result.fileName
-        metadataNet.priority = result.priority
-        metadataNet.selector = result.selector
-        metadataNet.selectorPost = result.selectorPost
-        metadataNet.serverUrl = result.serverUrl
-        metadataNet.session = result.session
-        metadataNet.taskStatus = Int(k_taskStatusResume)
-        
-        // Lock
-        result.lock = true
-        
-        do {
-            try realm.commitWrite()
-        } catch let error {
-            print("[LOG] Could not write to database: ", error)
-            return nil
-        }
-        
-        return metadataNet
-    }
-    
-    func getLockAutoUpload() -> [tableAutoUpload]? {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return nil
-        }
-    
-        var unmanageAutoUploads = [tableAutoUpload]()
-
-        let realm = try! Realm()
-        
-        let results = realm.objects(tableAutoUpload.self).filter("account = %@ AND lock = true", tableAccount.account)
-        
-        for autoUpload in results {
-            unmanageAutoUploads.append(tableAutoUpload.init(value: autoUpload))
-        }
-        
-        return unmanageAutoUploads
-    }
-
-    func unlockAutoUpload(assetLocalIdentifier: String) {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return
-        }
-        
-        let realm = try! Realm()
-        
-        realm.beginWrite()
-
-        guard let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, assetLocalIdentifier).first else {
-            realm.cancelWrite()
-            return
-        }
-        
-        // UnLock
-        result.lock = false
-        
-        do {
-            try realm.commitWrite()
-        } catch let error {
-            print("[LOG] Could not write to database: ", error)
-        }
-    }
-    
-    func deleteAutoUpload(assetLocalIdentifier: String) {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return
-        }
-
-        let realm = try! Realm()
-        
-        do {
-            try realm.write {
-                
-                let result = realm.objects(tableAutoUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, assetLocalIdentifier).first
-                
-                if result != nil {
-                    realm.delete(result!)
-                }
-            }
-        } catch let error {
-            print("Could not write to database: ", error)
-        }
-    }
-    
-    func countAutoUpload(session: String?) -> Int {
-        
-        guard let tableAccount = self.getAccountActive() else {
-            return 0
-        }
-
-        let realm = try! Realm()
-        let results : Results<tableAutoUpload>
-        
-        if (session == nil) {
-            
-            results = realm.objects(tableAutoUpload.self).filter("account = %@", tableAccount.account)
-            
-        } else {
-            
-            results = realm.objects(tableAutoUpload.self).filter("account = %@ AND session = %@", tableAccount.account, session!)
-        }
-        
-        return results.count
     }
     
     //MARK: -
@@ -819,13 +613,7 @@ class NCManageDatabase: NSObject {
         
         let results = realm.objects(tableCertificates.self)
     
-        var arraycertificatePath = [String]()
-    
-        for result in results {
-            arraycertificatePath.append("\(localCertificatesFolder)\(result.certificateLocation)")
-        }
-        
-        return arraycertificatePath
+        return Array(results.map { "\(localCertificatesFolder)\($0.certificateLocation)" })
     }
     
     //MARK: -
@@ -882,25 +670,12 @@ class NCManageDatabase: NSObject {
         
         let results = realm.objects(tableDirectory.self).filter("account = %@ AND serverUrl BEGINSWITH %@", tableAccount.account, serverUrl)
         
+        // Delete table Metadata & LocalFile
         for result in results {
             
-            // delete metadata
             self.deleteMetadata(predicate: NSPredicate(format: "directoryID = %@", result.directoryID), clearDateReadDirectoryID: result.directoryID)
             
-            // delete local file
             self.deleteLocalFile(predicate: NSPredicate(format: "fileID = %@", result.fileID))
-            
-            /*
-             // remove if in session
-             if ([recordMetadata.session length] >0) {
-             if (recordMetadata.sessionTaskIdentifier >= 0)
-             [[CCNetworking sharedNetworking] settingSession:recordMetadata.session sessionTaskIdentifier:[recordMetadata.sessionTaskIdentifier integerValue] taskStatus: k_taskStatusCancel];
-             
-             if (recordMetadata.sessionTaskIdentifierPlist >= 0)
-             [[CCNetworking sharedNetworking] settingSession:recordMetadata.session sessionTaskIdentifier:[recordMetadata.sessionTaskIdentifierPlist integerValue] taskStatus: k_taskStatusCancel];
-             
-             }
-             */
         }
         
         // Delete table Dirrectory
@@ -1008,17 +783,8 @@ class NCManageDatabase: NSObject {
         }
         
         if (results.count > 0) {
-            
-            var unmanageDirectories = [tableDirectory]()
-            
-            for directory in results {
-                unmanageDirectories.append(tableDirectory.init(value: directory))
-            }
-            
-            return unmanageDirectories
-            
+            return Array(results.map { tableDirectory.init(value:$0) })
         } else {
-            
             return nil
         }
     }
@@ -1379,55 +1145,29 @@ class NCManageDatabase: NSObject {
             return nil
         }
         
-        let autoUploadFileName = self.getAccountAutoUploadFileName()
-        let autoUploadDirectory = self.getAccountAutoUploadDirectory(activeUrl)
-        
         let realm = try! Realm()
         
-        realm.beginWrite()
-        
-        if (metadata.realm == nil) {
-            let metadataWithIcon = CCUtility.insertTypeFileIconName(metadata, serverUrl: serverUrl, autoUploadFileName: autoUploadFileName, autoUploadDirectory: autoUploadDirectory)
-            realm.add(metadataWithIcon!, update: true)
-        } else {
-            realm.add(metadata, update: true)
-        }
-        
-        let metadataCopy = tableMetadata.init(value: metadata)
-        
         do {
-            try realm.commitWrite()
+            try realm.write {
+                realm.add(metadata, update: true)
+            }
         } catch let error {
-            print("[LOG] Could not write to database: ", error)
-            return nil
+            print("Could not write to database: ", error)
         }
         
-        self.setDateReadDirectory(directoryID: metadataCopy.directoryID)
+        self.setDateReadDirectory(directoryID: metadata.directoryID)
         
-        return metadataCopy
+        return tableMetadata.init(value: metadata)
     }
     
     func addMetadatas(_ metadatas: [tableMetadata], activeUrl: String, serverUrl: String) -> [tableMetadata] {
-        
-        let autoUploadFileName = self.getAccountAutoUploadFileName()
-        let autoUploadDirectory = self.getAccountAutoUploadDirectory(activeUrl)
-        var arrayMetadatas = [tableMetadata]()
         
         let realm = try! Realm()
         
         do {
             try realm.write {
-                
                 for metadata in metadatas {
-                    
-                    if metadata.realm == nil {
-                        let metadataWithIcon = CCUtility.insertTypeFileIconName(metadata, serverUrl: serverUrl, autoUploadFileName: autoUploadFileName, autoUploadDirectory: autoUploadDirectory)
-                        realm.add(metadataWithIcon!, update: true)
-                    } else {
-                        realm.add(metadata, update: true)
-                    }
-                    
-                    arrayMetadatas.append(tableMetadata.init(value: metadata))
+                    realm.add(metadata, update: true)
                 }
             }
         } catch let error {
@@ -1437,7 +1177,7 @@ class NCManageDatabase: NSObject {
         let directoryID = self.getDirectoryID(serverUrl)
         self.setDateReadDirectory(directoryID: directoryID)
         
-        return arrayMetadatas
+        return Array(metadatas.map { tableMetadata.init(value:$0) })
     }
 
     func deleteMetadata(predicate: NSPredicate, clearDateReadDirectoryID: String?) {
@@ -1682,17 +1422,8 @@ class NCManageDatabase: NSObject {
         }
         
         if (results.count > 0) {
-            
-            var unmanageMetadatas = [tableMetadata]()
-            
-            for metadata in results {
-                unmanageMetadatas.append(tableMetadata.init(value: metadata))
-            }
-            
-            return unmanageMetadatas
-            
+            return Array(results.map { tableMetadata.init(value:$0) })
         } else {
-            
             return nil
         }
     }
@@ -1708,11 +1439,8 @@ class NCManageDatabase: NSObject {
         let results = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted!, ascending: ascending)
         
         if (results.count > 0  && results.count > index) {
-            
             return tableMetadata.init(value: results[index])
-            
         } else {
-            
             return nil
         }
     }
@@ -1784,94 +1512,72 @@ class NCManageDatabase: NSObject {
         
         let realm = try! Realm()
         
-        var recordsPhotosAutoUpload = [tableMetadata]()
+        let directories = realm.objects(tableDirectory.self).filter(NSPredicate(format: "account = %@ AND serverUrl BEGINSWITH %@", tableAccount.account, serverUrl)).sorted(byKeyPath: "serverUrl", ascending: true)
+        let directoriesID = Array(directories.map { $0.directoryID })
         
-        let results = self.getTablesDirectory(predicate: NSPredicate(format: "account = %@ AND serverUrl BEGINSWITH %@", tableAccount.account, serverUrl), sorted: "serverUrl", ascending: true)
-        
-        if results != nil {
+        let metadatas = realm.objects(tableMetadata.self).filter(NSPredicate(format: "account = %@ AND session = '' AND type = 'file' AND (typeFile = %@ OR typeFile = %@) AND directoryID IN %@", tableAccount.account, k_metadataTypeFile_image, k_metadataTypeFile_video, directoriesID)).sorted(byKeyPath: "date", ascending: false)
             
-            // Prepare Predicate
-            var directoriesID: String = "IN {"
-            for directory in results! {
-                directoriesID = directoriesID + "'\(directory.directoryID)',"
-            }
-            directoriesID = String(directoriesID.characters.dropLast(1))
-            directoriesID = directoriesID + "}"
-            
-            let predicateStr = String(format: "account = '%@' AND session = '' AND type = 'file' AND (typeFile = '%@' OR typeFile = '%@') AND directoryID %@", tableAccount.account, k_metadataTypeFile_image, k_metadataTypeFile_video, directoriesID)
-            
-            // Query
-            let metadatas = realm.objects(tableMetadata.self).filter(NSPredicate(format: predicateStr)).sorted(byKeyPath: "date", ascending: false)
-
-            // Convert results in unmanaged
-            for metadata in metadatas {
-                recordsPhotosAutoUpload.append(tableMetadata.init(value: metadata))
-            }
-            
-            return Array(recordsPhotosAutoUpload)
-        }
-        
-        return nil
-    }
-    
-    func convertMetadataToUnmanagedMetadata(_ metadatas: Results<tableMetadata>) -> [tableMetadata]? {
-        
-        var unmanageMetadatas = [tableMetadata]()
-        
-        for metadata in metadatas {
-            unmanageMetadatas.append(tableMetadata.init(value: metadata))
-        }
-        
-        return unmanageMetadatas
+        return Array(metadatas.map { tableMetadata.init(value:$0) })
     }
     
     //MARK: -
     //MARK: Table Photo Library
     
-    func addPhotoLibrary(_ assets: [PHAsset]) {
+    func addPhotoLibrary(_ assets: [PHAsset]) -> Bool {
         
         guard let tableAccount = self.getAccountActive() else {
-            return
+            return false
         }
 
         let realm = try! Realm()
         
-        do {
-            try realm.write {
+        if realm.isInWriteTransaction {
+            
+            print("[LOG] Could not write to database, addPhotoLibrary is already in write transaction")
+            return false
+            
+        } else {
+        
+            do {
+                try realm.write {
                 
-                var creationDate = ""
-                var modificationDate = ""
+                    var creationDate = ""
+                    var modificationDate = ""
 
-                for asset in assets {
+                    for asset in assets {
                     
-                    let addRecord = tablePhotoLibrary()
+                        let addRecord = tablePhotoLibrary()
                     
-                    addRecord.account = tableAccount.account
-                    addRecord.assetLocalIdentifier = asset.localIdentifier
-                    addRecord.mediaType = asset.mediaType.rawValue
+                        addRecord.account = tableAccount.account
+                        addRecord.assetLocalIdentifier = asset.localIdentifier
+                        addRecord.mediaType = asset.mediaType.rawValue
                     
-                    if asset.creationDate != nil {
-                        addRecord.creationDate = asset.creationDate! as NSDate
-                        creationDate = String(describing: addRecord.creationDate!)
-                    } else {
-                        creationDate = ""
-                    }
+                        if asset.creationDate != nil {
+                            addRecord.creationDate = asset.creationDate! as NSDate
+                            creationDate = String(describing: addRecord.creationDate!)
+                        } else {
+                            creationDate = ""
+                        }
                     
-                    if asset.modificationDate != nil {
-                        addRecord.modificationDate = asset.modificationDate! as NSDate
-                        modificationDate = String(describing: addRecord.modificationDate!)
-                    } else {
-                        modificationDate = ""
-                    }
+                        if asset.modificationDate != nil {
+                            addRecord.modificationDate = asset.modificationDate! as NSDate
+                            modificationDate = String(describing: addRecord.modificationDate!)
+                        } else {
+                            modificationDate = ""
+                        }
                     
-                    addRecord.idAsset = "\(tableAccount.account)\(asset.localIdentifier)\(creationDate)\(modificationDate)"
+                        addRecord.idAsset = "\(tableAccount.account)\(asset.localIdentifier)\(creationDate)\(modificationDate)"
 
-                    realm.add(addRecord, update: true)
+                        realm.add(addRecord, update: true)
+                    }
                 }
+            } catch let error {
+                print("Could not write to database: ", error)
+                return false
             }
-        } catch let error {
-            print("Could not write to database: ", error)
         }
+        
+        return true
     }
     
     func getPhotoLibraryIdAsset(image: Bool, video: Bool) -> [String]? {
@@ -1902,6 +1608,213 @@ class NCManageDatabase: NSObject {
         let idsAsset = results.map { $0.idAsset }
         
         return Array(idsAsset)
+    }
+
+    //MARK: -
+    //MARK: Table Queue Upload
+    
+    func addQueueUpload(metadataNet: CCMetadataNet) -> Bool {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return false
+        }
+        
+        let realm = try! Realm()
+        
+        if realm.isInWriteTransaction {
+            
+            print("[LOG] Could not write to database, addQueueUpload is already in write transaction")
+            return false
+            
+        } else {
+            
+            do {
+                try realm.write {
+                    
+                    if realm.objects(tableQueueUpload.self).filter("account = %@ AND assetLocalIdentifier = %@ AND selector = %@", tableAccount.account, metadataNet.assetLocalIdentifier, metadataNet.selector).first == nil {
+                        
+                        // Add new
+                        let addObject = tableQueueUpload()
+                        
+                        addObject.account = tableAccount.account
+                        addObject.assetLocalIdentifier = metadataNet.assetLocalIdentifier
+                        addObject.fileName = metadataNet.fileName
+                        addObject.selector = metadataNet.selector
+                        if (metadataNet.selectorPost != nil) {
+                            addObject.selectorPost = metadataNet.selectorPost
+                        }
+                        addObject.serverUrl = metadataNet.serverUrl
+                        addObject.session = metadataNet.session
+                        addObject.priority = metadataNet.priority
+                        
+                        realm.add(addObject)
+                    }
+                }
+            } catch let error {
+                print("[LOG] Could not write to database: ", error)
+            }
+        }
+        
+        return true
+    }
+    
+    func addQueueUpload(metadatasNet: [CCMetadataNet]) {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return
+        }
+        
+        let realm = try! Realm()
+        
+        do {
+            try realm.write {
+                
+                for metadataNet in metadatasNet {
+                    
+                    if realm.objects(tableQueueUpload.self).filter("account = %@ AND assetLocalIdentifier = %@ AND selector = %@", tableAccount.account, metadataNet.assetLocalIdentifier, metadataNet.selector).first == nil {
+                        
+                        // Add new
+                        let addObject = tableQueueUpload()
+                        
+                        addObject.account = tableAccount.account
+                        addObject.assetLocalIdentifier = metadataNet.assetLocalIdentifier
+                        addObject.fileName = metadataNet.fileName
+                        addObject.selector = metadataNet.selector
+                        if (metadataNet.selectorPost != nil) {
+                            addObject.selectorPost = metadataNet.selectorPost
+                        }
+                        addObject.serverUrl = metadataNet.serverUrl
+                        addObject.session = metadataNet.session
+                        addObject.priority = metadataNet.priority
+                        
+                        realm.add(addObject)
+                    }
+                }
+            }
+        } catch let error {
+            print("[LOG] Could not write to database: ", error)
+        }
+    }
+    
+    func getQueueUpload(selector: String) -> CCMetadataNet? {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return nil
+        }
+        
+        let realm = try! Realm()
+        
+        realm.beginWrite()
+        
+        guard let result = realm.objects(tableQueueUpload.self).filter("account = %@ AND selector = %@ AND lock == false", tableAccount.account, selector).first else {
+            realm.cancelWrite()
+            return nil
+        }
+        
+        let metadataNet = CCMetadataNet()
+        
+        metadataNet.action = actionUploadAsset
+        metadataNet.assetLocalIdentifier = result.assetLocalIdentifier
+        metadataNet.fileName = result.fileName
+        metadataNet.priority = result.priority
+        metadataNet.selector = result.selector
+        metadataNet.selectorPost = result.selectorPost
+        metadataNet.serverUrl = result.serverUrl
+        metadataNet.session = result.session
+        metadataNet.taskStatus = Int(k_taskStatusResume)
+        
+        // Lock
+        result.lock = true
+        
+        do {
+            try realm.commitWrite()
+        } catch let error {
+            print("[LOG] Could not write to database: ", error)
+            return nil
+        }
+        
+        return metadataNet
+    }
+    
+    func getLockQueueUpload() -> [tableQueueUpload]? {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return nil
+        }
+        
+        let realm = try! Realm()
+        
+        let results = realm.objects(tableQueueUpload.self).filter("account = %@ AND lock = true", tableAccount.account)
+        
+        return Array(results.map { tableQueueUpload.init(value:$0) })
+    }
+    
+    func unlockQueueUpload(assetLocalIdentifier: String) {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return
+        }
+        
+        let realm = try! Realm()
+        
+        realm.beginWrite()
+        
+        guard let result = realm.objects(tableQueueUpload.self).filter("account = %@ AND assetLocalIdentifier = %@", tableAccount.account, assetLocalIdentifier).first else {
+            realm.cancelWrite()
+            return
+        }
+        
+        // UnLock
+        result.lock = false
+        
+        do {
+            try realm.commitWrite()
+        } catch let error {
+            print("[LOG] Could not write to database: ", error)
+        }
+    }
+    
+    func deleteQueueUpload(assetLocalIdentifier: String, selector: String) {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return
+        }
+        
+        let realm = try! Realm()
+        
+        do {
+            try realm.write {
+                
+                let result = realm.objects(tableQueueUpload.self).filter("account = %@ AND assetLocalIdentifier = %@ AND selector = %@", tableAccount.account, assetLocalIdentifier, selector).first
+                
+                if result != nil {
+                    realm.delete(result!)
+                }
+            }
+        } catch let error {
+            print("Could not write to database: ", error)
+        }
+    }
+    
+    func countQueueUpload(session: String?) -> Int {
+        
+        guard let tableAccount = self.getAccountActive() else {
+            return 0
+        }
+        
+        let realm = try! Realm()
+        let results : Results<tableQueueUpload>
+        
+        if (session == nil) {
+            
+            results = realm.objects(tableQueueUpload.self).filter("account = %@", tableAccount.account)
+            
+        } else {
+            
+            results = realm.objects(tableQueueUpload.self).filter("account = %@ AND session = %@", tableAccount.account, session!)
+        }
+        
+        return results.count
     }
 
     //MARK: -
