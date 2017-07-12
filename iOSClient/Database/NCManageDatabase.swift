@@ -1412,13 +1412,7 @@ class NCManageDatabase: NSObject {
             
         } else {
             
-            var sorted: String = sorted!
-            
-            if sorted == "fileName" {
-                sorted = "fileNamePrint"
-            }
-            
-            results = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted, ascending: ascending)
+            results = realm.objects(tableMetadata.self).filter(predicate).sorted(byKeyPath: sorted!, ascending: ascending)
         }
         
         if (results.count > 0) {
