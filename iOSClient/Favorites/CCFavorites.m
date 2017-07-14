@@ -543,16 +543,20 @@
 {
     NSMutableArray *metadatas = [NSMutableArray new];
     NSArray *recordsTableMetadata ;
+    
+    NSString *sorted = [CCUtility getOrderSettings];
+    if ([sorted isEqualToString:@"fileName"])
+        sorted = @"fileNamePrint";
         
     if (!_serverUrl) {
-            
-        recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND favorite = true", app.activeAccount] sorted:[CCUtility getOrderSettings] ascending:[CCUtility getAscendingSettings]];
+        
+        recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND favorite = true", app.activeAccount] sorted:sorted ascending:[CCUtility getAscendingSettings]];
             
     } else {
         
         NSString *directoryID = [[NCManageDatabase sharedInstance] getDirectoryID:_serverUrl];        
         
-        recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@", app.activeAccount, directoryID] sorted:[CCUtility getOrderSettings] ascending:[CCUtility getAscendingSettings]];
+        recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@", app.activeAccount, directoryID] sorted:sorted ascending:[CCUtility getAscendingSettings]];
     }
         
     CCSectionDataSourceMetadata *sectionDataSource = [CCSectionMetadata creataDataSourseSectionMetadata:recordsTableMetadata listProgressMetadata:nil groupByField:nil replaceDateToExifDate:NO activeAccount:app.activeAccount];

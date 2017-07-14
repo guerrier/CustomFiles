@@ -632,7 +632,6 @@
 		F7E340D11ED60AFB009AB15D /* CCloadItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E340C31ED60AFB009AB15D /* CCloadItemData.swift */; };
 		F7E340D61ED60AFB009AB15D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E340CC1ED60AFB009AB15D /* MainInterface.storyboard */; };
 		F7E340D71ED60AFB009AB15D /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E340CF1ED60AFB009AB15D /* ShareViewController.m */; };
-		F7E340ED1ED60D0A009AB15D /* CCSharedDBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E340EC1ED60D0A009AB15D /* CCSharedDBSession.m */; };
 		F7E8F6CF1E96931200B89717 /* DevicePushKey-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F6CD1E96931200B89717 /* DevicePushKey-Info.plist */; };
 		F7E8F6D01E96931200B89717 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F6CE1E96931200B89717 /* GoogleService-Info.plist */; };
 		F7E8F6D91E96933200B89717 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F6D31E96933200B89717 /* FirebaseAnalytics.framework */; };
@@ -1629,8 +1628,6 @@
 		F7E340CD1ED60AFB009AB15D /* Share-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Share-Bridging-Header.h"; sourceTree = "<group>"; };
 		F7E340CE1ED60AFB009AB15D /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		F7E340CF1ED60AFB009AB15D /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
-		F7E340EB1ED60D0A009AB15D /* CCSharedDBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSharedDBSession.h; sourceTree = "<group>"; };
-		F7E340EC1ED60D0A009AB15D /* CCSharedDBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSharedDBSession.m; sourceTree = "<group>"; };
 		F7E8F6CD1E96931200B89717 /* DevicePushKey-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DevicePushKey-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F7E8F6CE1E96931200B89717 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F7E8F6D21E96933200B89717 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
@@ -3290,8 +3287,6 @@
 				F798E3991ED60FFD005A60A1 /* CCCellShareExt.m */,
 				F798E39A1ED60FFD005A60A1 /* CCCellShareExt.xib */,
 				F7E340CC1ED60AFB009AB15D /* MainInterface.storyboard */,
-				F7E340EB1ED60D0A009AB15D /* CCSharedDBSession.h */,
-				F7E340EC1ED60D0A009AB15D /* CCSharedDBSession.m */,
 				F7E340C31ED60AFB009AB15D /* CCloadItemData.swift */,
 				F7E340CD1ED60AFB009AB15D /* Share-Bridging-Header.h */,
 				F7E340CE1ED60AFB009AB15D /* ShareViewController.h */,
@@ -4108,7 +4103,6 @@
 				F73CC0521E813C01006E3047 /* BKTouchIDSwitchView.m in Sources */,
 				F7813AB31EF2F1E300E5D2FD /* TableDirectory+CoreDataProperties.m in Sources */,
 				F74D8CE61ED4237D00D18098 /* OCExternalSites.m in Sources */,
-				F7E340ED1ED60D0A009AB15D /* CCSharedDBSession.m in Sources */,
 				F7145A001D12E3B700CAFEEC /* CCGlobal.m in Sources */,
 				F7145A011D12E3B700CAFEEC /* UIImage+Blurring.m in Sources */,
 				F74D8CF81ED4237D00D18098 /* OCShareUser.m in Sources */,

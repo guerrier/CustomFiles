@@ -4747,8 +4747,12 @@
         _dateReadDataSource = [NSDate date];
     
         // Data Source
+        
+        NSString *sorted = _directoryOrder;
+        if ([sorted isEqualToString:@"fileName"])
+            sorted = @"fileNamePrint";
     
-        NSArray *recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND status = %i", app.activeAccount, [[NCManageDatabase sharedInstance] getDirectoryID:serverUrl], k_metadataStatusNormal] sorted:[CCUtility getOrderSettings] ascending:[CCUtility getAscendingSettings]];
+        NSArray *recordsTableMetadata = [[NCManageDatabase sharedInstance] getMetadatasWithPredicate:[NSPredicate predicateWithFormat:@"account = %@ AND directoryID = %@ AND status = %i", app.activeAccount, [[NCManageDatabase sharedInstance] getDirectoryID:serverUrl], k_metadataStatusNormal] sorted:sorted ascending:[CCUtility getAscendingSettings]];
         
         _sectionDataSource = [CCSectionDataSourceMetadata new];
         _sectionDataSource = [CCSectionMetadata creataDataSourseSectionMetadata:recordsTableMetadata listProgressMetadata:nil groupByField:_directoryGroupBy replaceDateToExifDate:NO activeAccount:app.activeAccount];
